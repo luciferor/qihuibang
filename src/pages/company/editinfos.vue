@@ -325,9 +325,16 @@ export default {
       },
       // 选省
       choseProvince(e,_type){
-        //if(_type){
-
-        //}
+        let a = e.substr(0,2);
+        let b = String(this.comcounty).substr(0,2);
+        let c = String(this.comarea).substr(0,2);
+        console.log(e.substr(0,2));
+        console.log(String(this.comcounty).substr(0,2));
+        console.log(String(this.comarea).substr(0,2));
+        if(a!=b||a!=c){
+          this.comcounty='';
+          this.comarea='';
+        }
         console.log(e);
         this.comprovince = e;
         for (let index2 in this.province) {
@@ -359,6 +366,12 @@ export default {
       },
   },
   mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
     console.log(this.$route.query.comid);
     this.id = this.$route.query.comid;
     let url = window.localStorage.api + '/get/company';//接口地址
@@ -422,7 +435,7 @@ export default {
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
 

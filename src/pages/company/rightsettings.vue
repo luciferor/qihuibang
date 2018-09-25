@@ -23,6 +23,12 @@
       }
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       //页面启动动画
       $('combox').addClass('animated lightSpeedIn');
     }
@@ -51,6 +57,6 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 </style>

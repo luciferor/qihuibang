@@ -22,9 +22,9 @@
             <div @click="showmenu('company')" class="setting" ><span class="settingbox"><img src="..\assets\iMenu\normal\icon_tab_guangli_normal.png" width="18" height="18" /></span></div>
             <div class="userimg">
               <Poptip width="100" placement="right-end">
-                  <img :src="userinfolist.user_img==''?userImg:rootUrl+userinfolist.user_img" width="40" height="40" />
-                  <div class="api" slot="content">
-                      <div class="menulist"><el-button type="text">{{userinfolist.name}}</el-button></div>
+                  <img :src="userinfolist.user_img==''?userImg:rootUrl+userinfolist.user_img | srctransformation" width="40" height="40" />
+                  <div class="api"  slot="content">
+                      <div class="menulist"><el-button style="color:red; font-weight:bold;" type="text">{{userinfolist.name}}</el-button></div>
                       <div class="menulist"><el-button @click="ownnerinfos" type="text">更改密码</el-button></div>
                       <div class="menulist"><el-button @click="companyinfos" type="text">公司信息</el-button></div>
                       <div style="height: 1px; background-color: #ededed;"></div>
@@ -44,8 +44,8 @@
             </div>
             
             <div v-show="a" name="company" class="childlist" style="height:calc(100% - 50px); backgroud:red; padding:10px;">
-              <el-scrollbar style="height:90%;">
-                <div class="rightmenulistbox">
+              <el-scrollbar style="height:100%;">
+                <div class="rightmenulistbox"  style="backgroun:red;">
                   <ul>
                     <li @click="cominfosset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>公司信息</span></li>
                     <li @click="exammanset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shenpi.png" /></span><span>审批设置</span></li>
@@ -55,8 +55,8 @@
                     <li @click="scheduset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_paibang.png" /></span><span>排班设置</span></li>
                     <li v-show="false" @click="rightset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_quanxiang.png" /></span><span>审批权限设置</span></li>
                     <li @click="organiset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_zuzhijiagou.png" /></span><span>组织架构设置</span></li>
-                    <li @click="projectset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png" /></span><span>项目管理</span></li>
-                    <li @click="dataset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>数据统计</span></li>
+                    <li v-show="false" @click="projectset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png" /></span><span>项目管理</span></li>
+                    <li v-show="false" @click="dataset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>数据统计</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
@@ -192,6 +192,17 @@
 <script>
 export default {
   name: "index",
+  filters:{
+    srctransformation:function(value){
+        console.log('-------------------------------------');
+        if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+          return value.replace(window.localStorage.api,"");
+        }else{
+          return value;
+        }
+        console.log('------------------------------------');
+    }
+  },
   data() {
     return {
       rootUrl:window.localStorage.api,
@@ -211,8 +222,16 @@ export default {
     };
   },
   mounted(){
+
     this.islogin();
     this.loaduserinformation();
+    //jquery代码实现菜单特效
+    $(function(){//实现鼠标点击实现哪一项是选中状态
+      $('.rightmenulistbox>ul>li').click(function(){
+        $('.rightmenulistbox>ul>li').removeClass('selectedclass');
+        $(this).addClass('selectedclass');
+      });
+    })
   },
   methods:{
     loaduserinformation(){
@@ -501,7 +520,7 @@ $(function(){
   }
 
   .mainbox .admincontentbox{
-    height:calc(100% - 00px);
+    height:100%;
     padding:10px;
   }
 

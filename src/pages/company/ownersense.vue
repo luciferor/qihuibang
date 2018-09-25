@@ -40,7 +40,7 @@
             <!------------------>
             <div style="height:10px; overflow:hidden; width:100%;"></div>
             <div class="plusrebox-list" v-for="(itemes,index) in dynamiclist" :key="index">
-                <div class="plusrebox-left-img fl"><img :src="itemes.user_img==''?userImg:rootUrl+itemes.user_img" width="40" height="40" /></div>
+                <div class="plusrebox-left-img fl"><img :src="itemes.user_img==''?userImg:rootUrl+itemes.user_img|srctransformation" width="40" height="40" /></div>
                 <div class="plusrebox-left-text fl">
                     <span style="display:block;font-family: MicrosoftYaHei; font-size: 14px; color: #2e2f33;">{{itemes.name}}</span>
                     <span style="display:block;font-family: MicrosoftYaHei; font-size: 12px; color: #b8bbcc;">{{itemes.content}}</span>
@@ -194,6 +194,17 @@
 
 <script>
   export default {
+    filters:{
+        srctransformation:function(value){
+            console.log('-------------------------------------');
+            if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+            return value.replace(window.localStorage.api,"");
+            }else{
+            return value;
+            }
+            console.log('------------------------------------');
+        }
+    },
     data(){
       return{
         rootUrl:window.localStorage.api,
@@ -444,6 +455,12 @@
         },
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       //获取加载邦分
       this.getbrefen();
       //获取动态信息
@@ -480,7 +497,7 @@
     background:#FFF;
     padding:20px 50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .comcontent-top{

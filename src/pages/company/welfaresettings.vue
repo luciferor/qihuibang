@@ -30,7 +30,7 @@
           <Tab-pane label="日奖品" key="key1">
             <div class="welfare-listbox" v-show="item.type=='day'" v-for="item in listdata" :key="item.index">
               <div class="imgbox fl">
-                <img :src="rootUrl+item.img" width="80" height="80" />
+                <img :src="item.img==''?rootImg:rootUrl+item.img" width="80" height="80" />
               </div>
               <div class="titlebox fl">
                 <div class="titlebox-top">{{item.prize_obj}}</div>
@@ -45,7 +45,7 @@
           <Tab-pane label="周奖品" key="key2">
             <div class="welfare-listbox" v-show="item1.type=='week'" v-for="item1 in listdata" :key="item1.index">
               <div class="imgbox fl">
-                <img :src="rootUrl+item1.img" width="80" height="80" />
+                <img :src="item1.img==''?rootImg:rootUrl+item1.img" width="80" height="80" />
               </div>
               <div class="titlebox fl">
                 <div class="titlebox-top">{{item1.prize_obj}}</div>
@@ -53,14 +53,14 @@
               </div>
               <div class="btnbox fr">
                 <i-button style="color:#6680ff;" @click="addwalfaredit(item1.id,item1.name,item1.price,item1.prize_obj,item1.img)">编辑</i-button>
-                <i-button @click="deletewelfare(item.id)" style="color:#ff6666;">删除</i-button>
+                <i-button @click="deletewelfare(item1.id)" style="color:#ff6666;">删除</i-button>
               </div>
             </div>
           </Tab-pane>
           <Tab-pane label="月奖品" key="key3">
             <div class="welfare-listbox" v-show="item2.type=='month'" v-for="item2 in listdata" :key="item2.index">
               <div class="imgbox fl">
-                <img :src="rootUrl+item2.img" width="80" height="80" />
+                <img :src="item2.img==''?rootImg:rootUrl+item2.img" width="80" height="80" />
               </div>
               <div class="titlebox fl">
                 <div class="titlebox-top">{{item2.prize_obj}}</div>
@@ -68,14 +68,14 @@
               </div>
               <div class="btnbox fr">
                 <i-button style="color:#6680ff;" @click="addwalfaredit(item2.id,item2.name,item2.price,item2.prize_obj,item2.img)">编辑</i-button>
-                <i-button @click="deletewelfare(item.id)" style="color:#ff6666;">删除</i-button>
+                <i-button @click="deletewelfare(item2.id)" style="color:#ff6666;">删除</i-button>
               </div>
             </div>
           </Tab-pane>
           <Tab-pane label="邦分权益" key="key4" icon="social-tux">
             <div class="welfare-listbox" v-show="item3.type=='rights'" v-for="item3 in listdata" :key="item3.index">
               <div class="imgbox fl">
-                <img :src="rootUrl+item3.img" width="80" height="80" />
+                <img :src="item3.img==''?rootImg:rootUrl+item3.img" width="80" height="80" />
               </div>
               <div class="titlebox fl">
                 <div class="titlebox-top">{{item3.prize_obj}}</div>
@@ -83,7 +83,7 @@
               </div>
               <div class="btnbox fr">
                 <i-button style="color:#6680ff;" @click="addwalfaredit(item3.id,item3.name,item3.price,item3.prize_obj,item3.img)">编辑</i-button>
-                <i-button @click="deletewelfare(item.id)" style="color:#ff6666;">删除</i-button>
+                <i-button @click="deletewelfare(item3.id)" style="color:#ff6666;">删除</i-button>
               </div>
             </div>
           </Tab-pane>
@@ -220,7 +220,7 @@
             <p>是否继续删除？</p>
         </div>
         <div slot="footer" style="text-align:center;">
-            <i-button type="ghost" style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
+            <i-button style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
             <i-button type="primary" style="width:80px;" @click="ok" class="backgroundpar">确 定</i-button>
         </div>
     </Modal>
@@ -238,13 +238,13 @@
         listdata:Object,//数据
         selectedkey:'key1',
         addlist:{
-          daywelf:'暂无上传图片',//奖品图片
+          daywelf:'',//奖品图片
           walfname:'',//奖品名称
           pricest:0,//奖品低价
           priceed:0//奖品高价
         },
         editlist:{
-          edaywelf:'暂无上传图片',//奖品图片
+          edaywelf:'',//奖品图片
           ewalfname:'',//奖品名称
           epricest:0,//奖品低价
           epriceed:0,//奖品高价
@@ -433,6 +433,12 @@
         }
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       //页面启动动画
       $('combox').addClass('animated lightSpeedIn');
       console.log(this.selectedkey);
@@ -465,7 +471,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .welfaretitle{

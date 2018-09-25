@@ -26,6 +26,12 @@ var echarts = require('echarts')
       }
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById('echartContainer'));
       // 绘制图表
@@ -70,6 +76,6 @@ var echarts = require('echarts')
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 </style>

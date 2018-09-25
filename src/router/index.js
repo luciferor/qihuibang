@@ -21,8 +21,9 @@ import Jobmanager from '../pages/company/Jobmanager.vue'//工作岗位管理页
 import Departmentmanager from '../pages/company/Departmentmanager'//部门管理
 import Ownersense from '../pages/company/Ownersense'//自我价值观
 import Statisticsview from '../pages/company/Statisticsview'//统计页面
-
-
+import Addschedu from '../pages/company/addschedu'//添加排班页面
+import Editschedu from '../pages/company/editschedu'//编辑排班
+import DepTable from '../pages/company/deptable'//部门列表
 
 Vue.use(Router)
 
@@ -102,7 +103,16 @@ export default new Router({
           name:'Ownersense',
           component:Ownersense
         },
-        
+        {
+          path:'/pages/company/addschedu',
+          name:'Addschedu',
+          component:Addschedu
+        },
+        { 
+          path:'/pages/company/editschedu',
+          name:'Editschedu',
+          component:Editschedu
+        }
         //-------------------------------------------------------------------------------------------
       ]
     },
@@ -136,6 +146,11 @@ export default new Router({
       path:'/pages/company/statisticsview',
       name:'Statisticsview',
       component:Statisticsview
+    },
+    {
+      path:'/pages/company/deptable',
+      name:'DepTable',
+      component:DepTable
     }
   ]
 })

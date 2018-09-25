@@ -6,7 +6,7 @@
       <div class="login-logo fl">
         <div class="logo"><img src="../assets/logo.png" width="58"  height="59" /></div>
         <div class="txt">
-          <span>www.exlnren.com</span>
+          <span>www.qihuibang.co</span>
         </div>
       </div>
       <div class="login-select fl">
@@ -72,8 +72,10 @@
 
     <!-- end-->
 
-    <!-- start-->
+    <!--用户协议窗口 start-->
+    <div class="userprotocol unshow">
 
+    </div>
     <!-- end-->
 
   </div>
@@ -87,7 +89,7 @@ export default {
       adminphone:'',//手机号
       admincode:'',//验证码
       adminpassword:'',//密码
-      agreeseleced:false,//同意用户协议状态||默认为选中
+      agreeseleced:true,//同意用户协议状态||默认为选中
       codegetstatus:false,//获取验证码的按钮状态
       codegetvalue:'获取验证码',//按钮文字
       count:60,//获取验证码时间
@@ -131,15 +133,17 @@ export default {
               params.append('unique',this.infounique);//手机唯一标识
               params.append('system',this.osinfos);//系统
               params.append('mill',this.commill);//厂商
+              params.append('type','admin');
               this.$http.post(loginurl,params).then((res)=>{
                 console.log(res.data);
                 if(res['data'].success){
                   this.success("登录成功！");             
                   this.loadingblack();
-                  sessionStorage['status'] = true;
+                  window.sessionStorage['status'] = true;
                   this.$router.push({ path:"/" });//跳转到主页
                 }else{
                   this.error(res['data'].message);
+                  window.sessionStorage['status'] = false;
                 }
               }).catch((err)=>{
                 console.log(err);
@@ -179,6 +183,7 @@ export default {
               
               params.append('mobile_phone',this.adminphone);//用户手机号
               params.append('password',this.adminpassword);//验证码
+              
               this.$http.post(loginurl,params).then((res)=>{
                 console.log(res);
                 if(res['data'].success){
@@ -188,7 +193,7 @@ export default {
                   sessionStorage['status'] = true;
                   this.$router.push({ path:"/" });//跳转到主页
                 }else{
-                  this.error("登录失败,"+res['data'].message);
+                  this.error(res['data'].message);
                   return;
                 }
               }).catch((err)=>{
@@ -848,9 +853,31 @@ export default {
     .loginbox .login-select .rebuttom .rebuttomli span{
       cursor: pointer !important;
     }
+
+    .userprotocol{
+      width:40%;
+      height:60%;
+      background: white;
+      position: absolute;
+      left:0;
+      top:0;
+      right:0;
+      bottom:0;
+      margin: auto;
+      z-index: 1000;
+    }
   }
 
 
+  .unshow{
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .show{
+    visibility: visible;
+    z-index: 1000;
+  }
 
 
 </style>

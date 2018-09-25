@@ -53,6 +53,7 @@
   </div>
   <div class="comboxunder">
       <div class="comboxbtnbox">
+        <i-button @click="openqq" type="primary" class="backgroundpar">联系QQ：2271645593</i-button>
         <i-button type="primary" class="backgroundpar">使用默认模版</i-button>
         <i-button type="primary" class="backgroundpar">申请修改权限</i-button>
       </div>
@@ -312,6 +313,9 @@
       }
     },
     methods:{
+      openqq(){
+        window.open('http://wpa.qq.com/msgrd?v=3&uin=2271645593&site=qq&menu=yes','_brank');
+      },
       isplusedevent(){
         console.log(this.isplustrue);
         if(this.isplustrue){
@@ -412,6 +416,12 @@
 
       },
       mounted(){
+      //验证是否登录
+        if(!window.sessionStorage.status){
+          this.$Message.error('您没有登录，请您先登录');
+          this.$router.push({path:'/pages/login'});
+          return;
+        }
         this.loadingintegrals();
       //页面启动动画
       $('combox').addClass("animated fadeIn");
@@ -442,7 +452,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .comcontent-top{

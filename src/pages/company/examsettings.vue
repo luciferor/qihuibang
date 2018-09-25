@@ -143,7 +143,7 @@
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
                         <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl">
-                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img" width="40" height="40" />
+                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation" width="40" height="40" />
                           <div @click="removeselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
                         </div>
@@ -180,7 +180,7 @@
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
                         <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl">
-                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img" width="40" height="40" />
+                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation2" width="40" height="40" />
                           <div @click="removeselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
                         </div>
@@ -232,7 +232,7 @@
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
                         <div v-for="(item,index) in selectedexamlist" :key="index" class="listboxselected fl">
-                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img" width="40" height="40" />
+                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation3" width="40" height="40" />
                           <div @click="removeexamselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
                         </div>
@@ -252,7 +252,7 @@
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
                         <div v-for="(item,index) in selectedcopylist" :key="index" class="listboxselected fl">
-                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img" width="40" height="40" />
+                          <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation4" width="40" height="40" />
                           <div @click="removecopyselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
                         </div>
@@ -327,6 +327,44 @@
         examinationuser:'',//审批人
         examcopyuser:'',//抄送人
 
+      }
+    },
+    filters:{
+      srctransformation:function(value){
+        console.log('-------------------------------------');
+        if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+          return value.replace(window.localStorage.api,"");
+        }else{
+          return value;
+        }
+        console.log('------------------------------------');
+      },
+      srctransformation2:function(value){
+        console.log('-------------------------------------');
+        if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+          return value.replace(window.localStorage.api,"");
+        }else{
+          return value;
+        }
+        console.log('------------------------------------');
+      },
+      srctransformation3:function(value){
+        console.log('-------------------------------------');
+        if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+          return value.replace(window.localStorage.api,"");
+        }else{
+          return value;
+        }
+        console.log('------------------------------------');
+      },
+      srctransformation4:function(value){
+        console.log('-------------------------------------');
+        if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+          return value.replace(window.localStorage.api,"");
+        }else{
+          return value;
+        }
+        console.log('------------------------------------');
       }
     },
     methods:{
@@ -773,6 +811,12 @@
       }
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       this.getalluserlist();//获取所有用户
       this.getinfosmoudle();//获取审批项目列表
       this.getalldeparment();//获取所有部门
@@ -815,7 +859,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .examboxlist{

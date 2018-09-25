@@ -70,10 +70,10 @@
         <div class="userlist-box">
 
           <ul>
-            <li v-for="item in userlist" :key="item.id"><span class="posor" @click="positiones(item.id,item.name)"><div style="padding-left:10px; padding-top:2px;" class="fl"><img :id="'img'+item.id" src="../../assets/right.png" /></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding-left:20px;" class="fl">{{item.name}}</div></span>
-              <ul :id="item.id" v-show="isshow==item.id?true:false">
+            <li v-for="item in userlist" :key="item.id"><span class="posor" @click="positiones(item.id,item.name)"><div style="padding-left:10px; padding-top:2px;" class="fl"><img :id="'chimg'+item.id" src="../../assets/right.png" /></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding-left:20px;" class="fl">{{item.name}}</div></span>
+              <ul :id="'ch'+item.id" v-show="isshow==item.id?true:false">
                 <li style="cursor: pointer;" @click="persontask(itemuser.id,itemuser.name)" v-for="itemuser in item.userList" :key="itemuser.id">
-                  <span style="width:50px; background:transparent;" class="fl"><img :src="itemuser.user_img==''?userImg:rootUrl+itemuser.user_img" width="40" height="40" /></span>
+                  <span style="width:50px; background:transparent;" class="fl"><img :src="itemuser.user_img==''?userImg:rootUrl+itemuser.user_img|srctransformation" width="40" height="40" /></span>
                   <span style="width:70px; background:transparent;" class="fl">{{itemuser.name}}</span>
                   <span class="fl" style=" background:transparent;">{{itemuser.mobile_phone}}</span>
                 </li>
@@ -334,7 +334,7 @@
             <el-scrollbar style="height:100%;">
             <div class="tasklist" v-for="item in task.tasklist" :key="item.id">
               <div class="tasklist-box fl">
-                <div class="tasklist-box-top">{{item.name}}</div>
+                <div class="tasklist-box-top">{{item.name.substr(0,12)}}...</div>
                 <div class="tasklist-box-under">{{item.grade}}邦分</div>
               </div>
               <div class="tasklist-action fr"><i-button @click="deletetaskswhereid(item.id)" class="fr">删除</i-button></div>
@@ -368,7 +368,7 @@
             <p>是否继续删除？</p>
         </div>
         <div slot="footer" style="text-align:center;">
-            <i-button type="ghost" style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
+            <i-button style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
             <i-button type="primary" style="width:80px;" @click="ok" class="backgroundpar">确 定</i-button>
         </div>
     </Modal>
@@ -377,6 +377,17 @@
 
 <script>
   export default {
+    filters:{
+      srctransformation:function(value){
+          console.log('-------------------------------------');
+          if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+            return value.replace(window.localStorage.api,"");
+          }else{
+            return value;
+          }
+          console.log('------------------------------------');
+      }
+    },
     data(){
       return{
         rootUrl:window.localStorage.api,
@@ -502,11 +513,11 @@
         console.log('公司id'+this.task.taskid);
       },
       positiones(_id,_name){
-        $('#'+_id).slideToggle('fast',function(){
-          if($('#'+_id).css("display")!="none"){
-            $('#img'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAJCAYAAADtj3ZXAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6eE95dAAAAjElEQVQokY3NQQ7BQBSA4a+jp3EIC5fAVZBIiI24gD214QgsHUAs3KWiNiOZNC2d5bz3/S/bbHcwxFW3N8ANr4A5Llh3gON4pEAIeKLE9E9ghD16eOCd4xSHRQzArAEeIlxgCXkc/go0whR/AxWOSeDeBusYzpgkgQpZE4RQ/0gC5S/YdLke6GPVsuMDFeMknKAeIqcAAAAASUVORK5CYII='});
+        $('#ch'+_id).slideToggle('fast',function(){
+          if($('#ch'+_id).css("display")!="none"){
+            $('#chimg'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAJCAYAAADtj3ZXAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6eE95dAAAAjElEQVQokY3NQQ7BQBSA4a+jp3EIC5fAVZBIiI24gD214QgsHUAs3KWiNiOZNC2d5bz3/S/bbHcwxFW3N8ANr4A5Llh3gON4pEAIeKLE9E9ghD16eOCd4xSHRQzArAEeIlxgCXkc/go0whR/AxWOSeDeBusYzpgkgQpZE4RQ/0gC5S/YdLke6GPVsuMDFeMknKAeIqcAAAAASUVORK5CYII='});
           }else{
-            $('#img'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6CgICOAAAAk0lEQVQokXXQzQ0BYRAG4GexzSjCQQsk1IJEYhMH0YC7nwtKcFSAOOiF4ODbZLNm5zLJ5Mk7k8lW6w3M8MBRUB30UeCZZn+whQuWyLHHMEqCaeqTBD84VZNUYJl4wCBCjbCOQhghuKW7cnQjNMIOGeYo6qgE7QQW9ZtCUEXjJlCiHrZNgN/HrzjjHoESvdK6dwTgC/tfIs2okvCUAAAAAElFTkSuQmCC'});
+            $('#chimg'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6CgICOAAAAk0lEQVQokXXQzQ0BYRAG4GexzSjCQQsk1IJEYhMH0YC7nwtKcFSAOOiF4ODbZLNm5zLJ5Mk7k8lW6w3M8MBRUB30UeCZZn+whQuWyLHHMEqCaeqTBD84VZNUYJl4wCBCjbCOQhghuKW7cnQjNMIOGeYo6qgE7QQW9ZtCUEXjJlCiHrZNgN/HrzjjHoESvdK6dwTgC/tfIs2okvCUAAAAAElFTkSuQmCC'});
           }
         });
         // if(this.isshow==_id){
@@ -782,6 +793,12 @@
       
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       //加载公司名称
       this.getcompanyname();
       //加载顶级部门
@@ -817,7 +834,7 @@
     background:#FFF;
     padding:30px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
     
   }
 

@@ -6,7 +6,7 @@
       <div class="login-logo fl">
         <div class="logo"><img src="../assets/logo.png" width="58"  height="59" /></div>
         <div class="txt">
-          <span>www.exlnren.com</span>
+          <span>www.qihuibang.co</span>
         </div>
       </div>
       <div class="login-select fl">

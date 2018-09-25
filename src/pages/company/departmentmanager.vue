@@ -122,7 +122,7 @@
             <span>删除确认</span>
         </p>
         <div style="text-align:center">
-            <p>您确认要删除该奖品吗！</p>
+            <p>您确认要删除该部门吗！</p>
             <p>是否继续删除？</p>
         </div>
         <div slot="footer" style="text-align:center;">
@@ -317,6 +317,12 @@
         }
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       //加载所有部门
       this.loadalldeparments();
       this.loadeping();//编辑部门时使用
@@ -346,7 +352,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .comcontent-list{

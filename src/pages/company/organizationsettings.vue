@@ -69,19 +69,17 @@
       </div>
       <div class="comrightlist fr">
         <div class="userlist-box">
-
           <ul>
-            <li v-for="item in userlist" :key="item.id"><span class="menues posor" @click="positiones(item.id)"><div style="padding-left:10px; padding-top:2px;" class="fl"><img :id="'img'+item.id" src="../../assets/right.png" /></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding-left:20px;" class="fl">{{item.name}}</div></span>
-              <ul class="ulhid" :id="item.id"><!--v-show="item.id==showid?true:false"-->
-                <li style="cursor: pointer;" @click="useres(itemuser.id,itemuser.name,itemuser.dname,itemuser.pname,itemuser.mobile_phone,itemuser.user_img)" v-for="itemuser in item.userList" :key="itemuser.id">
-                  <span style="width:50px; background:transparent;" class="fl"><img :src="itemuser.user_img==''?userImg:rootUrl+itemuser.user_img" width="40" height="40" /></span>
+            <li v-for="item in userlist" :key="item.id"><span class="menues posor" @click="positiones(item.id)"><div style="padding-left:10px; padding-top:2px;" class="fl"><img :id="'chimg'+item.id" src="../../assets/right.png" /></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding-left:20px;" class="fl">{{item.name}}</div></span>
+              <ul class="ulhid" :id="'ch'+item.id"><!--v-show="item.id==showid?true:false"-->
+                <li style="cursor: pointer;" @click="useres(itemuser.id)" v-for="itemuser in item.userList" :key="itemuser.id">
+                  <span style="width:50px; background:transparent;" class="fl"><img :src="itemuser.user_img==''?userImg:rootUrl+itemuser.user_img|srctransformation3" width="40" height="40" /></span>
                   <span style="width:70px; background:transparent;" class="fl">{{itemuser.name}}</span>
                   <span class="fl" style=" background:transparent;">{{itemuser.mobile_phone}}</span>
                 </li>
               </ul>
             </li>
           </ul>
-
         </div>
       </div>
     </div>
@@ -95,8 +93,8 @@
         <span @click="coloseuserinfos" class="posor fr"><img src="../../assets/delete.png"/></span>
       </div>
       <div class="userinfos-content">
-        <div @click="edituserinfosbtn" class="usercoreinfos">
-          <div class="imgbox fl"><img :src="userinfoes.userimg==''?userImg:rootUrl+userinfoes.userimg" width="60" height="60" /></div>
+        <div @click="edituserinfosbtn(userinfoes.userid)" class="usercoreinfos">
+          <div class="imgbox fl"><img :src="userinfoes.userimg==''?userImg:rootUrl+userinfoes.userimg|srctransformation" width="60" height="60" /></div>
           <div class="infoscenter fl">
             <div><span class="username">{{userinfoes.username.substr(0,4)}}</span><span class="usercall">&nbsp;&nbsp;&nbsp;&nbsp;{{userinfoes.usercall}}</span></div>
             <div class="dep">{{userinfoes.userdep}}-{{userinfoes.userldep}}</div>
@@ -152,7 +150,7 @@
           <div class="boxlist">
             <div class="list-title fl">头像</div>
             <div class="list-content fl">
-              <div class="list-content-img fl" style="padding-left:0px;"><img :src="userinfoes.userimg==''?userImg:rootUrl+userinfoes.userimg" width="50" height="50" /></div>
+              <div class="list-content-img fl" style="padding-left:0px;"><img :src="userinfoes.userimg==''?userImg:rootUrl+userinfoes.userimg|srctransformation2" width="50" height="50" /></div>
               <div class="list-content-upbtn fl">
                 <span style="font-weight:bold; Width:60px; display:block;">上传头像</span>
                 <span style="color:gray; display:block;">{{userinfoes.userimg}}</span>
@@ -188,8 +186,8 @@
           <div class="boxlist">
             <div class="list-title fl">部门</div>
             <div class="list-content fl">
-                <i-select @on-change="selectdepevent" v-model="adduserlist.udepid">
-                    <i-option v-for="item in adduserlist.deplist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
+                <i-select @on-change="selectdepevent" v-model="edituserdeps.depid">
+                    <i-option v-for="item in adduserlist.deplist" style="width:100%;" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                 </i-select>
             </div>
           </div>
@@ -199,7 +197,7 @@
           <div class="boxlist">
             <div class="list-title fl">岗位</div>
             <div class="list-content fl">
-                <i-select v-model="adduserlist.uldepid">
+                <i-select v-model="edituserdeps.ldepid">
                     <i-option v-for="item in adduserlist.ldeplist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                 </i-select>
             </div>
@@ -219,9 +217,9 @@
           <div class="boxlist">
             <div class="list-title fl" style="padding-right:20px; width:70px; line-height: 30px; color:#2e2f33;">是否主管</div>
             <div class="list-content fl" style="Width:190px;">
-                <i-select v-model="userinfoes.isadmin" style="width:100%;">
-                    <i-option  value="1">是</i-option>
-                    <i-option  value="0">否</i-option>
+                <i-select v-model="userinfoes.isadmin" style="width:189px;">
+                    <i-option  :value="1">是</i-option>
+                    <i-option  :value="0">否</i-option>
                 </i-select>
             </div>
           </div>
@@ -231,7 +229,7 @@
           <div class="boxlist">
             <div class="list-title fl" style="padding-right:20px; width:70px; line-height: 30px; color:#2e2f33;">福利邦分</div>
             <div class="list-content fl" style="width:190px;">
-                <i-input placeholder="请输入邦分..." style="width:100%;" v-model="userinfoes.bf"></i-input>
+                <i-input placeholder="请输入邦分..." v-model="userinfoes.bf"></i-input>
             </div>
           </div>
           <!--列表结束-->
@@ -335,6 +333,35 @@
 
 <script>
   export default {
+    filters:{
+      srctransformation:function(value){
+          console.log('-------------------------------------');
+          if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+            return value.replace(window.localStorage.api,"");
+          }else{
+            return value;
+          }
+          console.log('------------------------------------');
+      },
+      srctransformation2:function(value){
+          console.log('-------------------------------------');
+          if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+            return value.replace(window.localStorage.api,"");
+          }else{
+            return value;
+          }
+          console.log('------------------------------------');
+      },
+      srctransformation3:function(value){
+          console.log('-------------------------------------');
+          if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
+            return value.replace(window.localStorage.api,"");
+          }else{
+            return value;
+          }
+          console.log('------------------------------------');
+      },
+    },
     data(){
       return{
         rootUrl:window.localStorage.api,
@@ -366,6 +393,10 @@
           isadmin:1,
           deplist:[],
           ldeplist:[]
+        },
+        edituserdeps:{//编辑需要
+          depid:0,//部门
+          ldepid:0,//岗位
         },
         showid:0,//是否显示子节点
       }
@@ -443,11 +474,11 @@
       },
       positiones(_id){
         //let obj = document.getElementById(_id);
-        $('#'+_id).slideToggle('fast',function(){
-          if($('#'+_id).css("display")!="none"){
-            $('#img'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAJCAYAAADtj3ZXAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6eE95dAAAAjElEQVQokY3NQQ7BQBSA4a+jp3EIC5fAVZBIiI24gD214QgsHUAs3KWiNiOZNC2d5bz3/S/bbHcwxFW3N8ANr4A5Llh3gON4pEAIeKLE9E9ghD16eOCd4xSHRQzArAEeIlxgCXkc/go0whR/AxWOSeDeBusYzpgkgQpZE4RQ/0gC5S/YdLke6GPVsuMDFeMknKAeIqcAAAAASUVORK5CYII='});
+        $('#ch'+_id).slideToggle('fast',function(){
+          if($('#ch'+_id).css("display")!="none"){
+            $('#chimg'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAJCAYAAADtj3ZXAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NjozNSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NzFmMmYwYjItZWNlZC03YzQ4LWJhMjctMDI2OWJhOTY0ZWZiIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MWYyZjBiMi1lY2VkLTdjNDgtYmEyNy0wMjY5YmE5NjRlZmIiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6eE95dAAAAjElEQVQokY3NQQ7BQBSA4a+jp3EIC5fAVZBIiI24gD214QgsHUAs3KWiNiOZNC2d5bz3/S/bbHcwxFW3N8ANr4A5Llh3gON4pEAIeKLE9E9ghD16eOCd4xSHRQzArAEeIlxgCXkc/go0whR/AxWOSeDeBusYzpgkgQpZE4RQ/0gC5S/YdLke6GPVsuMDFeMknKAeIqcAAAAASUVORK5CYII='});
           }else{
-            $('#img'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6CgICOAAAAk0lEQVQokXXQzQ0BYRAG4GexzSjCQQsk1IJEYhMH0YC7nwtKcFSAOOiF4ODbZLNm5zLJ5Mk7k8lW6w3M8MBRUB30UeCZZn+whQuWyLHHMEqCaeqTBD84VZNUYJl4wCBCjbCOQhghuKW7cnQjNMIOGeYo6qgE7QQW9ZtCUEXjJlCiHrZNgN/HrzjjHoESvdK6dwTgC/tfIs2okvCUAAAAAElFTkSuQmCC'});
+            $('#chimg'+_id).attr({src:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA5LTE1VDEyOjI4OjUyKzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wOS0xNVQxMjo1NTo1NyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NWQzMjEtYjAwOS05MjQyLTlhYjgtNjUzYmU0YTQ0NDE2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMDY1ZDMyMS1iMDA5LTkyNDItOWFiOC02NTNiZTRhNDQ0MTYiIHN0RXZ0OndoZW49IjIwMTgtMDktMTVUMTI6Mjg6NTIrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE4IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6CgICOAAAAk0lEQVQokXXQzQ0BYRAG4GexzSjCQQsk1IJEYhMH0YC7nwtKcFSAOOiF4ODbZLNm5zLJ5Mk7k8lW6w3M8MBRUB30UeCZZn+whQuWyLHHMEqCaeqTBD84VZNUYJl4wCBCjbCOQhghuKW7cnQjNMIOGeYo6qgE7QQW9ZtCUEXjJlCiHrZNgN/HrzjjHoESvdK6dwTgC/tfIs2okvCUAAAAAElFTkSuQmCC'});
           }
         });
         // if (this.showid==_id) {
@@ -458,15 +489,9 @@
           
         // }
       },
-      useres(_id,_name,_dep,_ldep,_call,_img){
+      useres(_id){
         //console.log('用户ID'+_id);
-        this.userinfoes.username = _name;
         this.userinfoes.userid = _id;
-        this.userinfoes.usercall = _call;
-        this.userinfoes.userdep = _dep;
-        this.userinfoes.userldep = _ldep;
-        this.userinfoes.userimg = _img;
-
         let url = window.localStorage.api+'/get/user/info?user_id='+_id;
         this.$http.get(url).then(res=>{
           this.userlistinfos = res['data'].message;
@@ -475,6 +500,11 @@
           this.userinfoes.isadmin = this.userlistinfos.isadmin;
           this.userinfoes.ismanage = this.userlistinfos.ismanage;
           this.userinfoes.bf = this.userlistinfos.welfare_score;
+          this.userinfoes.username = this.userlistinfos.name;//姓名
+          this.userinfoes.usercall = this.userlistinfos.mobile_phone;//电话
+          this.userinfoes.userdep = this.userlistinfos.department_name;//部门
+          this.userinfoes.userldep = this.userlistinfos.post_name;//岗位
+          this.userinfoes.userimg = this.userlistinfos.user_img;//头像
         }).catch(err=>{
 
         })
@@ -484,9 +514,20 @@
       coloseuserinfos(){
         $('.userinfos').removeClass('show animated fadeInRight');
       },
-      edituserinfosbtn(){
+      edituserinfosbtn(_id){
         $('.userinfos').removeClass('show animated fadeInRight');
         $('.edituserinfos').addClass('show animated fadeInRight');
+        //处理编辑数据
+        console.log(_id);
+        let url = window.localStorage.api+'/get/user/info?user_id='+_id;
+        this.$http.get(url).then(res=>{
+          console.log(res['data'].message);
+          this.edituserdeps.depid=res['data'].message.department_id;
+          this.selectdepevent(this.edituserdeps.depid);//加载下级岗位
+          this.edituserdeps.ldepid=res['data'].message.post_id;
+        }).catch(err=>{
+          console.log('网络错误'+err);
+        })
       },
       closeedituserinfos(){
         console.log("关闭编辑按钮");
@@ -494,19 +535,21 @@
         $('.edituserinfos').removeClass('show animated fadeInRight');
       },
       saveinformations(){
+        console.log(this.edituserdeps.depid);
+        console.log(this.edituserdeps.ldepid);
         //this.userinfoes.isadmin = this.userlistinfos.ismanage;
-        if (this.adduserlist.udepid==""||this.adduserlist.uldepid==""||this.userinfoes.isadmin=="") {
-          this.error('您选择了部门、岗位、是否管理员了吗？');
-          return;
-        }
+        // if (this.adduserlist.udepid==""||this.adduserlist.uldepid==""||this.userinfoes.isadmin=="") {
+        //   this.error('您选择了部门、岗位、是否管理员了吗？');
+        //   return;
+        // }
         console.log('保存');
         let url = window.localStorage.api+"/add/user";
         let params = new URLSearchParams();      
         params.append('user_id',this.userinfoes.userid);//
         params.append('mobile_phone',this.userinfoes.usercall);//
         params.append('name',this.userinfoes.username);//
-        params.append('department_id',this.adduserlist.udepid);//
-        params.append('post_id',this.adduserlist.uldepid);//
+        params.append('department_id',this.edituserdeps.depid);//
+        params.append('post_id',this.edituserdeps.ldepid);//
         params.append('ismanage',this.userinfoes.isadmin);//
         params.append('bangfen',this.userinfoes.bf);//
         params.append('user_img',this.userinfoes.userimg);//
@@ -517,7 +560,10 @@
             this.success('更新成功！');
             this.getteams(this.adduserlist.udepid);//重新加载部门信息
             //重新加载用户数据、
-            this.useres(this.userinfoes.userid,this.userinfoes.username,this.adduserlist.udepid,this.adduserlist.uldepid,this.userinfoes.usercall,this.userinfoes.userimg);
+            this.useres(this.userinfoes.userid);
+            //清空部门数据
+            this.edituserdeps.depid = 0;
+            this.edituserdeps.ldepid = 0;
             //关闭此编辑按钮
             this.closeedituserinfos();
           }
@@ -609,7 +655,6 @@
             if(res['data'].message.length==0){//如果不存在岗位
                this.adduserlist.uldepid='';
             }
-
         }).catch(err=>{
           console.log(err);
         })
@@ -636,6 +681,13 @@
       
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
+      console.log();
       //加载顶级部门
       this.loadinginitdep();
       //添加用户时获取用户的上级部门，不是顶级部门
@@ -671,7 +723,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .comleftmenu{

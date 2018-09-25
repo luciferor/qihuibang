@@ -122,6 +122,12 @@
       },
     },
     mounted(){
+      //验证是否登录
+      if(!window.sessionStorage.status){
+        this.$Message.error('您没有登录，请您先登录');
+        this.$router.push({path:'/pages/login'});
+        return;
+      }
       this.openFullScreen();
       setTimeout(() => {
         this.getcompanyinfos();
@@ -155,7 +161,7 @@
     background:#FFF;
     padding:50px;
     overflow: hidden;
-    min-height:858px;
+    min-height:885px;
   }
 
   .combox .comcontent .comcontent-top{
