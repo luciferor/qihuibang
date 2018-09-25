@@ -57,6 +57,7 @@
                     <li @click="organiset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_zuzhijiagou.png" /></span><span>组织架构设置</span></li>
                     <li v-show="false" @click="projectset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png" /></span><span>项目管理</span></li>
                     <li v-show="false" @click="dataset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>数据统计</span></li>
+                    <li v-show="ture" @click="noticeset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>通知设置</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
