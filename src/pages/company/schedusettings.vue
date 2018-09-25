@@ -4,7 +4,7 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon>组织架构管理
+              <Icon type="ios-pricetags-outline"></Icon>排班设置
           </Breadcrumb-item>
         </Breadcrumb>
       </span>

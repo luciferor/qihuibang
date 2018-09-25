@@ -87,6 +87,7 @@
                         <i-option :value="8">+9邦分</i-option>
                         <i-option :value="9.5">+9.5邦分</i-option>
                         <i-option :value="10">+10邦分</i-option>
+                        <i-option :value="15">+15邦分</i-option>
                     </i-select>
                     <i-select v-show="!isshowselected" v-model="brefens" placeholder="请选择分值">
                         <i-option :value="0.5">-0.5邦分</i-option>
@@ -109,6 +110,7 @@
                         <i-option :value="8">-9邦分</i-option>
                         <i-option :value="9.5">-9.5邦分</i-option>
                         <i-option :value="10">-10邦分</i-option>
+                        <i-option :value="15">-15邦分</i-option>
                     </i-select>
                 </span>
             </div>
