@@ -856,7 +856,12 @@
   }
 
   .el-textarea__inner {
+    overflow: hidden !important;
+    width: 100%;
     border: none !important;
+    outline: none;
+    box-shadow: none;
+    resize: none !important;
   }
 
   .el-textarea__inner:hover {
@@ -877,12 +882,8 @@
     border-radius: 4;
   }
 
-  textarea {
-    overflow: hidden !important;
-    width: 100%;
-    border: none !important;
-    outline: none;
-    box-shadow: none;
-    resize: none !important;
+
+  .ivu-input{
+    border: 1px solid #dcdee2 !important;
   }
 </style>

@@ -22,7 +22,7 @@
                     <div class="input-left-title"><span>上班类型</span><span style="color:#ff6666;">*</span></div>
                 </div>
                 <div class="input-content fr">
-                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></i-input></div>
+                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width:300px"></i-input></div>
                     <div class="input-content-inputbox">
                         <el-time-select
                             placeholder="上班时间"
@@ -166,7 +166,7 @@
 </template>
 
 <script>
-  export default {
+  export default{
     filters:{
         srctransformation:function(value){
             if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
@@ -200,11 +200,12 @@
         maplat:'',//纬度
         mapdata:[],//地址对象，json字符串类型
         scheduserids:'',//考勤用户的id，分号分割
-        scheduworkday:Date([]),//工作日，一般从多少号到多少号
+        scheduworkday:'',//工作日，一般从多少号到多少号
         scheduworkdaystring:'',//传到服务器使用这个参数
         schedudepid:'',//部门id，选全员是不传
         schedumulti:'1',//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
         //--提交需求字段-------------------------------------
+        defaultdata:new Date(this.scheduworkday),//默认选中的时间
       }
     },
     methods:{
@@ -515,7 +516,7 @@
       //编辑时获取考勤排班详情
       this.getscheduwhereid();
 
-
+      vm.$emit('pick', new Date())
       //高德地图
       (function(){
         let iframe = document.getElementById('mapbox').contentWindow;
