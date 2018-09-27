@@ -136,13 +136,13 @@
                   <div class="content-right fr">
                     <div>请选择{{titlename}}评审人</div>
                     <div class="searchbox">
-                      <i-select @on-change="managereviewevent" v-model="userreviewerstr" :clearable="true" filterable style="width:200px">
+                      <i-select @on-change="managereviewevent" ref="manager" v-model="userreviewerstr" :clearable="true" filterable style="width:200px">
                           <i-option v-for="item in alluserlist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                       </i-select>
                     </div>
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
-                        <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl">
+                        <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl" v-dragging="{item:item, list: selecteduser, group:'manageruser' }">
                           <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation" width="40" height="40" />
                           <div @click="removeselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
@@ -173,13 +173,13 @@
                   <div class="content-right fr">
                     <div>请选择主管{{titlename}}评审人</div>
                     <div class="searchbox">
-                      <i-select @on-change="reviewevent" v-model="ReviewerStr" :clearable="true" filterable style="width:200px">
+                      <i-select @on-change="reviewevent" ref="user" v-model="ReviewerStr" :clearable="true" filterable style="width:200px">
                           <i-option v-for="item in alluserlist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                       </i-select>
                     </div>
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
-                        <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl">
+                        <div v-for="(item,index) in selecteduser" :key="index" class="listboxselected fl" v-dragging="{item:item, list: selecteduser, group:'adminuser' }">
                           <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation2" width="40" height="40" />
                           <div @click="removeselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
@@ -225,13 +225,13 @@
             <div class="examsbox-content-center-title">审批人(按排名先后顺序)</div>
             <div class="examsbox-content-center-content">
                     <div class="searchbox">
-                      <i-select @on-change="examevent" v-model="examinationuser" :clearable="true" filterable style="width:100%;">
+                      <i-select @on-change="examevent" ref="exame" v-model="examinationuser" :clearable="true" filterable style="width:100%;">
                           <i-option v-for="item in alluserlist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                       </i-select>
                     </div>
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
-                        <div v-for="(item,index) in selectedexamlist" :key="index" class="listboxselected fl">
+                        <div v-for="(item,index) in selectedexamlist" :key="index" v-dragging="{item:item, list: selectedexamlist, group:'user' }" class="listboxselected posor fl">
                           <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation3" width="40" height="40" />
                           <div @click="removeexamselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
@@ -244,14 +244,14 @@
             <div class="examsbox-content-right-title">抄送人(按排名先后顺序)</div>
             <div class="examsbox-content-right-content">
                     <div class="searchbox">
-                      <i-select @on-change="copyevent" v-model="examcopyuser" :clearable="true" filterable style="width:100%">
+                      <i-select @on-change="copyevent" ref="copy" v-model="examcopyuser" :clearable="true" filterable style="width:100%">
                           <i-option v-for="item in alluserlist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                       </i-select>
                     </div>
                 
                     <div class="selecteduser">
                       <el-scrollbar style="height:100%;">
-                        <div v-for="(item,index) in selectedcopylist" :key="index" class="listboxselected fl">
+                        <div v-for="(item,index) in selectedcopylist" :key="index" v-dragging="{item:item, list: selectedcopylist, group:'copyuser' }" class="listboxselected fl">
                           <img :src="item.user_img==''?userImg:rootUrl+item.user_img|srctransformation4" width="40" height="40" />
                           <div @click="removecopyselected(index,item.id)" class="remove"><img src="../../assets/delete.png" width="10" height="10" /></div>
                           <div class="namebox" style="font-size:8px;">{{item.name.substr(0,3)}}</div>
@@ -374,6 +374,8 @@
         this.$http.get(url).then(res=>{
           console.log(res['data'].message);
           this.addtoexams(this.examinationuser,res['data'].message.name,res['data'].message.user_img);
+          //清除选项
+          this.$refs.exame.clearSingleSelect();
         }).catch(err=>{
 
         })
@@ -390,6 +392,8 @@
         let url = window.localStorage.api+'/get/user/info?user_id='+this.examcopyuser;
         this.$http.get(url).then(res=>{
           this.addcopys(this.examcopyuser,res['data'].message.name,res['data'].message.user_img);
+          //清除选项
+          this.$refs.copy.clearSingleSelect();
         }).catch(err=>{
 
         })
@@ -397,6 +401,8 @@
       },
       //************************************************************** */
       addcopys(_id,_name,_img){//抄送人
+        //判断数组中是否已经存在此人
+        
         //在保存到数组中
         this.selectedcopylist.push({'id':_id,'name':_name,'user_img':_img});
         console.log(this.selectedcopylist);
@@ -407,6 +413,8 @@
         let url = window.localStorage.api+'/get/user/info?user_id='+this.userreviewerstr;
         this.$http.get(url).then(res=>{
           this.addtousers(this.userreviewerstr,res['data'].message.name,res['data'].message.user_img);
+          //清除当前选项
+          this.$refs.manager.clearSingleSelect();
         }).catch(err=>{
 
         })
@@ -417,6 +425,8 @@
         let url = window.localStorage.api+'/get/user/info?user_id='+this.ReviewerStr;
         this.$http.get(url).then(res=>{
           this.addtousers(this.ReviewerStr,res['data'].message.name,res['data'].message.user_img);
+          //清除当前选项
+          this.$refs.user.clearSingleSelect();
         }).catch(err=>{
 
         })

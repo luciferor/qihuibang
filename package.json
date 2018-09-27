@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
+    "awe-dnd": "^0.3.1",
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
@@ -20,6 +21,7 @@
     "sass-loader": "^7.1.0",
     "v-distpicker": "^1.0.17",
     "vue": "^2.5.2",
+    "vue-amap": "^0.5.8",
     "vue-area-linkage": "^5.0.0",
     "vue-router": "^3.0.1",
     "vuescroll": "^4.7.5",
