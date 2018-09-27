@@ -522,7 +522,7 @@
           for (let i = 0; i < res.message.length; i++) {
             self.versionList.push({
               "id": res.message[i].id,
-              "name": res.message[i].updated_at.split(' ')[0],
+              "name": res.message[i].created_at.split(' ')[0],
             });
           }
         }, function (res) {
