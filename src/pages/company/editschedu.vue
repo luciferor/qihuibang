@@ -31,9 +31,9 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00'
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59'
                             }">
                         </el-time-select>
                         <el-time-select
@@ -43,10 +43,10 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00',
-                            minTime:schedustime
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59',
+                            //minTime:schedustime
                             }">
                         </el-time-select>
                     </div>
@@ -55,8 +55,8 @@
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
-                            <i-option :value="1">白班</i-option>
-                            <i-option :value="0">晚班</i-option>
+                            <i-option :value="0">白班</i-option>
+                            <i-option :value="1">晚班</i-option>
                         </i-select>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <div>
                         <div style="display:block; clear:both; background:red;" v-for="(item,index) in mapdata" :key="index">
                             <div class="fl">
-                                <div><span>{{item.address}}</span><span style="color:gray; margin-left:20px;"><el-button type="text" style="color:#cccccc;"><i class="iconfont icon-lajitong"></i></el-button></span></div>
+                                <div><span>{{item.address}}</span><span style="color:gray; margin-left:20px;"><el-button type="text" @click="clearaddress(index)" style="color:#cccccc;"><i class="iconfont icon-lajitong"></i></el-button></span></div>
                                 <div><span style="color:#999999;">考勤范围：{{item.scope}}米</span></div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                 </i-select>
             </span>
             <span class="fr">
-                <el-button size="small" style="width:80px; color:#5c5d66;">复位</el-button>
+                <el-button v-show="false" size="small" style="width:80px; color:#5c5d66;">复位</el-button>
                 <el-button @click="selectedaddress" class="backgroundpar" size="small" type="primary" style="width:80px;">确定</el-button>
             </span>
         </div>
@@ -193,14 +193,14 @@
         scheduname:'',//考勤名称
         schedustime:'',//上班时间
         scheduetime:'',//下班时间
-        schedutype:1,//打卡类型、白班、夜班 
+        schedutype:0,//打卡类型、白班、夜班 
         mapscope:100,//考勤范围
         mapaddress:'选择地址',//考勤地址
         maplong:'',//经度
         maplat:'',//纬度
         mapdata:[],//地址对象，json字符串类型
         scheduserids:'',//考勤用户的id，分号分割
-        scheduworkday:'',//工作日，一般从多少号到多少号
+        scheduworkday:Date([]),//工作日，一般从多少号到多少号
         scheduworkdaystring:'',//传到服务器使用这个参数
         schedudepid:'',//部门id，选全员是不传
         schedumulti:'1',//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
@@ -208,6 +208,11 @@
       }
     },
     methods:{
+        //清除已选地址项
+        clearaddress(index){
+            console.log(index);
+            this.mapdata.splice(index,1);//选中了谁，就清除谁
+        },
         //根据id号获取到数据
         getscheduwhereid(){
             let url = window.localStorage .api+'/get/info/check/work?id='+this.editid;
@@ -226,9 +231,10 @@
                     let str ='';
                     for (let i = 0; i < res['data'].message.set_workday.length; i++){
                         let item = res['data'].message.set_workday;
-                        str += ','+item[i].workday_msg;
+                        str += ';'+item[i].workday_msg;
                     }
-                    this.scheduworkday=str.substr(1).split(',');//工作日，一般从多少号到多少号
+                    this.scheduworkday=str.substr(1).split(';');//工作日，一般从多少号到多少号
+                    this.scheduworkdaystring = str.substr(1);
                     //************************************************************** */
                     this.schedudepid=res['data'].message.department_id;//部门id，选全员是不传
                     this.schedumulti=res['data'].message.multi_clock==1?true:false;//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次

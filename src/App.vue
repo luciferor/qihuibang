@@ -15,26 +15,11 @@ export default {
   mounted(){
     //获取地址
     let url = window.location.href.split('/');
-    console.log(url[2]);
-    if(url[2]=='buff.xiaohuibang.com'){
-      window.localStorage["api"] = "https://buff.xiaohuibang.com";//生产环境
-      console.log('当前生产环境');
-    }
-    if(url[2]=='devqypyp.xiaohuibang.com'){
+    window.localStorage["api"] = "https://"+url[2];//获取到网址，并取得借口地址
+
+    if(url[2]=='192.168.0.183:8888'||url[2]=='localhost:8888'){
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
       console.log('当前测试环境');
-    }
-    if(url[2]=='qypyp.xiaohuibang.com'){
-      window.localStorage["api"] = "https://qypyp.xiaohuibang.com";//正式环境
-      console.log('当前正式环境');
-    }
-    if(url[2]=='192.168.0.183:8888'){
-      window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
-      console.log('当前测试环境');
-    }
-    if(url[2]=='tech.dsnbc.com'){
-      window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//正式环境
-      console.log('当前外网正式环境');
     }
   }
 }

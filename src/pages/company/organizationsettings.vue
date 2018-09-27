@@ -9,9 +9,9 @@
         </Breadcrumb>
       </span>
       <span>
-        <i-button @click="adduserwins" type="primary" icon="ios-add" class="colorblue fr" style="margin-top:15px; margin-right:20px;">添加成员</i-button>
-        <i-button @click="opendepartment" icon="ios-add" class="colorblue fr"  style="margin-top:15px; margin-right:20px; background:white;">部门管理</i-button>
-        <i-button @click="openjob"  icon="ios-add" class="colorblue fr"  style="margin-top:15px; margin-right:20px; background:white;">岗位管理</i-button>
+        <i-button @click="adduserwins" type="primary"  class="colorblue fr" style="margin-top:15px; margin-right:20px;"><i style="font-size:12px; padding-right:10px;" class="iconfont icon-tianjia1"></i>添加成员</i-button>
+        <i-button @click="opendepartment"  class="colorblue fr"  style="margin-top:15px; margin-right:20px; background:white;"><i style="font-size:12px; padding-right:10px;" class="iconfont icon-bumen"></i>部门管理</i-button>
+        <i-button @click="openjob"   class="colorblue fr"  style="margin-top:15px; margin-right:20px; background:white;"><i style="font-size:12px; padding-right:10px;" class="iconfont icon-guanjiaogangwei"></i>岗位管理</i-button>
       </span>
     </div>
     <div class="comcontent">

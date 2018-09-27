@@ -337,10 +337,10 @@
           console.log(res);
           if(res['data'].success){
             this.count++;
-            if(this.count>1){
-              return;//如果提示过了。就不提示了
-            }
-            //this.success('添加成功！'+res['data'].message);
+            // if(this.count>1){
+            //   return;//如果提示过了。就不提示了
+            // }
+            this.success('添加成功！'+res['data'].message);
           }else{
             this.error(res['data'].message);
           }
@@ -399,8 +399,9 @@
         },
         //页面提示信息
         success(_str) {
-            this.$alert(_str, '系统提示', {
-                confirmButtonText: '确定',
+            this.$message({
+              message:_str,
+              type: 'success'
             });
         },
         warning(_str) {
