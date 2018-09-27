@@ -111,6 +111,7 @@
       display: inline-block;
       max-width: 80%;
       line-height: 30px; /* 垂直居中   */
+      margin-right: 10px;
     }
     .receive-bubble {
       position: relative;
@@ -121,6 +122,7 @@
       display: inline-block;
       max-width: 80%;
       line-height: 30px; /* 垂直居中   */
+      margin-left: 10px;
     }
     p {
       font-size: 16px;
@@ -240,6 +242,7 @@
       display: inline-block;
       max-width: 85%;
       line-height: 40px; /* 垂直居中   */
+      margin-right: 15px;
     }
     .receive-bubble {
       position: relative;
@@ -250,6 +253,7 @@
       display: inline-block;
       max-width: 85%;
       line-height: 40px; /* 垂直居中   */
+      margin-left: 15px;
     }
     p {
       font-size: 24px;
@@ -369,6 +373,7 @@
       display: inline-block;
       max-width: 85%;
       line-height: 50px; /* 垂直居中   */
+      margin-right: 20px;
     }
     .receive-bubble {
       position: relative;
@@ -379,6 +384,7 @@
       display: inline-block;
       max-width: 85%;
       line-height: 50px; /* 垂直居中   */
+      margin-left: 20px;
     }
     p {
       font-size: 34px;
