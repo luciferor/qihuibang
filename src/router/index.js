@@ -25,6 +25,7 @@ import Addschedu from '../pages/company/addschedu'//添加排班页面
 import Editschedu from '../pages/company/editschedu'//编辑排班
 import DepTable from '../pages/company/deptable'//部门列表
 import Notice from '../pages/company/notice'//通知设置
+import Chat from '../pages/chat'//聊天界面
 
 Vue.use(Router)
 
@@ -157,6 +158,11 @@ export default new Router({
       path:'/pages/company/deptable',
       name:'DepTable',
       component:DepTable
+    },
+    {
+      path:'/pages/chat',
+      name:'Chat',
+      component:Chat
     }
   ]
 })
