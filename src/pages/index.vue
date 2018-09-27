@@ -74,7 +74,7 @@
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>1功能开发中</span></li>
+                    <li ><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>1功能开发中</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
