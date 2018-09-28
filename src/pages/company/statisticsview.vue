@@ -522,7 +522,7 @@
           for (let i = 0; i < res.message.length; i++) {
             self.versionList.push({
               "id": res.message[i].id,
-              "name": res.message[i].created_at.split(' ')[0],
+              "name": res.message[i].created_at,
             });
           }
         }, function (res) {
@@ -537,7 +537,7 @@
           params.append('id', id);
           self.versionList = [];
           self.$api.post("/save/admin/projects/saveVersions", params, function (res) {
-            self.$Message.success('切换版本成功')
+            self.$Message.success('切换版本成功');
             self.getData(self.selectTime);
           }, function (res) {
             self.$Message.success(res.message)
@@ -698,7 +698,7 @@
     border: 1px solid #667fff;
     color: #667fff;
     height: 30px;
-    width: 100px;
+    width: 145px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -710,7 +710,7 @@
     color: #ff6666;
     margin-top: 10px;
     height: 30px;
-    width: 100px;
+    width: 145px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -722,7 +722,7 @@
     color: #04cc6c;
     margin-top: 10px;
     height: 30px;
-    width: 100px;
+    width: 145px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -733,7 +733,7 @@
     color: #ffffff;
     margin-top: 10px;
     height: 32px;
-    width: 100px;
+    width: 145px;
     border-radius: 4px;
     padding: 0px;
     font-size: 12px;
@@ -743,7 +743,7 @@
   .change-version {
     margin-top: 10px;
     height: 32px;
-    width: 100px;
+    width: 145px;
     border-radius: 4px;
     padding: 0px;
     font-size: 10px;
@@ -754,7 +754,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px 10px 10px 10px;
-    width: 120px;
+    width: 180px;
   }
 
   .ivu-input {

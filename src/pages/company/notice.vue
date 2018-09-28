@@ -15,7 +15,7 @@
                 <el-row>
                     <el-col :span="18">
                         <div class="list-left-title">【{{index+1}}】<span class="colorpar" style="padding-right:10px;">{{item.name}}</span>{{item.title}}......<span class="posor" style="color:#5c5d66; padding-left:10px;">点击跳转该通知详情界面</span></div>
-                        <div class="list-left-content">{{item.info}}老卡积分拉科技发上了飞机阿萨塑料袋卡士大夫加上了宽带缴费；萨拉宽带缴费； 纱礼服的就萨拉宽带缴费；思路 </div>
+                        <div class="list-left-content">{{item.info}} </div>
                     </el-col>
                     <el-col :span="6">
                         <div class="list-right-box">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="pagelist">
-            <Page :total="100" />
+            <Page :total="pageTotal" :current="pageNum" v-model="pageNum" :show-total="true" @on-change="getpagescontents" />
         </div>
     </div>
   </div>
@@ -41,9 +41,21 @@
       return{
         rootUrl:window.localStorage.api,
         noticelist:[],//通知列表
+        pageTotal: 0,
+        pageNum: 1,
       }
     },
     methods:{
+        //分页事件
+        getpagescontents(){
+            let url = window.localStorage.api+'/get/admin/getNoticeList?page='+page;
+            this.$http.get(url).then(res=>{
+                this.pageTotal = res['data'].message.total,
+                this.dynamiclist = res['data'].message.data;
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
         //编辑通知状态
         editstatus(_id,_status){
             console.log(_status);
@@ -65,7 +77,8 @@
             let url = window.localStorage.api+'/get/admin/getNoticeList';
             this.$http.get(url).then(res=>{
                 console.log(res);
-                this.noticelist = res['data'].message;
+                this.noticelist = res['data'].message.data;
+                this.pageTotal= res['data'].message.total;
             }).catch(err=>{
                 console.log(err);
             })

@@ -51,7 +51,15 @@
                         </el-time-select>
                     </div>
                     <div class="input-content-inputbox">
-                        <el-date-picker size="small" @change="selecteddate" value-format="yyyy-MM-dd" :clearable="true" type="dates" v-model="scheduworkday" placeholder="选择一个或多个日期" style="width:300px"></el-date-picker>
+                        <el-date-picker
+                        size="small"
+                        @change="selecteddate"
+                        value-format="yyyy-MM-dd"
+                        :clearable="true"
+                        type="dates"
+                        v-model="scheduworkday"
+                        placeholder="选择一个或多个日期"
+                        style="width:300px"></el-date-picker>
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
@@ -176,6 +184,9 @@
             }
         }
     },
+    created(){
+        
+    },
     data(){
       let that = this;
       return{
@@ -205,7 +216,6 @@
         schedudepid:'',//部门id，选全员是不传
         schedumulti:'1',//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
         //--提交需求字段-------------------------------------
-        defaultdata:new Date(this.scheduworkday),//默认选中的时间
       }
     },
     methods:{
@@ -234,8 +244,11 @@
                         let item = res['data'].message.set_workday;
                         str += ';'+item[i].workday_msg;
                     }
-                    this.scheduworkday=str.substr(1).split(';');//工作日，一般从多少号到多少号
+                    this.scheduworkday=new Date(str.substr(1).split(';'));//工作日，一般从多少号到多少号
                     this.scheduworkdaystring = str.substr(1);
+                    console.log('===========================');
+                    console.log(this.scheduworkday);
+                    console.log('===========================');
                     //************************************************************** */
                     this.schedudepid=res['data'].message.department_id;//部门id，选全员是不传
                     this.schedumulti=res['data'].message.multi_clock==1?true:false;//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
@@ -347,6 +360,7 @@
         },
         //选择日期
         selecteddate(){
+            console.log(this.scheduworkday);
             let arr = String(this.scheduworkday).split(',');
             let str;
             for (let i = 0; i < arr.length; i++) {
@@ -516,7 +530,6 @@
       //编辑时获取考勤排班详情
       this.getscheduwhereid();
 
-      vm.$emit('pick', new Date())
       //高德地图
       (function(){
         let iframe = document.getElementById('mapbox').contentWindow;
