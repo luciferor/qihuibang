@@ -1,17 +1,17 @@
 <template>
-  <div class="layout" @click="addMsg">
-    <div class="top">
-      <span class="contacts">小燕子</span>
-    </div>
-    <div class="content">
-      <div v-for="message in messageList" class="msg-container">
-        <div :class="message.isReceived ? 'receive-msg' : 'send-msg'">
-          <img src="../images/head_default_icon.png">
-          <p :class="message.isReceived ? 'receive-bubble receive-bubble-left' : 'send-bubble send-bubble-right'">
-            {{message.msg}}</p>
+  <div class="layout" @click="addMsg" id="transaction">
+      <div class="top">
+        <span class="contacts">小燕子</span>
+      </div>
+      <div class="content">
+        <div v-for="message in messageList" class="msg-container"  ref="msgContainer">
+          <div :class="message.isReceived ? 'receive-msg' : 'send-msg'">
+            <img src="../images/head_default_icon.png">
+            <p :class="message.isReceived ? 'receive-bubble receive-bubble-left' : 'send-bubble send-bubble-right'">
+              {{message.msg}}</p>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -28,9 +28,24 @@
             msg: message.msg,
             isReceived: message.isReceived
           });
+          this.$nextTick( () => {
+            this.$refs.msgContainer[this.index].scrollIntoView()
+          })
+         //  this.bottom();
+        }
+      },
+      bottom() {
+        let dom = document.getElementById('transaction');
+        let window_height = document.body.offsetHeight;
+        let dom_height = dom.offsetHeight;
+        let y = dom_height - window_height;
+        if (y > 0) {
+          dom.setAttribute('style', 'transform: translateY(-' + y + 'px); transition: transform  1s ease-in;');
         }
       }
     },
+
+
     data() {
       return {
         index: -1,
@@ -78,16 +93,16 @@
 
   body {
     margin: 0 auto;
+    background-color: #ebebeb;
+    overflow-y:scroll;
   }
 
   /*适配各种尺寸-手机端*/
   @media only screen and (max-width: 767px) and (min-width: 320px) {
-    body{
-      background-color: #ebebeb;
-    }
+
     .layout {
       width:100%;
-      min-height: 700px;
+      min-height: 100%;
       margin: 0 auto;
       background-color: #ebebeb;
       padding-bottom: 10px;
@@ -196,7 +211,7 @@
       justify-content: flex-start;
       align-items: flex-start;
       vertical-align: top;
-      padding-top: 15px;
+      padding-top: 18px;
 
     }
 
@@ -205,7 +220,7 @@
       flex-direction: row-reverse;
       justify-content: flex-start;
       align-items: flex-start;
-      padding-top: 15px;
+      padding-top: 18px;
       vertical-align: top;
 
     }
@@ -213,9 +228,6 @@
 
   /*适配各种尺寸-平板电脑*/
   @media only screen and (max-width: 1023px) and (min-width: 768px) {
-    body{
-      background-color: #ebebeb;
-    }
     .layout {
       width:100%;
       min-height: 100%;
@@ -344,9 +356,6 @@
 
   /*适配各种尺寸-PC端小屏幕*/
   @media only screen and (max-width: 2560px) and (min-width: 1024px) {
-    .body{
-      background-color: #ebebeb;
-    }
     .layout {
       width: 100%;
       min-height: 100%;

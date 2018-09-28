@@ -71,7 +71,7 @@
                           <p style="margin-top: 10px">{{managers.name}}</p>
                           <Divider style="color: #666666;margin-top: 10px;margin-bottom: 0px;margin-left: 0px"/>
                           <p style="margin-top: 10px">平均工作时长 {{managers.userAverageTime}}小时</p>
-                          <p style="margin-top: 10px">迟到率{{managers.Tardy}}</p>
+                          <p style="margin-top: 10px">迟到率{{managers.Tardy}}%</p>
                           <p style="margin-top: 10px">加班率0%</p>
                           <p style="margin-top: 10px">任务完成{{managers.finishTask}}个/天</p>
                         </div>
