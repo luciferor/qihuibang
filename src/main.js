@@ -29,6 +29,13 @@ import echarts from 'echarts'//百度echart
 import Highcharts from 'highcharts/highstock';
 import HighchartsMore from 'highcharts/highcharts-more';
 import vuescroll from 'vuescroll';
+
+
+//---------------------------------------------------组件引入
+import Map from './components/map'
+//---------------------------------------------------组件引入
+
+
 HighchartsMore(Highcharts)
 Vue.prototype.$api = api
 Vue.prototype.$echarts=echarts

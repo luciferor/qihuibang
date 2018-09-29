@@ -135,8 +135,22 @@
         return;
       }
       this.getDepList(this.selectTime);
+
+      //加载效果
+      this.openFullScreen2();
     },
     methods: {
+      openFullScreen2() {
+        const loading = this.$loading({
+          lock: true,
+          text: '数据加载中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255, 255, 255, 0.7)'
+        });
+        setTimeout(() => {
+          loading.close();
+        }, 3000);
+      },
       //切换部门和项目报表
       switchPage() {
         let routeData = this.$router.resolve({name: 'Statisticsview'});

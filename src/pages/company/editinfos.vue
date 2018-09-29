@@ -464,4 +464,14 @@ export default {
   .boxlist .list-content-upbtn span{
     text-align: center;
   }
+
+  .el-input__inner{
+      border:1px solid #ededed !important;
+  }
+</style>
+
+<style>
+  input{
+      border:1px solid #ededed !important;
+  }
 </style>

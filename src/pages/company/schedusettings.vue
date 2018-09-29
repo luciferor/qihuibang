@@ -189,5 +189,6 @@
     letter-spacing: 0px;
     color: #8a8c99;
     line-height: 30px;
+    
   }
 </style>

@@ -65,7 +65,7 @@
                   <div style="width:90%; float:left;">
                     <span class="tt">打卡邦分</span><span class="td">时间管理尊用时间平等原则，每个小时1邦分，如需特别设置请联系我们开放个性化设置</span>
                   </div>
-                  <div style="width:10%; float:right;"><span class="fr"><i-button style="color:gray;">打卡价值观</i-button></span></div>
+                  <div style="width:10%; float:right;"><span class="fr"><i-button type="primary" class="backgroundpar">打卡价值观</i-button></span></div>
                 </div>
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
@@ -133,7 +133,7 @@
                   <div style="width:90%; float:left;">
                     <span class="tt">目标邦分</span><span class="td">目标管理遵循计划原则，让每个人都能为自己定计划，按照计划来办事，定了计划就给分，计划不在多而在重点，目标计划根据333原则设定</span>
                   </div>
-                  <div style="width:10%; float:right;"><span class="fr"><i-button style="color:gray;">目标价值观</i-button></span></div>
+                  <div style="width:10%; float:right;"><span class="fr"><i-button type="primary" class="backgroundpar">目标价值观</i-button></span></div>
                 </div>
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
@@ -191,7 +191,7 @@
                   <div style="width:90%; float:left;">
                     <span class="tt">自我加减邦分</span><span class="td">自我加减邦分自我行为管理的表现，基于信任原则，诚信为自己加分，据实自己减分</span>
                   </div>
-                  <div style="width:10%; float:right;"><span class="fr"><i-button @click="gotoowner" style="color:gray;">自我价值观</i-button></span></div>
+                  <div style="width:10%; float:right;"><span class="fr"><i-button type="primary" class="backgroundpar" @click="gotoowner">自我价值观</i-button></span></div>
                 </div>
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
@@ -240,8 +240,19 @@
             </Tab-pane> -->
             <Tab-pane label="惩罚邦分" key="key4">
               <div class="comboxnuminputbox">
-                <div class="comboxnuminputbox-title">
+                <div v-show="false" class="comboxnuminputbox-title">
                   <span class="tt" style="margin-left:17px; color:#ff6666;"></span><span class="td"></span>
+                </div>
+                <div class="comboxnuminputbox-content">
+                  <Row>
+                    <i-col span="24">
+                      <span style="font-size:14px;font-weight:bold; padding-bottom:50px;">排名基准线及要求</span>
+                      <span>
+                        <i-input style="width:850px;" class="main-text" type="textarea" autosize  v-model="punishments.ranking" @blur="setintegrals(punishments.ranking,26)" placeholder="请输入排名基准线及要求..."></i-input>
+                      </span>
+                    </i-col>
+
+                  </Row>
                 </div>
                 <div class="comboxnuminputbox-content">
                   <Row>
@@ -306,6 +317,7 @@
           sbestsp:0//每次最多可加减次数
         },
         punishments:{//惩罚
+          ranking:'',//排名基准线及要求
           tlate:0,//迟到
           tearly:0//早退
         },
@@ -340,7 +352,7 @@
             // if(this.count>1){
             //   return;//如果提示过了。就不提示了
             // }
-            this.success('添加成功！'+res['data'].message);
+            this.success(res['data'].message);
           }else{
             this.error(res['data'].message);
           }
@@ -380,6 +392,8 @@
             this.plussubtegrals.sbestsub=Number(res['data'].message.once_reduce_bangfen);//每次最高减分
             this.plussubtegrals.sbestps=Number(res['data'].message.add_bangfen_all);//每次最多可加减次数
             this.plussubtegrals.sbestsp=Number(res['data'].message.reduce_bangfen_all);//每次最多可加减次数
+
+            this.punishments.ranking = res['data'].message.ranking;//排名基准线及要求
             this.punishments.tlate=Number(res['data'].message.late_time);//迟到
             this.punishments.tearly=Number(res['data'].message.leave_time);//早退
 
@@ -566,4 +580,38 @@
       padding:10px 0;
     }
 
+
+</style>
+<style>
+  .el-textarea__inner {
+    overflow: hidden !important;
+    width: 100%;
+    border: none !important;
+    outline: none;
+    box-shadow: none;
+    resize: none !important;
+  }
+
+  .el-textarea__inner:hover {
+    border: 1px solid rgb(240, 240, 240) 0 ff !important;
+  }
+
+  .el-textarea__inner:focus {
+    box-shadow: none;
+    transition-duration: .5s;
+    border: 1px solid #9bacff !important;
+  }
+
+  .el-textarea__inner::-webkit-input-placeholder {
+    line-height: 20px;
+  }
+
+  .el-textarea__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
+    border-radius: 4;
+  }
+
+
+  .ivu-input{
+    border: 1px solid #dcdee2 !important;
+  }
 </style>

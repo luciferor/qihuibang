@@ -51,15 +51,7 @@
                         </el-time-select>
                     </div>
                     <div class="input-content-inputbox">
-                        <el-date-picker
-                        size="small"
-                        @change="selecteddate"
-                        value-format="yyyy-MM-dd"
-                        :clearable="true"
-                        type="dates"
-                        v-model="scheduworkday"
-                        placeholder="选择一个或多个日期"
-                        style="width:300px"></el-date-picker>
+                        <DatePicker type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 300px"></DatePicker>
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
@@ -122,7 +114,7 @@
     <div class="mapselectbox unshow">
         <div class="map-title"><span class="fl" style="text-indent:10px; padding-top:3px;">考勤地址</span><span @click="coloselocationwin" style="padding-right:10px; padding-top:5px;" class="posor fr"><img src="../../assets/delete.png" /></span></div>
         <div class="map-content">
-            <iframe class="posor" style="width:100%; height:100%; border:none;" id="mapbox" src="https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=116.470098,39.992838&radius=1000&total=20&key=1b443fa122dc68aa86c0c941620d5bd4"></iframe>
+            <Map></Map>
         </div>
         <div class="map-under">
             <span class="fl">考勤范围
@@ -174,6 +166,7 @@
 </template>
 
 <script>
+  import Map from "../../components/map";
   export default{
     filters:{
         srctransformation:function(value){
@@ -183,6 +176,9 @@
                 return value;
             }
         }
+    },
+    components:{
+        Map,//注册组件
     },
     created(){
         
@@ -244,7 +240,7 @@
                         let item = res['data'].message.set_workday;
                         str += ';'+item[i].workday_msg;
                     }
-                    this.scheduworkday=new Date(str.substr(1).split(';'));//工作日，一般从多少号到多少号
+                    this.scheduworkday=str.substr(1).split(';');//工作日，一般从多少号到多少号
                     this.scheduworkdaystring = str.substr(1);
                     console.log('===========================');
                     console.log(this.scheduworkday);
@@ -358,17 +354,27 @@
             })
 
         },
+        formatdate(date){
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return y + '-' + m + '-' + d;
+        },
         //选择日期
         selecteddate(){
-            console.log(this.scheduworkday);
-            let arr = String(this.scheduworkday).split(',');
+
             let str;
-            for (let i = 0; i < arr.length; i++) {
-                str += ";"+arr[i];
+            for (let i = 0; i < this.scheduworkday.length; i++) {
+                str += ";"+this.formatdate(this.scheduworkday[i]);
             }
             this.scheduworkdaystring = str.replace('undefined;','');
+            console.log('**************************************');
             console.log(this.scheduworkdaystring);
-            console.log(String(this.scheduworkday));
+            console.log('**************************************');
+            console.log(this.scheduworkday);
+            console.log('**************************************');
         },
         //选中确定的用户
         saveselecteduseres(){
@@ -529,23 +535,6 @@
 
       //编辑时获取考勤排班详情
       this.getscheduwhereid();
-
-      //高德地图
-      (function(){
-        let iframe = document.getElementById('mapbox').contentWindow;
-        document.getElementById('mapbox').onload = function(){
-        iframe.postMessage('hello','https://m.amap.com/picker/');
-        };
-        window.addEventListener("message", function(e){
-            //console.log('您选择了:' + e.data.name + ',' + e.data.location);
-            let str = e.data.location;
-            let arr = str.split(',');
-            //console.log(arr);
-            window.localStorage['mapaddress'] = e.data.name;
-            window.localStorage['maplong'] = arr[0];
-            window.localStorage['maplat'] = arr[1];
-        }.bind(this), false);
-      }())
     }
   }
 </script>
@@ -788,12 +777,34 @@
       z-index:1000;
     }
 
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
+
 </style>
+
 <style>
-.ivu-date-picker-cells-cell-range:before{
-    background:#2d8cf0;
-    color:white;
-}
+    .ivu-date-picker-cells-cell-range:before{
+        background:#2d8cf0;
+        color:white;
+    }
+
+    .ivu-date-picker-cells span em{
+        border-radius: 12px !important;
+    }
+
+    .ivu-date-picker-cells-cell-selected em, .ivu-date-picker-cells-cell-selected:hover em{
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        margin: 2px;
+        font-style: normal;
+        border-radius: 12px !important;
+        background:#409EFF !important;
+        text-align: center;
+        transition: all .2s ease-in-out;
+    }
 
 </style>
 

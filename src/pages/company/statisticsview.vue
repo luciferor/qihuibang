@@ -34,8 +34,8 @@
             <tr class="project-tr" style="display: table-cell;vertical-align: top">
               <td>
                 <div class="content">
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入项目名称" v-model="item.name"
-                            @blur="editProject(item.id,'name',item.name)"></el-input>
+                  <textarea class="main-text qihuibangtextarea" type="textarea" autosize placeholder="请输入项目名称" v-model="item.name"
+                            @blur="editProject(item.id,'name',item.name)"></textarea>
                   <Rate v-model="item.degree" @on-change="editProject(item.id,'degree',item.degree)"/>
                   <br>
                   <span class="gray-text">完成度{{item.proportion}}%</span>
@@ -71,7 +71,7 @@
                           <p style="margin-top: 10px">{{managers.name}}</p>
                           <Divider style="color: #666666;margin-top: 10px;margin-bottom: 0px;margin-left: 0px"/>
                           <p style="margin-top: 10px">平均工作时长 {{managers.userAverageTime}}小时</p>
-                          <p style="margin-top: 10px">迟到率{{managers.Tardy}}</p>
+                          <p style="margin-top: 10px">迟到率{{managers.Tardy}}%</p>
                           <p style="margin-top: 10px">加班率0%</p>
                           <p style="margin-top: 10px">任务完成{{managers.finishTask}}个/天</p>
                         </div>
@@ -141,11 +141,9 @@
                   <span class="gray-text">完成度{{item.week_proportion}}%</span>
                   <div style="display: flex;align-items: center;justify-content: space-around">
                     <i-progress :percent="Number(item.week_proportion)" :hide-info="hideInfo" style="width:132px;"/>
-                    <input-number v-model="item.week_proportion" style="width:50px" :min="min" :max="max"
-                                  @on-blur="editProject(item.id,'week_proportion',item.week_proportion)"/>
+                    <input-number v-model="item.week_proportion" style="width:50px" :min="min" :max="max" @on-blur="editProject(item.id,'week_proportion',item.week_proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text"
-                            @blur="editProject(item.id,'week_text',item.week_text)"></el-input>
+                  <el-input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text" @blur="editProject(item.id,'week_text',item.week_text)"></el-input>
                 </div>
               </td>
             </tr>
@@ -213,11 +211,21 @@
                   <i-button class="reward">奖罚</i-button>
                   <i-button class="pigeonhole" @click="saveStatus(item.id,'finished')">归档</i-button>
                   <i-button class="save" @click="saveStatus(item.id,'backups')">保存版本</i-button>
-                  <i-select class="change-version" v-model="versionId" placeholder="切换版本"
+                  <i-button @click="getVersionList(item.id)" class="change-version">切换版本</i-button>
+                      <div v-show="item.id==thenid?true:false" class="copy2018 unshow">
+                        <div class="copycontent">
+                          <el-scrollbar style="height:100%;">
+                              <ul>
+                                <li v-for="option in versionList" :value="option.id" :key="option.id"><el-button @click="changeVersion(option.id)" size="mini" type="text">{{ option.name }}</el-button></li>
+                              </ul>
+                          </el-scrollbar>
+                        </div>
+                    </div>
+                  <!-- <i-select class="change-version" v-model="versionId" placeholder="切换版本"
                             @on-open-change="getVersionList(item.id)" @on-change="changeVersion(versionId)">
                     <i-option v-for="option in versionList" :value="option.id" :key="option.id">{{ option.name }}
                     </i-option>
-                  </i-select>
+                  </i-select> -->
                 </div>
               </td>
             </tr>
@@ -292,6 +300,7 @@
       },
     },
     created() {
+      
     },
     mounted() {
       //验证是否登录
@@ -514,6 +523,8 @@
 
       //版本列表
       getVersionList(id) {
+        console.log(id+"要切换此ID的版本");
+        this.thenid = id;
         let self = this;
         let params = new URLSearchParams();
         params.append('id', id);
@@ -527,26 +538,39 @@
           }
         }, function (res) {
         })
+        if($('.copy2018').css('visibility')=='hidden'){
+          $('.copy2018').addClass('animated slideIn show');
+        }else{
+          $('.copy2018').removeClass('animated slideIn show');
+        }
       },
 
       //切换版本
       changeVersion(id) {
+        console.log(id+'第二个按钮。id代表版本')
         let self = this;
         let params = new URLSearchParams();
-        if (id !== '' && id !== null && (typeof(id) !== "undefined")) {
+        if (id !== '' && id !== null && (typeof(id) !== "undefined")){
           params.append('id', id);
           self.versionList = [];
-          self.$api.post("/save/admin/projects/saveVersions", params, function (res) {
+          self.$api.post("/save/admin/projects/saveVersions", params, function (res){
             self.$Message.success('切换版本成功');
             self.getData(self.selectTime);
           }, function (res) {
             self.$Message.success(res.message)
           })
         }
+        if($('.copy2018').css('visibility')=='hidden'){
+          $('.copy2018').addClass('animated slideIn show');
+        }else{
+          $('.copy2018').removeClass('animated slideIn show');
+        }
+        $('.copy2018').removeClass('animated slideInRight show');
       }
     },
     data() {
       return {
+        thenid:0,//切换版本时使用id
         versionId: '',
         selectTime: '',
         keyword: '',
@@ -698,7 +722,7 @@
     border: 1px solid #667fff;
     color: #667fff;
     height: 30px;
-    width: 145px;
+    width: 100px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -710,7 +734,7 @@
     color: #ff6666;
     margin-top: 10px;
     height: 30px;
-    width: 145px;
+    width: 100px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -722,7 +746,7 @@
     color: #04cc6c;
     margin-top: 10px;
     height: 30px;
-    width: 145px;
+    width: 100px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -733,7 +757,7 @@
     color: #ffffff;
     margin-top: 10px;
     height: 32px;
-    width: 145px;
+    width: 100px;
     border-radius: 4px;
     padding: 0px;
     font-size: 12px;
@@ -743,7 +767,7 @@
   .change-version {
     margin-top: 10px;
     height: 32px;
-    width: 145px;
+    width: 100px;
     border-radius: 4px;
     padding: 0px;
     font-size: 10px;
@@ -754,7 +778,8 @@
     display: flex;
     flex-direction: column;
     padding: 20px 10px 10px 10px;
-    width: 180px;
+    width: 120px;
+    position: relative;
   }
 
   .ivu-input {
@@ -823,63 +848,61 @@
     overflow: hidden;
   }
 
+  .copy2018{
+    border-radius: 5px;
+    border:1px solid #ededed;
+    width:160px;
+    height:100%;
+    position: absolute;
+    right:120px;
+    top:0;
+    box-shadow: -4px 0px 20px 0px 
+		rgba(0, 0, 0, 0.08);
+    background:white;
+  }
+
+  .copy2018 .copycontent{
+    height:100%;
+    padding: 10px;
+  }
+
+  .unshow{
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .show{
+    visibility:visible;
+    z-index: 1000;
+  }
+
 </style>
 <style>
   text.highcharts-credits {
     display: none;
   }
 
-  .el-input__inner {
-    border: none !important;
+  .qihuibangtextarea {
+    border: 1px solid white !important;
+    border-radius:4px !important;
+    padding:5px;
+    resize: none;
+    overflow: hidden;
+    height: auto;
   }
 
-  .el-input__inner:hover {
+  .qihuibangtextarea:hover {
     border: 1px solid rgb(240, 240, 240) 0 ff !important;
   }
 
-  .el-input__inner:focus {
+  .qihuibangtextarea:focus {
     box-shadow: none;
     transition-duration: .5s;
-    border: 1px solid #9bacff !important;
+    border: 1px solid #cecece !important;
   }
 
-  .el-input__inner::-webkit-input-placeholder {
+  .qihuibangtextarea::-webkit-input-placeholder {
     line-height: 20px;
-  }
-
-  .el-input__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
-    border-radius: 4;
-  }
-
-  .el-textarea {
-    border: none;
-  }
-
-  .el-textarea__inner {
-    overflow: hidden !important;
-    width: 100%;
-    border: none !important;
-    outline: none;
-    box-shadow: none;
-    resize: none !important;
-  }
-
-  .el-textarea__inner:hover {
-    border: 1px solid rgb(240, 240, 240) 0 ff !important;
-  }
-
-  .el-textarea__inner:focus {
-    box-shadow: none;
-    transition-duration: .5s;
-    border: 1px solid #9bacff !important;
-  }
-
-  .el-textarea__inner::-webkit-input-placeholder {
-    line-height: 20px;
-  }
-
-  .el-textarea__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
-    border-radius: 4;
   }
 
 

@@ -111,7 +111,7 @@
     <div class="mapselectbox unshow">
         <div class="map-title"><span class="fl" style="text-indent:10px; padding-top:3px;">考勤地址</span><span @click="coloselocationwin" style="padding-right:10px; padding-top:5px;" class="posor fr"><img src="../../assets/delete.png" /></span></div>
         <div class="map-content">
-            <iframe class="posor" style="width:100%; height:100%; border:none;" id="mapbox" src="https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=116.470098,39.992838&radius=1000&total=20&key=1b443fa122dc68aa86c0c941620d5bd4"></iframe>
+            <Map></Map>
         </div>
         <div class="map-under">
             <span class="fl">考勤范围
@@ -163,6 +163,7 @@
 </template>
 
 <script>
+  import Map from "../../components/map";
   export default {
     filters:{
         srctransformation:function(value){
@@ -172,6 +173,9 @@
                 return value;
             }
         }
+    },
+    components:{
+        Map,//注册组件
     },
     data(){
       let that = this;
@@ -712,12 +716,18 @@
       z-index:1000;
     }
 
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
+
 </style>
 <style>
+input{
+    border:1px solid #ededed !important;
+}
 .ivu-date-picker-cells-cell-range:before{
     background:#2d8cf0;
     color:white;
 }
-
 </style>
 
