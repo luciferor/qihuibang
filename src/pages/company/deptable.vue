@@ -42,9 +42,9 @@
                     <input-number v-model="department.proportion" style="width:50px" :min="min" :max="max"
                                   @on-blur="editDepartmentProject(department.id,department.week_target,department.proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入当前工作"
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入当前工作"
                             v-model="department.week_target"
-                            @blur="editDepartmentProject(department.id,department.week_target,department.proportion)"></el-input>
+                            @blur="editDepartmentProject(department.id,department.week_target,department.proportion)"></Input>
                 </div>
               </td>
             </tr>
@@ -688,60 +688,10 @@
     display: none;
   }
 
-  .el-input__inner {
+  
+  .ivu-input{
+    resize: none;
     border: none !important;
   }
 
-  .el-input__inner:hover {
-    border: 1px solid rgb(240, 240, 240) 0 ff !important;
-  }
-
-  .el-input__inner:focus {
-    box-shadow: none;
-    transition-duration: .5s;
-    border: 1px solid #9bacff !important;
-  }
-
-  .el-input__inner::-webkit-input-placeholder {
-    line-height: 20px;
-  }
-
-  .el-input__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
-    border-radius: 4;
-  }
-
-  .el-textarea {
-    border: none;
-  }
-
-  .el-textarea__inner {
-    border: none !important;
-  }
-
-  .el-textarea__inner:hover {
-    border: 1px solid rgb(240, 240, 240) 0 ff !important;
-  }
-
-  .el-textarea__inner:focus {
-    box-shadow: none;
-    transition-duration: .5s;
-    border: 1px solid #9bacff !important;
-  }
-
-  .el-textarea__inner::-webkit-input-placeholder {
-    line-height: 20px;
-  }
-
-  .el-textarea__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
-    border-radius: 4;
-  }
-
-  textarea {
-    overflow: hidden !important;
-    width: 100%;
-    border: none !important;
-    outline: none;
-    box-shadow: none;
-    resize: none !important;
-  }
 </style>

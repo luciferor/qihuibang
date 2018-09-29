@@ -32,7 +32,7 @@
                     <div class="boxlist">
                       <div class="list-title fl">公司名称</div>
                       <div class="list-content fl">
-                         <i-input placeholder="请输入公司名称..." style="width:100%;" v-model="companyname"></i-input>
+                         <el-input size="small" placeholder="请输入公司名称..." style="width:100%;" v-model="companyname"></el-input>
                       </div>
                     </div>
                     <!--列表结束-->
@@ -64,7 +64,7 @@
                     <div class="boxlist">
                       <div class="list-title fl">详细地址</div>
                       <div class="list-content fl">
-                          <i-input type="textarea" placeholder="请输入..." v-model="companyaddr"></i-input>
+                          <el-input type="textarea" placeholder="请输入..." v-model="companyaddr"></el-input>
                       </div>
                     </div>
                     <!--列表结束-->
@@ -110,7 +110,7 @@
                       <div class="list-title fl">公司简介</div>
                       <div class="list-content fl">
                         <div style="width:100%" class="list-content-upbtn fl">
-                          <i-input type="textarea" placeholder="请输入简介内容..." v-model="companydescription"></i-input>
+                          <el-input type="textarea" placeholder="请输入简介内容..." v-model="companydescription"></el-input>
                         </div>
                       </div>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="boxlist">
                       <div class="list-title fl">联系人姓名</div>
                       <div class="list-content fl">
-                          <i-input placeholder="请输入姓名..." style="width:100%;" v-model="companyconname"></i-input>
+                          <el-input placeholder="请输入姓名..." style="width:100%;" v-model="companyconname"></el-input>
                       </div>
                     </div>
                     <!--列表结束-->
@@ -132,7 +132,7 @@
                     <div class="boxlist">
                       <div class="list-title fl">电话</div>
                       <div class="list-content fl">
-                          <i-input placeholder="请输入电话..." style="width:100%;" v-model="companyconcall"></i-input>
+                          <el-input placeholder="请输入电话..." style="width:100%;" v-model="companyconcall"></el-input>
                       </div>
                     </div>
                     <!--列表结束-->
@@ -141,7 +141,7 @@
                     <div class="boxlist">
                       <div class="list-title fl">登录密码</div>
                       <div class="list-content fl">
-                          <i-input type="password" placeholder="请输入密码..." style="width:100%;" v-model="loginpassword"></i-input>
+                          <el-input type="password" placeholder="请输入密码..." style="width:100%;" v-model="loginpassword"></el-input>
                       </div>
                     </div>
                     <!--列表结束-->

@@ -15,14 +15,14 @@
           <Tabs active-key="key1">
             <Tab-pane label="企业注册" key="key1">
               <div class="phonebox">
-                <i-input  placeholder="请输入手机号" style="border:none;" v-model="adminphone"></i-input>
+                <el-input  placeholder="请输入手机号" style="border:none;" v-model="adminphone"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input type="text" style="width:60%; border:none;"  placeholder="请输入验证码" v-model="admincode"></i-input>
+                <el-input size="small" type="text" style="width:60%; border:none;"  placeholder="请输入验证码" v-model="admincode"></el-input>
                 <i-button class="bluecolor" @click="getcode" size="small" style="border:1px solid #6680ff; color:#6680ff;" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="isagree">
-                <Radio @on-change="ischanggeradio" v-model="cisagree" style="color:#8a8c99;">同意企汇邦企业协议</Radio>
+                <Radio @change="ischanggeradio" v-model="cisagree" style="color:#8a8c99;">同意企汇邦企业协议</Radio>
               </div>
               <div class="loginbtn">
                 <i-button @click="regover" style="background-color:#ededed; width:100%;">马 上 注 册</i-button>

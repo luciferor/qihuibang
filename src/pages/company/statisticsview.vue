@@ -34,8 +34,8 @@
             <tr class="project-tr" style="display: table-cell;vertical-align: top">
               <td>
                 <div class="content">
-                  <textarea class="main-text qihuibangtextarea" type="textarea" autosize placeholder="请输入项目名称" v-model="item.name"
-                            @blur="editProject(item.id,'name',item.name)"></textarea>
+                  <Input class="main-text qihuibangtextarea" type="textarea" autosize placeholder="请输入项目名称" v-model="item.name"
+                            @on-blur="editProject(item.id,'name',item.name)"></Input>
                   <Rate v-model="item.degree" @on-change="editProject(item.id,'degree',item.degree)"/>
                   <br>
                   <span class="gray-text">完成度{{item.proportion}}%</span>
@@ -127,8 +127,8 @@
                     <input-number v-model="item.current_proportion" style="width:50px" :min="min" :max="max"
                                   @on-blur="editProject(item.id,'current_proportion',item.current_proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入当前工作" v-model="item.current_text"
-                            @blur="editProject(item.id,'current_text',item.current_text)"></el-input>
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入当前工作" v-model="item.current_text"
+                            @on-blur="editProject(item.id,'current_text',item.current_text)"/>
                 </div>
               </td>
             </tr>
@@ -143,7 +143,7 @@
                     <i-progress :percent="Number(item.week_proportion)" :hide-info="hideInfo" style="width:132px;"/>
                     <input-number v-model="item.week_proportion" style="width:50px" :min="min" :max="max" @on-blur="editProject(item.id,'week_proportion',item.week_proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text" @blur="editProject(item.id,'week_text',item.week_text)"></el-input>
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text" @on-blur="editProject(item.id,'week_text',item.week_text)"/>
                 </div>
               </td>
             </tr>
@@ -158,8 +158,8 @@
                     <input-number v-model="item.month_proportion" style="width:50px" :min="min" :max="max"
                                   @on-blur="editProject(item.id,'month_proportion',item.month_proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入本月目标" v-model="item.month_text"
-                            @blur="editProject(item.id,'month_text',item.month_text)"></el-input>
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入本月目标" v-model="item.month_text"
+                            @on-blur="editProject(item.id,'month_text',item.month_text)"/>
 
                 </div>
               </td>
@@ -177,9 +177,9 @@
                     <input-number v-model="item.next_month_proportion" style="width:50px;" :min="min" :max="max"
                                   @on-blur="editProject(item.id,'next_month_proportion',item.next_month_proportion)"/>
                   </div>
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入下月目标"
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入下月目标"
                             v-model="item.next_month_text"
-                            @blur="editProject(item.id,'next_month_text',item.next_month_text)"></el-input>
+                            @on-blur="editProject(item.id,'next_month_text',item.next_month_text)"/>
                 </div>
               </td>
             </tr>
@@ -188,8 +188,8 @@
             <tr class="project-tr" style="display: table-cell;vertical-align:top;">
               <td>
                 <div style="width: 180px" class="content">
-                  <el-input class="main-text" type="textarea" autosize placeholder="请输入需要协助的问题" v-model="item.assist"
-                            @blur="editProject(item.id,'assist',item.assist)"></el-input>
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入需要协助的问题" v-model="item.assist"
+                            @on-blur="editProject(item.id,'assist',item.assist)"/>
                 </div>
               </td>
             </tr>
@@ -198,8 +198,8 @@
             <tr class="project-tr" style="display: table-cell;vertical-align:top;">
               <td>
                 <div style="width: 180px" class="content">
-                  <el-input class="main-text" type="textarea" autosize placeholder="请对本周工作进行总结" v-model="item.summarize"
-                            @blur="editProject(item.id,'summarize',item.summarize)"></el-input>
+                  <Input class="main-text" type="textarea" autosize placeholder="请对本周工作进行总结" v-model="item.summarize"
+                            @on-blur="editProject(item.id,'summarize',item.summarize)"/>
                 </div>
               </td>
             </tr>
@@ -300,7 +300,6 @@
       },
     },
     created() {
-      
     },
     mounted() {
       //验证是否登录
@@ -377,7 +376,7 @@
         let params = new URLSearchParams();
         params.append('id', id);
         params.append('type', type);
-        params.append('value', param);
+        params.append('value', param=='null'?'':param);
         self.$api.post("/set/admin/projects", params, function (res) {
           self.$Message.success('保存成功');
           self.getData(self.selectTime);
@@ -882,31 +881,8 @@
     display: none;
   }
 
-  .qihuibangtextarea {
-    border: 1px solid white !important;
-    border-radius:4px !important;
-    padding:5px;
-    resize: none;
-    overflow: hidden;
-    height: auto;
-  }
-
-  .qihuibangtextarea:hover {
-    border: 1px solid rgb(240, 240, 240) 0 ff !important;
-  }
-
-  .qihuibangtextarea:focus {
-    box-shadow: none;
-    transition-duration: .5s;
-    border: 1px solid #cecece !important;
-  }
-
-  .qihuibangtextarea::-webkit-input-placeholder {
-    line-height: 20px;
-  }
-
-
   .ivu-input{
-    border: 1px solid #dcdee2 !important;
+    resize: none;
+    border: none !important;
   }
 </style>

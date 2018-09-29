@@ -9,7 +9,7 @@
         <div class="searchbox fl">
           <div class="inbox">
             <div style="height:40px; line-height:40px; font-size:14px;">消汇邦信息科技有限公司</div>
-            <i-input v-show="false" icon="ios-search" style="width:100%; height:100%; border:none;" placeholder="请输入搜索关键字..."></i-input> 
+            <el-input v-show="false" icon="ios-search" style="width:100%; height:100%; border:none;" placeholder="请输入搜索关键字..."></el-input> 
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@
           <div class="boxlist">
             <div class="list-content" style="padding:0px 30px;">
               <span class="spanlist fl">旧密码</span>
-              <span class="spanlist fl"><i-input type="password" v-model="userinfo.oldpass" style="width:195px;" placeholder="请输入旧密码..." ></i-input></span>
+              <span class="spanlist fl"><el-input size="small" type="password" v-model="userinfo.oldpass" style="width:195px;" placeholder="请输入旧密码..." ></el-input></span>
             </div>
           </div>
           <!--列表结束-->
@@ -172,7 +172,7 @@
           <div class="boxlist">
             <div class="list-content" style="padding:0px 30px;">
               <span class="spanlist fl">新密码</span>
-              <span class="spanlist fl"><i-input type="password" v-model="userinfo.newpass" style="width:195px;" placeholder="请输入新密码..." ></i-input></span>
+              <span class="spanlist fl"><el-input size="small" type="password" v-model="userinfo.newpass" style="width:195px;" placeholder="请输入新密码..." ></el-input></span>
             </div>
           </div>
           <!--列表结束-->

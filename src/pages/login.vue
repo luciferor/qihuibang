@@ -15,10 +15,10 @@
           <Tabs @on-click="codeandpassword" v-model="cp" active-key="key1">
             <Tab-pane label="手机登录" key="key1">
               <div class="phonebox">
-                <i-input  placeholder="请输入手机号" @on-change="checkphone" v-model="adminphone" style="border:none;"></i-input>
+                <el-input size="small"  placeholder="请输入手机号" @on-change="checkphone" v-model="adminphone" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input @on-enter="submitlogin" style="width:60%; border:none;" v-model="admincode"  placeholder="请输入验证码"></i-input>
+                <el-input size="small" @keyup.enter.native="submitlogin" style="width:60%; border:none;" v-model="admincode"  placeholder="请输入验证码"></el-input>
                 <i-button class="bluecolor" @click="getcode" size="small" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="isagree">
@@ -30,10 +30,10 @@
             </Tab-pane>
             <Tab-pane label="密码登录" key="key2">
               <div class="phonebox">
-                <i-input @on-change="checkphone" placeholder="请输入手机号" v-model="adminphone" style="border:none;"></i-input>
+                <el-input size="small" @change="checkphone" placeholder="请输入手机号" v-model="adminphone" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input @on-enter="submitlogin" type="password" style="border:none;" v-model="adminpassword" :aria-disabled="false" placeholder="请输入密码"></i-input>
+                <el-input size="small" @keyup.enter.native="submitlogin" type="password" style="border:none;" v-model="adminpassword" :aria-disabled="false" placeholder="请输入密码"></el-input>
               </div>
               <div class="isagree">
                 <Radio @on-change="test" v-model="agreeseleced" style="color:#8a8c99;">同意企汇邦企业协议</Radio>

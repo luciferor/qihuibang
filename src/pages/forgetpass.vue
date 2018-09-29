@@ -18,17 +18,17 @@
           <Tabs active-key="key1">
             <Tab-pane label="找回密码" key="key1">
               <div class="passwordbox">
-                <i-input v-model="adminphone"  placeholder="请输入手机号" style="border:none;"></i-input>
+                <el-input size="small" v-model="adminphone"  placeholder="请输入手机号" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input v-model="admincode" style="width:60%; border:none;"  placeholder="请输入验证码"></i-input>
+                <el-input size="small" v-model="admincode" style="width:60%; border:none;"  placeholder="请输入验证码"></el-input>
                 <i-button class="bluecolor" @click="getcode" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="passwordbox">
-                <i-input v-model="adminpassword" type="password"  placeholder="设置新密码" style="border:none;"></i-input>
+                <el-input size="small" v-model="adminpassword" type="password"  placeholder="设置新密码" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input v-model="isadminpassword" type="password"  placeholder="确认密码" style="border:none;"></i-input>
+                <el-input size="small" v-model="isadminpassword" type="password"  placeholder="确认密码" style="border:none;"></el-input>
               </div>
               <div class="passwordbox iph45">
                 <i-button @click="savepassword" style="background-color:#ededed; width:100%;">确 认 修 改</i-button>
