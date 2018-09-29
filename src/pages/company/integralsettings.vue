@@ -246,12 +246,11 @@
                 <div class="comboxnuminputbox-content">
                   <Row>
                     <i-col span="24">
-                      <span style="font-size:14px;font-weight:bold; padding-bottom:50px;">排名基准线及要求</span>
+                      <span style="font-size:14px;font-weight:bold; padding-bottom:50px;">排名基准线及要求</span><br />
                       <span>
-                        <i-input style="width:850px;" class="main-text" type="textarea" autosize  v-model="punishments.ranking" @blur="setintegrals(punishments.ranking,26)" placeholder="请输入排名基准线及要求..."></i-input>
+                        <el-input style="width:850px;" class="main-text" type="textarea" autosize  v-model="punishments.ranking" @blur="setintegrals(punishments.ranking,26)" placeholder="请输入排名基准线及要求..."></el-input>
                       </span>
                     </i-col>
-
                   </Row>
                 </div>
                 <div class="comboxnuminputbox-content">
@@ -339,7 +338,6 @@
       setintegrals(_gold,_type){
         //console.log(_gold+"|||||||"+_type);
         //return;
-
         let url = window.localStorage.api+"/set/target/bangfen";//接口地址
         //console.log("---------------------------------------------------------");
         let params = new URLSearchParams();
@@ -579,39 +577,4 @@
     .comboxnuminputbox .comboxnuminputbox-content .ivu-row{
       padding:10px 0;
     }
-
-
-</style>
-<style>
-  .el-textarea__inner {
-    overflow: hidden !important;
-    width: 100%;
-    border: none !important;
-    outline: none;
-    box-shadow: none;
-    resize: none !important;
-  }
-
-  .el-textarea__inner:hover {
-    border: 1px solid rgb(240, 240, 240) 0 ff !important;
-  }
-
-  .el-textarea__inner:focus {
-    box-shadow: none;
-    transition-duration: .5s;
-    border: 1px solid #9bacff !important;
-  }
-
-  .el-textarea__inner::-webkit-input-placeholder {
-    line-height: 20px;
-  }
-
-  .el-textarea__inner, .el-checkbox__inner, .el-textarea__inner, .el-button {
-    border-radius: 4;
-  }
-
-
-  .ivu-input{
-    border: 1px solid #dcdee2 !important;
-  }
 </style>

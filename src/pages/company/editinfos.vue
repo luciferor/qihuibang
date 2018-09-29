@@ -39,7 +39,7 @@
           <div class="boxlist">
             <div class="list-title fl">公司名称</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入公司名称..." style="width:100%;"  v-model="comname"></i-input>
+                <el-input size="small" placeholder="请输入公司名称..." style="width:100%;"  v-model="comname"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -71,7 +71,7 @@
           <div class="boxlist">
             <div class="list-title fl">详细地址</div>
             <div class="list-content fl">
-                <i-input type="textarea" placeholder="请输入..." v-model="comaddr"></i-input>
+                <el-input size="small" type="textarea" placeholder="请输入..." v-model="comaddr"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -117,7 +117,7 @@
             <div class="list-title fl">公司简介</div>
             <div class="list-content fl">
               <div style="width:100%" class="list-content-upbtn fl">
-                <i-input type="textarea" placeholder="请输入简介内容..." v-model="comdes"></i-input>
+                <el-input size="small" type="textarea" placeholder="请输入简介内容..." v-model="comdes"></el-input>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
           <div class="boxlist">
             <div class="list-title fl">联系人姓名</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="comconuser"></i-input>
+                <el-input size="small" placeholder="请输入姓名..." style="width:100%;" v-model="comconuser"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -139,7 +139,7 @@
           <div class="boxlist">
             <div class="list-title fl">联系电话</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入电话..." style="width:100%;" v-model="comphone"></i-input>
+                <el-input size="small" placeholder="请输入电话..." style="width:100%;" v-model="comphone"></el-input>
             </div>
           </div>
           <!--列表结束-->

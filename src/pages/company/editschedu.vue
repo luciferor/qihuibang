@@ -22,7 +22,7 @@
                     <div class="input-left-title"><span>上班类型</span><span style="color:#ff6666;">*</span></div>
                 </div>
                 <div class="input-content fr">
-                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width:300px"></i-input></div>
+                    <div class="input-content-inputbox"><el-input size="small" v-model="scheduname" placeholder="请输入考勤名称..." style="width:300px"></el-input></div>
                     <div class="input-content-inputbox">
                         <el-time-select
                             placeholder="上班时间"
@@ -50,8 +50,9 @@
                             }">
                         </el-time-select>
                     </div>
-                    <div class="input-content-inputbox">
-                        <DatePicker type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 300px"></DatePicker>
+                    <div class="input-content-inputbox padborder">
+                        <div class="thecreatborder"></div>
+                        <DatePicker type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 298px"></DatePicker>
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
@@ -181,7 +182,7 @@
         Map,//注册组件
     },
     created(){
-        
+        $('.ivu-input').css('border','1px solid #ededed !important');
     },
     data(){
       let that = this;
@@ -242,9 +243,9 @@
                     }
                     this.scheduworkday=str.substr(1).split(';');//工作日，一般从多少号到多少号
                     this.scheduworkdaystring = str.substr(1);
-                    console.log('===========================');
-                    console.log(this.scheduworkday);
-                    console.log('===========================');
+                    //console.log('===========================');
+                    //console.log(this.scheduworkday);
+                    //console.log('===========================');
                     //************************************************************** */
                     this.schedudepid=res['data'].message.department_id;//部门id，选全员是不传
                     this.schedumulti=res['data'].message.multi_clock==1?true:false;//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
@@ -777,10 +778,18 @@
       z-index:1000;
     }
 
-    .el-input__inner{
-        border:1px solid #ededed !important;
-    }
+    /*伪造的输入框边框*/
+    .thecreatborder{
+        border:1px solid #ededed;
+        border-radius: 4px;
+        width:300px;
+        height: 35px;
+        padding:0;
+        margin:0;
+        top:221px;
+        position: absolute;
 
+    }
 </style>
 
 <style>

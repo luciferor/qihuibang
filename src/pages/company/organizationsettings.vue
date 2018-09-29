@@ -260,7 +260,7 @@
           <div class="boxlist">
             <div class="list-title fl">姓名</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="adduserlist.username"></i-input>
+                <el-input size="small" placeholder="请输入姓名..." style="width:100%;" v-model="adduserlist.username"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -269,7 +269,7 @@
           <div class="boxlist">
             <div class="list-title fl">电话</div>
             <div class="list-content fl">
-                <i-input :maxlength="11" placeholder="请输入手机号..." style="width:100%;" v-model="adduserlist.usercall"></i-input>
+                <el-input size="small" :maxlength="11" placeholder="请输入手机号..." style="width:100%;" v-model="adduserlist.usercall"></el-input>
             </div>
           </div>
           <!--列表结束-->

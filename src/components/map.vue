@@ -143,6 +143,7 @@
     data() {
       let vm = this;
       return {
+        dead:'',
         zoom:16,
         center: [113.851466,22.570453],
         result:[],
@@ -202,21 +203,22 @@
         let map=this.amapManager.getMap();
         AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
           var positionPicker = new PositionPicker({
-              mode: 'dragMap',
+              mode:'dragMarker',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
               map: map
           });
           //定位
           let geolocation;
           map.plugin('AMap.Geolocation', function () {
             geolocation=new AMap.Geolocation({
-              showButton: true,        //显示定位按钮，默认：true
+              showButton: false,        //显示定位按钮，默认：true
               showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
               extensions:'all'
             })
             map.addControl(geolocation);
             geolocation.getCurrentPosition();
+            
             AMap.event.addListener(geolocation, 'complete', function(data){
-              positionPicker.start();
+                positionPicker.start();
             });//返回定位信息
           })
           positionPicker.on('success', function(positionResult){
@@ -224,6 +226,7 @@
             vm.address=positionResult.regeocode.formattedAddress;
             vm.center=[positionResult.position.lng,positionResult.position.lat]
             //console.log(vm.result);
+            //positionPicker.stop();
           })
           positionPicker.on('fail', function(failResult){
             console.log(failResult)

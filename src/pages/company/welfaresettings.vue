@@ -181,7 +181,7 @@
           <div class="boxlist">
             <div class="list-content">
               <span class="spanlist fl">奖品</span>
-              <span class="spanlist fl"><i-input style="width:195px;" placeholder="请输入奖品名称..." v-model="editlist.ewalfname"></i-input></span>
+              <span class="spanlist fl"><el-input size="small" style="width:195px;" placeholder="请输入奖品名称..." v-model="editlist.ewalfname"></el-input></span>
             </div>
           </div>
           <!--列表结束-->

@@ -7,7 +7,7 @@
       </div>
       <div class="top-container">
         <div class="datePicker-container">
-          <DatePicker type="date" placeholder="请选择日期" @on-change="getData"></DatePicker>
+          <DatePicker type="date" placeholder="请选择日期" @on-change="getData" :disabledDate="Date.now()+1"></DatePicker>
         </div>
         <div class="add-project" @click="addProject()">
           <img src="../../images/icon_tianjia.png"/>
@@ -35,13 +35,13 @@
               <td>
                 <div class="content">
                   <Input class="main-text qihuibangtextarea" type="textarea" autosize placeholder="请输入项目名称" v-model="item.name"
-                            @on-blur="editProject(item.id,'name',item.name)"></Input>
-                  <Rate v-model="item.degree" @on-change="editProject(item.id,'degree',item.degree)"/>
+                            @on-blur="editProject(item.id,'name',item.name)" />
+                  <Rate :disabled="item.id==''?true:false" v-model="item.degree" @on-change="editlist(item.id,'degree',item.degree)"/>
                   <br>
                   <span class="gray-text">完成度{{item.proportion}}%</span>
                   <div style="display: flex;align-items: center;justify-content: space-between">
                     <i-progress :percent="Number(item.proportion)" :hide-info="hideInfo" style="width:130px;"/>
-                    <input-number v-model="item.proportion" style="width: 50px" :min="min" :max="max"
+                    <input-number v-model="item.proportion" style="width: 50px" :min="min" :max="max" @on-change="editlist(item.id,'proportion',item.proportion)"
                                   @on-blur="editProject(item.id,'proportion',item.proportion)"/>
                   </div>
                 </div>
@@ -124,10 +124,10 @@
                   <span class="gray-text">完成度{{item.current_proportion}}%</span>
                   <div style="display: flex;align-items: center;justify-content: space-around">
                     <i-progress :percent="Number(item.current_proportion)" :hide-info="hideInfo" style="width:132px;"/>
-                    <input-number v-model="item.current_proportion" style="width:50px" :min="min" :max="max"
+                    <input-number v-model="item.current_proportion" style="width:50px" :min="min" :max="max" @on-change="editlist(item.id,'current_proportion',item.current_proportion)"
                                   @on-blur="editProject(item.id,'current_proportion',item.current_proportion)"/>
                   </div>
-                  <Input class="main-text" type="textarea" autosize placeholder="请输入当前工作" v-model="item.current_text"
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入当前工作" v-model="item.current_text=='null'?'':item.current_text"
                             @on-blur="editProject(item.id,'current_text',item.current_text)"/>
                 </div>
               </td>
@@ -141,9 +141,9 @@
                   <span class="gray-text">完成度{{item.week_proportion}}%</span>
                   <div style="display: flex;align-items: center;justify-content: space-around">
                     <i-progress :percent="Number(item.week_proportion)" :hide-info="hideInfo" style="width:132px;"/>
-                    <input-number v-model="item.week_proportion" style="width:50px" :min="min" :max="max" @on-blur="editProject(item.id,'week_proportion',item.week_proportion)"/>
+                    <input-number v-model="item.week_proportion" style="width:50px" :min="min" :max="max" @on-blur="editProject(item.id,'week_proportion',item.week_proportion)" @on-change="editlist(item.id,'week_proportion',item.week_proportion)"  />
                   </div>
-                  <Input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text" @on-blur="editProject(item.id,'week_text',item.week_text)"/>
+                  <Input class="main-text" type="textarea" autosize placeholder="请输入内容" v-model="item.week_text" @on-blur="editProject(item.id,'week_text',item.week_text)" @on-change="editlist(item.id,'week_text',item.week_text)"/>
                 </div>
               </td>
             </tr>
@@ -155,7 +155,7 @@
                   <span class="gray-text">完成度{{item.month_proportion}}%</span>
                   <div style="display: flex;align-items: center;justify-content: space-around">
                     <i-progress :percent="Number(item.month_proportion)" :hide-info="hideInfo" style="width:132px;"/>
-                    <input-number v-model="item.month_proportion" style="width:50px" :min="min" :max="max"
+                    <input-number v-model="item.month_proportion" style="width:50px" :min="min" :max="max" @on-change="editlist(item.id,'month_proportion',item.month_proportion)"
                                   @on-blur="editProject(item.id,'month_proportion',item.month_proportion)"/>
                   </div>
                   <Input class="main-text" type="textarea" autosize placeholder="请输入本月目标" v-model="item.month_text"
@@ -174,7 +174,7 @@
                   <div style="display: flex;align-items: center;">
                     <i-progress :percent="Number(item.next_month_proportion)" :hide-info="hideInfo"
                                 style="width:132px;"/>
-                    <input-number v-model="item.next_month_proportion" style="width:50px;" :min="min" :max="max"
+                    <input-number v-model="item.next_month_proportion" style="width:50px;" :min="min" :max="max" @on-change="editlist(item.id,'next_month_proportion',item.next_month_proportion)"
                                   @on-blur="editProject(item.id,'next_month_proportion',item.next_month_proportion)"/>
                   </div>
                   <Input class="main-text" type="textarea" autosize placeholder="请输入下月目标"
@@ -384,7 +384,19 @@
           console.log(res)
         })
       },
-
+      editlist(id, type, param){
+        this.isid = '';
+        let self = this
+        let params = new URLSearchParams();
+        params.append('id', id);
+        params.append('type', type);
+        params.append('value', param=='null'?'':param);
+        self.$api.post("/set/admin/projects", params, function (res) {
+          //self.$Message.success('保存成功');
+          self.getData(self.selectTime);
+        }, function (res) {
+          console.log(res)
+        })      },
       //获取所有用户
       getUsers() {
         let self = this
@@ -569,6 +581,11 @@
     },
     data() {
       return {
+        pickoptinns:{
+          disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        },
         thenid:0,//切换版本时使用id
         versionId: '',
         selectTime: '',

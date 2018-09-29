@@ -22,7 +22,7 @@
                     <div class="input-left-title"><span>上班类型</span><span style="color:#ff6666;">*</span></div>
                 </div>
                 <div class="input-content fr">
-                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></i-input></div>
+                    <div class="input-content-inputbox"><el-input size="small" v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></el-input></div>
                     <div class="input-content-inputbox">
                         <el-time-select
                             placeholder="上班时间"
@@ -714,10 +714,6 @@
     .show{
       visibility: visible;
       z-index:1000;
-    }
-
-    .el-input__inner{
-        border:1px solid #ededed !important;
     }
 
 </style>

@@ -169,7 +169,7 @@
           <div class="boxlist">
             <div class="list-title fl">姓名</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.username"></i-input>
+                <el-input size="small" placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.username"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -178,7 +178,7 @@
           <div class="boxlist">
             <div class="list-title fl">电话</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入手机号..." style="width:100%;" v-model="userinfoes.usercall"></i-input>
+                <el-input size="small" placeholder="请输入手机号..." style="width:100%;" v-model="userinfoes.usercall"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -221,7 +221,7 @@
           <div class="boxlist">
             <div class="list-title fl">福利邦分</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入邦分..." style="width:100%;" v-model="userinfoes.bf"></i-input>
+                <el-input size="small" placeholder="请输入邦分..." style="width:100%;" v-model="userinfoes.bf"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -230,7 +230,7 @@
           <!--div class="boxlist">
             <div class="list-title fl">排名范围</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.area"></i-input>
+                <el-input placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.area"></el-input>
             </div>
           </div-->
           <!--列表结束-->
@@ -256,7 +256,7 @@
           <div class="boxlist">
             <div class="list-title fl">姓名</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="adduserlist.username"></i-input>
+                <el-input size="small" placeholder="请输入姓名..." style="width:100%;" v-model="adduserlist.username"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -265,7 +265,7 @@
           <div class="boxlist">
             <div class="list-title fl">电话</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入手机号..." style="width:100%;" v-model="adduserlist.usercall"></i-input>
+                <el-input size="small" placeholder="请输入手机号..." style="width:100%;" v-model="adduserlist.usercall"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -309,7 +309,7 @@
           <!--div class="boxlist">
             <div class="list-title fl">排名范围</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.area"></i-input>
+                <el-input placeholder="请输入姓名..." style="width:100%;" v-model="userinfoes.area"></el-input>
             </div>
           </div-->
           <!--列表结束-->
@@ -344,9 +344,9 @@
 
           <div class="taskunders">
             <div style="border-bottom:1px solid #ededed; height:30px; width:100%; margin-bottom:30px;"></div>
-            <div><i-input type="textarea" :maxlength="40" v-model="task.tasktext" placeholder="请输入一个任务..."></i-input></div>
+            <div><el-input type="textarea" :maxlength="40" v-model="task.tasktext" placeholder="请输入一个任务..."></el-input></div>
             <div style="height:40px;">
-              <span style="display:block; height:40px; line-height:40px; float:left;"> <i-input placeholder="请输入..." style="width: 80px;" v-model="task.taskbf"></i-input></span>
+              <span style="display:block; height:40px; line-height:40px; float:left;"> <el-input placeholder="请输入..." style="width: 80px;" v-model="task.taskbf"></el-input></span>
               <span style="display:block; height:40px; line-height:40px; float:right; padding:5px;"><i-button class="fr backgroundpar" @click="addtasks" type="primary">确定完成</i-button></span>
               <span style="display:block; height:40px; line-height:40px; float:right; padding:5px;"><i-button class="fr" @click="closetaskwins" style="width:80px;">取消</i-button></span>
             </div>
