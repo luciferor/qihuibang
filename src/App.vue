@@ -19,7 +19,7 @@ export default {
 
     if(url[2]=='192.168.0.183:8888'||url[2]=='localhost:8888'){
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
-      console.log('当前测试环境');
+      //console.log('当前测试环境');
     }
   }
 }
@@ -158,5 +158,15 @@ body{
     outline: none;
     box-shadow: none;
     width: 100%; */
+  }
+
+  .schedule-table-container .ivu-input-number-input{
+    border:none !important;
+  }
+  .schedule-table-container .ivu-input-number-input:hover{
+    border:1px solid #d2d2d2 !important;
+  }
+  .schedule-table-container .ivu-input-number-input:active{
+    border:1px solid #d2d2d2 !important;
   }
 </style>

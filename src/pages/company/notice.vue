@@ -53,7 +53,7 @@
                 this.pageTotal = res['data'].message.total,
                 this.dynamiclist = res['data'].message.data;
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //编辑通知状态
@@ -64,23 +64,23 @@
             params.append('id',_id);
             params.append('value',_status?1:0);
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                     this.success(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //获取通知列表
         getnoticelist(){
             let url = window.localStorage.api+'/get/admin/getNoticeList';
             this.$http.get(url).then(res=>{
-                console.log(res);
+                //console.log(res);
                 this.noticelist = res['data'].message.data;
                 this.pageTotal= res['data'].message.total;
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         success(_str){

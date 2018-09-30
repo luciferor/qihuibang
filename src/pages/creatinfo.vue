@@ -214,8 +214,8 @@ export default {
     saveinformations(){//确认修改密码
       ///company/register
       //this.$router.push({path:"/pages/susscess"});
-      console.log(this.adminphone);
-      console.log(this.admincode);
+      //console.log(this.adminphone);
+      //console.log(this.admincode);
 
 
       //console.log("---------------------------------------------------------");
@@ -237,7 +237,7 @@ export default {
       params.append('mobile',this.adminphone);//联系人电话
  
       this.$http.post(regurl,params).then((res)=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
             this.success('注册成功！现在可以去登录了！');
             this.$router.push({ path:"/pages/susscess" });//跳转到主页
@@ -245,7 +245,7 @@ export default {
           this.success(res['data'].message);
         }
       }).catch((err)=>{
-        console.log(err);
+        //console.log(err);
       })
       //console.log("---------------------------------------------------------");
 
@@ -274,16 +274,16 @@ export default {
       let config = {
         headers: {'Content-Type': 'multipart/form-data'}
       }
-      console.log(_img);
+      //console.log(_img);
       this.$http.post(upurl,params).then((res)=>{
         if(_type=="logo"){
-          console.log(res['data'].message.fileurl);
+          //console.log(res['data'].message.fileurl);
           this.companylogo = res['data'].message.fileurl;
         }else{
           this.companylicense = res['data'].message.fileurl;
         }
       }).catch((err)=>{
-        console.log(err);
+        //console.log(err);
       })
     },
     //页面提示信息
@@ -312,7 +312,7 @@ export default {
         this.$http.get(this.mapJson).then(function(response){
           if (response.status==200){
             let data = response.data
-            console.log(data);
+            //console.log(data);
             that.province = []
             that.city = []
             that.block = []
@@ -344,9 +344,11 @@ export default {
             }
           }
           else{
-            console.log(response.status)
+            //console.log(response.status)
           }
-        }).catch(function(error){console.log(typeof+ error)})
+        }).catch(function(error){
+          //console.log(typeof+ error)
+        })
       },
       // 选省
       choseProvince(e){

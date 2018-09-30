@@ -150,7 +150,7 @@
         isedit:false,//是否是编辑状态
         isid:0,//编辑的id
         render: function (createElement) {
-            console.log("OK");
+            //console.log("OK");
             return createElement('span', 'hello'),'world'
         }
       }
@@ -167,7 +167,7 @@
             let url = window.localStorage.api+'/organization/getAllDepartment';
 
             this.$http.get(url).then(res=>{
-                console.log(res);
+                //console.log(res);
                 //this.deplist = res['data'].message;
                 list = res['data'].message;
                 this.deplist = list;
@@ -176,22 +176,22 @@
                //------------------------------------------------------------------
                 
             }).catch(err=>{ 
-                console.log(err);
+                //console.log(err);
             })
         },
         //添加部门时的所有部门
         loadeping(){
             let url = window.localStorage.api+'/organization/getGroundDepartment?type=department';
             this.$http.get(url).then(res=>{
-                console.log(res);
+                //console.log(res);
                 this.adddepinglist = res['data'].message;
             }).catch(err=>{ 
-                console.log(err);
+                //console.log(err);
             })
         },
         //添加部门
         adddepartments(){
-            console.log('添加部门');
+            //console.log('添加部门');
             $('.adddepclassbox').addClass('show animated fadeIn');
         },
         closeadduserwins(){
@@ -205,11 +205,11 @@
             let url=window.localStorage.api+'/organization/addDepartment';
             let params = new URLSearchParams();
             if(this.isfather){
-                console.log('顶级部门');
+                //console.log('顶级部门');
                 //不用传上级id，为顶级部门
                 params.append('name',this.littledep);
                 this.$http.post(url,params).then(res=>{
-                    console.log(res);
+                    //console.log(res);
                     if(res['data'].success){
                         this.success(res['data'].message);
                         this.loadalldeparments();
@@ -220,14 +220,14 @@
                         this.error(res['data'].message);
                     }
                 }).catch(err=>{
-                    console.log(err);
+                    //console.log(err);
                 });                
             }else{
-                console.log('下级部门');
+                //console.log('下级部门');
                 params.append('name',this.littledep);
                 params.append('pid',this.bigdepid);
                 this.$http.post(url,params).then(res=>{
-                    console.log(res);
+                    //console.log(res);
                     if(res['data'].success){
                         this.success(res['data'].message);
                         this.loadalldeparments();
@@ -239,12 +239,12 @@
                         this.error(res['data'].message);
                     }
                 }).catch(err=>{
-                    console.log(err);
+                    //console.log(err);
                 });
             }
         },
         changedep(){
-            console.log(this.bigdepid);
+            //console.log(this.bigdepid);
         },
         //页面提示信息
         success(_str) {
@@ -263,15 +263,15 @@
             });
         },
         test(){
-            console.log(this.isfather);
+            //console.log(this.isfather);
         },
         editdep(_id){
             this.isid = _id;
-            console.log('编辑'+_id);
+            //console.log('编辑'+_id);
         },
         saveedit(_id,_name){
             this.isid = 0;
-            console.log('编辑'+_id+"名称"+_name);
+            //console.log('编辑'+_id+"名称"+_name);
             let url = window.localStorage.api+'/organization/addDepartment';
             let params = new URLSearchParams();
             params.append('name',_name);
@@ -292,13 +292,13 @@
             this.delid = _id;
         },
         ok(){
-            console.log('删除');
+            //console.log('删除');
             let url = window.localStorage.api+'/deleteOrganization';
             let params = new URLSearchParams();
             params.append('type','department');
             params.append('id',this.delid);
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                     this.success(res['data'].message);
                     //重新刷新部门列表
@@ -309,7 +309,7 @@
                     this.error(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         cancel(){

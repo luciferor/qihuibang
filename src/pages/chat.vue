@@ -4,7 +4,7 @@
         <span class="contacts">小燕子</span>
       </div>
       <div class="content">
-        <div v-for="message in messageList" class="msg-container"  ref="msgContainer">
+        <div v-for="(message,index) in messageList" class="msg-container"  ref="msgContainer" :key="index">
           <div :class="message.isReceived ? 'receive-msg' : 'send-msg'">
             <img src="../images/head_default_icon.png">
             <p :class="message.isReceived ? 'receive-bubble receive-bubble-left' : 'send-bubble send-bubble-right'">
@@ -21,7 +21,7 @@
     methods: {
       addMsg() {
         this.index = this.index + 1;
-        console.log("index==========" + this.index);
+        //console.log("index==========" + this.index);
         if (this.index < this.allMessage.length) {
           let message = this.allMessage[this.index];
           this.messageList.push({

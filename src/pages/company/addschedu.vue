@@ -210,7 +210,7 @@
     methods:{
         //清除已选地址项
         clearaddress(index){
-            console.log(index);
+            //console.log(index);
             this.mapdata.splice(index,1);//选中了谁，就清除谁
         },
         //保存考勤信息
@@ -259,7 +259,7 @@
             params.append('multi_clock',this.schedumulti?1:0);//是否需要多个次考勤，是传1，不是传0
 
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if (res['data'].success){
                     this.success(res['data'].message);
                     //清空数据
@@ -276,7 +276,7 @@
                     this.success(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
 
         },
@@ -288,8 +288,8 @@
                 str += ";"+arr[i];
             }
             this.scheduworkdaystring = str.replace('undefined;','');
-            console.log(this.scheduworkdaystring);
-            console.log(String(this.scheduworkday));
+            //console.log(this.scheduworkdaystring);
+            //console.log(String(this.scheduworkday));
         },
         //选中确定的用户
         saveselecteduseres(){
@@ -298,13 +298,13 @@
                 str += ";"+this.selecteduserlist[i].id;
             }
             this.scheduserids = str.substr(1);
-            console.log(this.scheduserids);
+            //console.log(this.scheduserids);
             this.colosusereswin();
         },
         //选中地址
         selectedaddress(){
             if(window.localStorage.mapaddress==""){
-                console.log('请选择一个地址');
+                //console.log('请选择一个地址');
                 return;
             }
             //高德地图
@@ -312,7 +312,7 @@
             // this.maplong=window.localStorage.maplong;//经度
             // this.maplat=window.localStorage.maplat;//纬度
             this.mapdata.push({'scope':this.mapscope,'address':window.localStorage.mapaddress,'lon':window.localStorage.maplong,'lat':window.localStorage.maplat});
-            console.log(this.mapdata);
+            //console.log(this.mapdata);
 
             window.localStorage['mapaddress'] = "";
             window.localStorage['maplong'] = "";
@@ -340,7 +340,7 @@
                     this.selecteduserlist.push({'id':this.alluserlist[i].id,'name':this.alluserlist[i].name,'img':this.alluserlist[i].img});
                 }
             }
-            console.log(this.selecteduserlist);
+            //console.log(this.selecteduserlist);
         },
         //全选
         selectall(){
@@ -348,8 +348,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = true;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //清空
         clearall(){
@@ -357,8 +357,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = false;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //部门列表改变
         depselect(){
@@ -366,8 +366,8 @@
             let sta = this.depid==Number(0)||this.depid==''||this.depid==null||this.depid==undefined;
             let params = sta?'/get/department/listuser':'/get/department/listuser?depart_id='+this.depid;
             let url = window.localStorage.api+params;
-            console.log(params);
-            console.log(url);
+            //console.log(params);
+            //console.log(url);
             this.$http.get(url).then(res=>{
                 let item = res['data'].message;
                 this.userlist = [];
@@ -387,11 +387,11 @@
                         }
                     }
                 }
-                console.log(this.userlist);
-                console.log(this.selecteduserlist);
-                console.log(this.alluserlist);
+                //console.log(this.userlist);
+                //console.log(this.selecteduserlist);
+                //console.log(this.alluserlist);
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         getalluserlist(){//获取到所有的用户
@@ -402,7 +402,7 @@
                     this.alluserlist.push({'id':item[i].id,'name':item[i].name,'img':item[i].user_img,'ischecked':false});
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //获取部门列表
@@ -463,7 +463,7 @@
             
         };
         window.addEventListener("message", function(e){
-            console.log(e);
+            //console.log(e);
             //console.log('您选择了:' + e.data.name + ',' + e.data.location);
             let str = e.data.location;
             let arr = str.split(',');

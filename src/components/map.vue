@@ -229,7 +229,7 @@
             //positionPicker.stop();
           })
           positionPicker.on('fail', function(failResult){
-            console.log(failResult)
+            //console.log(failResult)
           })
           //positionPicker.start();
         })

@@ -91,40 +91,40 @@
   export default {
     filters: {
       srctransformation: function (value) {
-        console.log('-------------------------------------');
+        //console.log('-------------------------------------');
         if (value.indexOf('http://thirdwx.qlogo.cn') != -1) {
           return value.replace(window.localStorage.api, "");
         } else {
           return value;
         }
-        console.log('------------------------------------');
+        //console.log('------------------------------------');
       },
       srctransformation2: function (value) {
-        console.log('-------------------------------------');
+        //console.log('-------------------------------------');
         if (value.indexOf('http://thirdwx.qlogo.cn') != -1) {
           return value.replace(window.localStorage.api, "");
         } else {
           return value;
         }
-        console.log('------------------------------------');
+        //console.log('------------------------------------');
       },
       srctransformation3: function (value) {
-        console.log('-------------------------------------');
+        //console.log('-------------------------------------');
         if (value.indexOf('http://thirdwx.qlogo.cn') != -1) {
           return value.replace(window.localStorage.api, "");
         } else {
           return value;
         }
-        console.log('------------------------------------');
+        //console.log('------------------------------------');
       },
       srctransformation4: function (value) {
-        console.log('-------------------------------------');
+        //console.log('-------------------------------------');
         if (value.indexOf('http://thirdwx.qlogo.cn') != -1) {
           return value.replace(window.localStorage.api, "");
         } else {
           return value;
         }
-        console.log('------------------------------------');
+        //console.log('------------------------------------');
       },
     },
     mounted() {
@@ -195,7 +195,7 @@
             tooltip: {
               show: true,
               formatter: function (params) {
-                console.log(JSON.stringify(params));
+                //console.log(JSON.stringify(params));
                 let id = params.dataIndex;
                 return indicator[id].name + '&nbsp;&nbsp;&nbsp;' + indicator[id].position + '<br>' + '目标邦分：' + target[id] + '分' + '<br>本周获得邦分：' + totals[id] + '分' + '<br>部门平均分：' + average[id] + '分'
                   + '<br>平均工作时长:' + indicator[id].workTime + '小时' + '<br>' + '本周排名: ' + indicator[id].rank + '名';
@@ -258,11 +258,11 @@
           charts.setOption(option);
           //点击Echarts雷达图拐点时,获取indicator的name值
           charts.on('mouseover', (params) => {
-            console.log("======" + params.event)
+            //console.log("======" + params.event)
             if (params.componentType === 'topTarget') {
               // 点击到了 markPoint 上
-              console.log("==============>>>" + params.event.topTarget);
-              console.log(option.radar.indicator[params.event.topTarget].name);
+              //console.log("==============>>>" + params.event.topTarget);
+              //console.log(option.radar.indicator[params.event.topTarget].name);
             }
             // console.log(option.radar.indicator[params.event.topTarget.__dimIdx].name);
           });

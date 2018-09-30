@@ -89,7 +89,7 @@ export default {
           return;
         }
       }).catch(err=>{
-        console.log(err);
+        //console.log(err);
       })
     },
     getcode(){// 获取验证码
@@ -100,7 +100,7 @@ export default {
       let actype = "admin";//后台注册传 admin, 前台登录传home_login,后台忘记密码传mod_pwd
       let apiurl = window.localStorage.api+"/get/phone/code?mobile_phone="+this.adminphone+"&type="+actype;
       this.$http.get(apiurl).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('验证码发送成功，请注意查收！');
           //设置一分钟获取一次
@@ -109,11 +109,11 @@ export default {
           this.error(res['data'].message+",发送失败，请重试");
         }
       }).catch(err=>{
-        console.log("网络错误"+err);
+        //console.log("网络错误"+err);
       })
     },
     ischanggeradio(){
-      console.log(this.cisagree);
+      //console.log(this.cisagree);
     },
     //页面提示信息
     success(_str) {
@@ -145,7 +145,7 @@ export default {
         //清除setinterval
         clearInterval(this.setintervalid);
       }
-      console.log(this.count);
+      //console.log(this.count);
 
     },
     loadingblack(){//加载动画，用于增加用户体验

@@ -218,14 +218,14 @@
     methods:{
         //清除已选地址项
         clearaddress(index){
-            console.log(index);
+            //console.log(index);
             this.mapdata.splice(index,1);//选中了谁，就清除谁
         },
         //根据id号获取到数据
         getscheduwhereid(){
             let url = window.localStorage .api+'/get/info/check/work?id='+this.editid;
             this.$http.get(url).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                     //--提交需求字段-------------------------------------
                     this.scheduname=res['data'].message.name;//考勤名称
@@ -269,19 +269,19 @@
                     let strr='';
                     for (let i = 0; i < this.selecteduserlist.length; i++) {
                         strr += ";"+this.selecteduserlist[i].id;
-                        console.log(this.selecteduserlist[i].id);
+                        //console.log(this.selecteduserlist[i].id);
                     }
                     this.scheduserids = strr.substr(1);
                 }else{
-                    console.log('没有成功获取到数据，请重试');
+                    //console.log('没有成功获取到数据，请重试');
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         test(){
-            console.log(this.schedumulti+"是否允许多选");
-            console.log(this.schedutype+"白班或晚班");
+            //console.log(this.schedumulti+"是否允许多选");
+            //console.log(this.schedutype+"白班或晚班");
         },
         //更新考勤信息
         savescheduinformations(){
@@ -330,7 +330,7 @@
             params.append('multi_clock',this.schedumulti==true?1:0);//是否需要多个次考勤，是传1，不是传0
 
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if (res['data'].success){
                     this.success(res['data'].message);
                     //清空数据
@@ -351,7 +351,7 @@
                     this.success(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
 
         },
@@ -371,11 +371,11 @@
                 str += ";"+this.formatdate(this.scheduworkday[i]);
             }
             this.scheduworkdaystring = str.replace('undefined;','');
-            console.log('**************************************');
-            console.log(this.scheduworkdaystring);
-            console.log('**************************************');
-            console.log(this.scheduworkday);
-            console.log('**************************************');
+            //console.log('**************************************');
+            //console.log(this.scheduworkdaystring);
+            //console.log('**************************************');
+            //console.log(this.scheduworkday);
+            //console.log('**************************************');
         },
         //选中确定的用户
         saveselecteduseres(){
@@ -384,13 +384,13 @@
                 str += ";"+this.selecteduserlist[i].id;
             }
             this.scheduserids = str.substr(1);
-            console.log(this.scheduserids);
+            //console.log(this.scheduserids);
             this.colosusereswin();
         },
         //选中地址
         selectedaddress(){
             if(window.localStorage.mapaddress==""){
-                console.log('请选择一个地址');
+                //console.log('请选择一个地址');
                 return;
             }
             //高德地图
@@ -398,7 +398,7 @@
             // this.maplong=window.localStorage.maplong;//经度
             // this.maplat=window.localStorage.maplat;//纬度
             this.mapdata.push({'scope':this.mapscope,'address':window.localStorage.mapaddress,'lon':window.localStorage.maplong,'lat':window.localStorage.maplat});
-            console.log(this.mapdata);
+            //console.log(this.mapdata);
 
             window.localStorage['mapaddress'] = "";
             window.localStorage['maplong'] = "";
@@ -426,7 +426,7 @@
                     this.selecteduserlist.push({'id':this.alluserlist[i].id,'name':this.alluserlist[i].name,'img':this.alluserlist[i].img});
                 }
             }
-            console.log(this.selecteduserlist);
+            //console.log(this.selecteduserlist);
         },
         //全选
         selectall(){
@@ -434,8 +434,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = true;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //清空
         clearall(){
@@ -443,8 +443,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = false;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //部门列表改变
         depselect(){
@@ -452,8 +452,8 @@
             let sta = this.depid==Number(0)||this.depid==''||this.depid==null||this.depid==undefined;
             let params = sta?'/get/department/listuser':'/get/department/listuser?depart_id='+this.depid;
             let url = window.localStorage.api+params;
-            console.log(params);
-            console.log(url);
+            //console.log(params);
+            //console.log(url);
             this.$http.get(url).then(res=>{
                 let item = res['data'].message;
                 this.userlist = [];
@@ -473,9 +473,9 @@
                         }
                     }
                 }
-                console.log(this.userlist);
-                console.log(this.selecteduserlist);
-                console.log(this.alluserlist);
+                //console.log(this.userlist);
+                //console.log(this.selecteduserlist);
+                //console.log(this.alluserlist);
             }).catch(err=>{
                 console.log(err);
             })
@@ -488,7 +488,7 @@
                     this.alluserlist.push({'id':item[i].id,'name':item[i].name,'img':item[i].user_img,'ischecked':false});
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //获取部门列表

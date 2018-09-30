@@ -324,7 +324,7 @@
         $('.addwelfaredit').removeClass('show animated fadeIn');
       },
       selectedclick(){
-        console.log(this.selectedkey);
+        //console.log(this.selectedkey);
       },
         //--上传图片--------------------------------------------
         addhandleBeforeUpload(file) {//logo
@@ -346,7 +346,7 @@
           let config = {
             headers: {'Content-Type': 'multipart/form-data'}
           }
-          console.log(_img);
+          //console.log(_img);
           this.$http.post(upurl,params).then((res)=>{
             if(_type=="add"){
               this.addlist.daywelf = res['data'].message.fileurl;
@@ -356,7 +356,7 @@
             //console.log(res['data'].message.fileurl);
             
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
         },
         //页面提示信息
@@ -405,7 +405,7 @@
           params.append('img',_img);//奖品图片
           params.append('price',_price);//奖品价值
           this.$http.post(addurl,params).then(res=>{
-            console.log(res);
+            //console.log(res);
             if(res['data'].success){
               this.success('操作成功！');
               //清空填写的数据
@@ -418,7 +418,7 @@
               this.loadinginfosforall();
             }
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
         },
         loadinginfosforall(){
@@ -426,9 +426,9 @@
           this.$http.get(geturl).then(res=>{
             //console.log(res);
             this.listdata=res['data'].message;
-            console.log(this.listdata);
+            //console.log(this.listdata);
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })  
         }
     },
@@ -441,7 +441,7 @@
       }
       //页面启动动画
       $('combox').addClass('animated lightSpeedIn');
-      console.log(this.selectedkey);
+      //console.log(this.selectedkey);
       this.loadinginfosforall();//加载所有数据
     },
     

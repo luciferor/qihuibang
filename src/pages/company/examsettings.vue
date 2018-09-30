@@ -405,11 +405,11 @@
         
         //在保存到数组中
         this.selectedcopylist.push({'id':_id,'name':_name,'user_img':_img});
-        console.log(this.selectedcopylist);
+        //console.log(this.selectedcopylist);
       },
       //-----------------------------------------------------------------------------------
       managereviewevent(){
-        console.log(this.userreviewerstr);//员工评审ID
+        //console.log(this.userreviewerstr);//员工评审ID
         let url = window.localStorage.api+'/get/user/info?user_id='+this.userreviewerstr;
         this.$http.get(url).then(res=>{
           this.addtousers(this.userreviewerstr,res['data'].message.name,res['data'].message.user_img);
@@ -421,7 +421,7 @@
       },
       //************************************************************** */
       reviewevent(){
-        console.log(this.ReviewerStr);//主管评审ID
+        //console.log(this.ReviewerStr);//主管评审ID
         let url = window.localStorage.api+'/get/user/info?user_id='+this.ReviewerStr;
         this.$http.get(url).then(res=>{
           this.addtousers(this.ReviewerStr,res['data'].message.name,res['data'].message.user_img);
@@ -435,7 +435,7 @@
       addtousers(_id,_name,_img){//员工审批人
         //在保存到数组中
         this.selecteduser.push({'id':_id,'name':_name,'user_img':_img});
-        console.log(this.selecteduser);
+        //console.log(this.selecteduser);
       },
       //-----------------------------------------------------------------------------------
       //-----------------------------------------------------------------------------------
@@ -454,7 +454,7 @@
           //console.log(res);
           this.moudellist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       getalldeparment(){//获取所有部门
@@ -463,7 +463,7 @@
           this.deplist = res['data'].message.department;
           //console.log(this.deplist);
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       }
       ,
@@ -471,10 +471,10 @@
         //console.log("获取用户列表，带部门id表示部门下面，没有id返回所有");
         let url =  window.localStorage.api+"/get/modeule/users?id="+this.editid;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.editselecteduserlist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       getdepusers(){//取得选中那个部门
@@ -486,7 +486,7 @@
           //console.log(res);
           this.userlist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
 
       },
@@ -530,26 +530,26 @@
           }
 
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       examsetting(_id,_name){
         this.titlename = _name;
         if(_name=="简报"){
-          console.log('简报审批人设置');
+          //console.log('简报审批人设置');
           $('.examsetprobox').addClass('show animated fadeIn');
           //获取所有管理员
           let url = window.localStorage.api+"/get/department/listuser";
           this.$http.get(url).then(res=>{
-            console.log("-------------------");
-            console.log(res);
-            console.log("-------------------");
+            //console.log("-------------------");
+            //console.log(res);
+            //console.log("-------------------");
             this.allmanager = res['data'].message;
           }).catch(err=>{
             //console.log(err);
           })
         }else{
-          console.log('其他所有设置');
+          //console.log('其他所有设置');
           this.modelid = _id;
           $('.otherexamsetprobox').addClass('show animated fadeIn');
           //$('.examsetprobox').addClass('show animated fadeIn');
@@ -572,40 +572,40 @@
         $('.otherexamsetprobox').removeClass('show animated fadeIn');
       },
       searchuser(value){//搜索用户
-        console.log("搜索用户");
-        console.log(this.ReviewerStr);
-        console.log(value);
+        //console.log("搜索用户");
+        //console.log(this.ReviewerStr);
+        //console.log(value);
         /////
         let url = window.localStorage.api+"/select/users?name="+this.usertxt;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.searchlist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       examseacheruser(){
         let url = window.localStorage.api+"/select/users?name="+this.examtxt;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.examlist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       copysearcheruser(){
         let url = window.localStorage.api+"/select/users?name="+this.copytxt;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.copylist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       removeselected(_index,_id){//清楚已经选中的用户
-        console.log(_index+"+|+"+_id);
+        //console.log(_index+"+|+"+_id);
         this.selecteduser.splice(_index,1);//选中了谁，就清除谁
-        console.log(this.selecteduser);
+        //console.log(this.selecteduser);
       },
       removeexamselected(_index,_id){//清除已经选中审核用户
         this.selectedexamlist.splice(_index,1);//选中了谁，就清除谁
@@ -626,10 +626,10 @@
           const element = this.selectedcopylist[j].id;
           copysid += ';'+element;
         }
-        console.log('---------------------------------------------------');
-        console.log(examsid);
-        console.log('---------------------------------------------------');
-        console.log(copysid);
+        //console.log('---------------------------------------------------');
+        //console.log(examsid);
+        //console.log('---------------------------------------------------');
+        //console.log(copysid);
 
         params.append('id',this.modelid);
         params.append('department_id',this.departmentcheckid);
@@ -642,11 +642,11 @@
             this.ocloseexamset();
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       managerclickownner(){
-        console.log(this.manajsspid);
+        //console.log(this.manajsspid);
         if(this.manajsspid=='自定义互评'){
           this.jbsps = false;
         }else{
@@ -654,7 +654,7 @@
         }
       },
       userroadioclick(){
-        console.log(this.jsspid);
+        //console.log(this.jsspid);
         if(this.jsspid=="自定义部门"){
           this.jsspided = false;
         }else{
@@ -678,7 +678,7 @@
             });
       },
       checkedtabs(){
-        console.log(this.selecttabs);
+        //console.log(this.selecttabs);
         this.searchlist=[];//搜索出来的用户
         this.selecteduser=[];//已选中用户
         this.usertxt="";//清空搜索记录
@@ -694,14 +694,14 @@
           let type = this.selecttabs==0?'user':'manager';
           let url = window.localStorage.api+'/get/admin/briefing/user?id='+id+'&type='+type;
           this.$http.get(url).then(res=>{
-            console.log(res);
+            //console.log(res);
             let item = res['data'].message;
             this.selecteduser =[];
             for (let i = 0; i < item.length; i++) {
               this.selecteduser.push({'id':item[i].judge_user_id,'name':item[i].uname,'user_img':item[i].user_img});
             }
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
           // let url = window.localStorage.api+'/get/leave/approve/user';
           // this.$http.get(url).then(res=>{
@@ -710,14 +710,14 @@
           //   console.log(err);
           // })
         }else{
-          console.log(this.titlename);
+          //console.log(this.titlename);
           let str ='';
           if(this.titlename=='请假'){str = 1}
           if(this.titlename=='补卡'){str = 2}
           if(this.titlename=='外出'){str = 3}
           let url = window.localStorage.api+'/get/admin/examine/users?id='+this.modelid+'&department_id='+this.departmentcheckid;
           this.$http.get(url).then(res=>{
-            console.log(res);
+            //console.log(res);
             let item = res['data'].message;
             this.selectedexamlist = [];
             this.selectedcopylist = [];
@@ -728,29 +728,29 @@
               this.selectedcopylist.push({'id':item.cope_user[j].id,'name':item.cope_user[j].name,'user_img':item.cope_user[j].user_img}); 
             }
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
         }
-        console.log(this.departmentcheckid);
+        //console.log(this.departmentcheckid);
       },
       getmanageruserid(){//简报评审管理员id
-        console.log(this.usercheckid);
+        //console.log(this.usercheckid);
         let id =this.usercheckid;//简报审批人当前选择的谁
         let type = this.selecttabs==0?'user':'manager';
         let url = window.localStorage.api+'/get/admin/briefing/user?id='+id+'&type='+type;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           let item = res['data'].message;
           this.selecteduser =[];
           for (let i = 0; i < item.length; i++) {
             this.selecteduser.push({'id':item[i].judge_user_id,'name':item[i].uname,'user_img':item[i].user_img});
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })        
       },
       savemangeranduserexam(){//保存简报评审
-        console.log(this.selecteduser);
+        //console.log(this.selecteduser);
         //构造选中用户字符串
         let userlistid="";
         for (let i = 0; i < this.selecteduser.length; i++) {
@@ -802,7 +802,7 @@
             this.error('保存失败'+res['data'].message);
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //以下是审批流程
@@ -810,13 +810,13 @@
       getalluserlist(){
         let url =  window.localStorage.api+"/get/users";
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.alluserlist = res['data'].message;
-          console.log("*********************");
-          console.log(this.alluserlist);
-          console.log("*********************");
+          //console.log("*********************");
+          //console.log(this.alluserlist);
+          //console.log("*********************");
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       }
     },

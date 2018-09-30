@@ -213,7 +213,7 @@ export default {
           params.append('county_id',this.comarea);//区id
           params.append('id',this.id);//id
           this.$http.post(apiurl,params).then((res)=>{
-            console.log(res);
+            //console.log(res);
             if (res['data'].success) {
               this.success('修改成功！');
               this.$router.push({path:'/pages/company/informations'});
@@ -221,7 +221,7 @@ export default {
               this.error("修改失败！"+res['data'].message);
             }
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
           //console.log("---------------------------------------------------------");
         },
@@ -245,16 +245,16 @@ export default {
           let config = {
             headers: {'Content-Type': 'multipart/form-data'}
           }
-          console.log(_img);
+          //console.log(_img);
           this.$http.post(upurl,params).then((res)=>{
             if(_type=="logo"){
-              console.log(res['data'].message.fileurl);
+              //console.log(res['data'].message.fileurl);
               this.comlogo = res['data'].message.fileurl;
             }else{
               this.comlicense = res['data'].message.fileurl;
             }
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
         },
         //页面提示信息
@@ -286,7 +286,7 @@ export default {
         this.$http.get(this.mapJson).then(function(response){
           if (response.status==200){
             let data = response.data
-            console.log(data);
+            //console.log(data);
             that.province = []
             that.city = []
             that.block = []
@@ -318,24 +318,26 @@ export default {
             }
           }
           else{
-            console.log(response.status)
+            //console.log(response.status)
 
           }
-        }).catch(function(error){console.log(typeof+ error)})
+        }).catch(function(error){
+          //console.log(typeof+ error)
+          })
       },
       // 选省
       choseProvince(e,_type){
         let a = e.substr(0,2);
         let b = String(this.comcounty).substr(0,2);
         let c = String(this.comarea).substr(0,2);
-        console.log(e.substr(0,2));
-        console.log(String(this.comcounty).substr(0,2));
-        console.log(String(this.comarea).substr(0,2));
+        //console.log(e.substr(0,2));
+        //console.log(String(this.comcounty).substr(0,2));
+        //console.log(String(this.comarea).substr(0,2));
         if(a!=b||a!=c){
           this.comcounty='';
           this.comarea='';
         }
-        console.log(e);
+        //console.log(e);
         this.comprovince = e;
         for (let index2 in this.province) {
           if (e === this.province[index2].id) {
@@ -349,7 +351,7 @@ export default {
       },
       // 选市
       choseCity(e){
-        console.log(e);
+        //console.log(e);
         this.comcounty=e;
         for (let index3 in this.city) {
           if (e === this.city[index3].id) {
@@ -372,11 +374,11 @@ export default {
         this.$router.push({path:'/pages/login'});
         return;
       }
-    console.log(this.$route.query.comid);
+    //console.log(this.$route.query.comid);
     this.id = this.$route.query.comid;
     let url = window.localStorage.api + '/get/company';//接口地址
     this.$http.get(url).then(res=>{
-            console.log(res);
+            //console.log(res);
             //this.comid=res['data'].message.id;//用户id
             this.comlogo=res['data'].message.logo;//公司logo
             this.comname=res['data'].message.name;//公司名称

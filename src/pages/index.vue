@@ -5,10 +5,10 @@
     <!--遮罩层结束-->
     <div class="menuleft menuunshow fl">
       <div class="menutop">
-        <div class="logoimg fl"><img src="../assets/iMenu/icon_logo.png" /></div>
+        <div class="logoimg fl"><img :src="companyinfo.logo==''?rootImg:rootUrl+companyinfo.logo" /></div>
         <div class="searchbox fl">
           <div class="inbox">
-            <div style="height:40px; line-height:40px; font-size:14px;">消汇邦信息科技有限公司</div>
+            <div style="height:40px; line-height:40px; font-size:14px;">{{(companyinfo.name)}}</div>
             <el-input v-show="false" icon="ios-search" style="width:100%; height:100%; border:none;" placeholder="请输入搜索关键字..."></el-input> 
           </div>
         </div>
@@ -199,17 +199,18 @@ export default {
   name: "index",
   filters:{
     srctransformation:function(value){
-        console.log('-------------------------------------');
+        //console.log('-------------------------------------');
         if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
           return value.replace(window.localStorage.api,"");
         }else{
           return value;
         }
-        console.log('------------------------------------');
+        //console.log('------------------------------------');
     }
   },
   data() {
     return {
+      companyinfo:[],
       rootUrl:window.localStorage.api,
       rootImg:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAEQElEQVR4nO2bYXOqOhCG34AVBBkH7P//gxWFqiFIJPfDnXCgx1rbcQn07POJdijJPA2bTTaIqqoMGDI81x347bBgYlgwMSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTMyCuoGmaSClRF3XaNsWxrgtYgsh4HkegiBAFEV4eXmhbY+ybC+lRFmWVI9/CpvNBlEUkT2fLEQ0TTN5uQBQliWapiF7PlmIkFJ210IIJEmC5XJJ1dzDGGNQVdWgf1JKbDYbkvbIBNd13V0nSYI4jqma+jbL5RJt20IpBWDY12dDFiKu12t3HQQBVTM/pv829fv6bEZJ04QQYzTzLTxvnAyV82BifpVg1zn2LcgXGpQYY3A+n6GU6lItIQSCIMBqtUIYho57OGPBdV2jKAq0bTv4vTEGSikopbBcLpGm6Wjx9hazDBGXywWHw+Evubfuy/PcaeiY3Qg2xuBwOHTShBCI4xhhGMLzPGitcT6fu9xWa42iKJCmqZP+zk7w6XTqRq4QAlmWDXJa3/cRBAGOxyNOpxMAdDGaemPnFrMLEXb1BQDr9frT5XeSJFgs/oyf/t+NyawEG2Ogte5+/ipLWK1W3TXlhs49ZiX446Tm+/7d+/vZg6uJblaCP6Zb/dF8i/4eg6tUbVaChRCDiaq/5fgRuy1pcTHBATMTDGBQfZBS3pRsjEFRFN0IFkIM4vGYzC5Ni6II5/O5Cw9lWUIpNciDpZSD8BDH8ZfxmorZCQaANE2R53k36dV1/emmeRiGSJJkzO4NmF2IAIDFYoHX19e7JSi7wnO1grPMcgQD/6do2+0WdV13KzVjTFeSX61WzsJCn9kKtgRBMMmSlGUSIWKKG+XPwtkIbtsWx+MRVVXBGIPFYoEkSSaxSf5MnIxgrTV2ux2klN3o1VrjcDjgeDy66BIZowvWWiPP809L5afTCUVRjNwrOkYNEU3TYL/ff1mJqKoKbdsiTdO7JX9bjzPGIAxDxHE8uSMCowmu63pQiXjk/v1+jyzL/pJmqxr9xUXTNKiqClmWTSI9s4wSIpRS35JrsTW1/oi/Xq/Y7XY3V25a64fekDEZRfD7+/uPU7GmabqYba/vbVPaGD8VybNYaGit8fb29vA/yY7k7XbrPCZPYqHxCN99A+yE6noRMxvBP+FyuTiX/KsFA38OqXBNjhB7zMoFZIJdTy4fUUoNJPdXkpR9JRPs8sDdZ1RVhbIs0bbtoJbXP6DybMieHATB3aqvK6SUUEoN8mTKHTyyYbZerycXJix9uZ7nzfM7Od/3kWXZJEOFRQhBfn6Y9EtPAF28U0pBa+088bef0trdN+qNIXLB/zrTfX9/CSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTAwLJoYFE/Mfuu8crG4Pn8IAAAAASUVORK5CYII=',
       userImg:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAgVBMVEUAAADo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6Ojo6OjR0dHW1tbb29ve3t7i4uLY2Njk5OQwtOK3AAAAI3RSTlMAC+BHIPXxdwjb7J1PFOTWx71ZArhs6dGUFqZwmJBcKahdt2kJJfYAAAJXSURBVFjDxdkJcqswDAZghTUQKNkTkjZN32/W+x/wtZlpaUIksIHpdwCNFyHbgjrE9u64SvYe3DA4rI47OyZzs+jtgJbDWzQjAxv75ILhnuyN7uDOFkTWWWeYcz9Ep9CfU09rC71Ya+rD+Yfetg51unjQ4F26Vm8BTQtxJdMltC1TYfkCGAjYhXx/gZGXd2Z8Ujw54tMxxgGMBfGT/V1igGV7rxcYZNHKZwx0edgQDwN59xuzhaAuskxlWV7K3/VdfZHCVepbJoZcN/FmFliF+i0Hz2pKrg9Wru5V4Pk/Awzl8fUdY/g9xB2/fqpNWMcd3WwsYcJtmbCKm1tAGyz1TA2WfQt4AqdUzxRgXW9b4urMWN5o92tbImgGzMCLPgO+jhnw9TNggPGmjIAoBYZvSiNlkkZOG4HNfMdiYkt8pvSLn558FKzAYIuDaEUJGFz5kiW0B4MrsLI9eWBwR4DMI3Sri6o5pLqQi3FRiFF5ZGFUezpAVpfFL2UNWSIndpln6kHH3qz4T69JmEZ39iyE4lAoVg6Oz5evXAkqvnylfDyTiClRoDdfuW4H7CGlOtXcIRWxEzaYdMQd9KqHmjno6SquoFbuXLnLEpPRnaeVzV3nMrOA1oa7cCqzgGf2Sqx6Ya/E5I8T0GeeFRpryD0raG2Q2PljHq7lp1lZ5HmVPVNVeV60S+J22scjfWCgj4kf4MNbBNM2MYa3WaZtBDWcBAYSh1ixSTMtFtt9R2g6zkkW6TUkI+rkbNHb1pm0qTu87TxlY3x46/7vfy7c//5wAXef9Pn98R+pP67D9VcSWgAAAABJRU5ErkJggg==',
@@ -238,7 +239,7 @@ export default {
       });
     })
 
-
+    this.getcompanyinfos();
     //监听窗口变化
     const that = this;
     window.onresize = () => {
@@ -254,6 +255,17 @@ export default {
     };
   },
   methods:{
+    getcompanyinfos(){
+        let geturl = window.localStorage.api+'/get/company';
+        this.$http.get(geturl).then(res=>{
+          if(res['data'].success){
+            //console.log(res['data'].message);
+            this.companyinfo = res['data'].message;
+          }
+        }).catch(err=>{
+          //console.log(err);
+        })
+    },
     showmenutoggle(){
       if($('.menuleft').css('visibility')!='visible'){
         $('.menuleft').removeClass('animated slideOutLeft menushow');
@@ -275,10 +287,10 @@ export default {
     loaduserinformation(){
       let url = window.localStorage.api+'/get/user/info';
       this.$http.get(url).then(res=>{
-        console.log(res);
+        //console.log(res);
         this.userinfolist = res['data'].message;
       }).catch(err=>{
-        console.log(err);
+        //console.log(err);
       })
     },
     saveeditinformations(){
@@ -298,7 +310,7 @@ export default {
       params.append('pwd',this.userinfo.newpass);
       params.append('oldpwd',this.userinfo.oldpass);
       this.$http.post(url,params).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('密码修改成功！需要重新登录');
           //跳转到登录页面
@@ -309,7 +321,7 @@ export default {
           
         }
       }).catch(err=>{
-        console.log('网络错误，请稍候重试！'+err);
+        //console.log('网络错误，请稍候重试！'+err);
       })
     },
     openblank(){
@@ -523,12 +535,12 @@ export default {
           let config = {
             headers: {'Content-Type': 'multipart/form-data'}
           }
-          console.log(_img);
+          //console.log(_img);
           this.$http.post(upurl,params).then((res)=>{
-            console.log(res['data'].message.fileurl);
+            //console.log(res['data'].message.fileurl);
             this.userinfo.userimg = res['data'].message.fileurl;
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
         },
         //页面提示信息
@@ -648,15 +660,16 @@ $(function(){
       .menuleft .menutop .logoimg{
         height: 70px;
         width:50px;
-        background-image: linear-gradient(-90deg, 
+        /* background-image: linear-gradient(-90deg, 
         #3355ff 0%, 
-        #667fff 100%);
+        #667fff 100%); */
         position: relative;
+        border-right:1px solid #E0E0E0;
       }
 
       .menuleft .menutop .logoimg img{
-        height: 30px;
-        width:31px;
+        height: 40px;
+        width:40px;
         position: absolute;
         left:0;
         right:0;
@@ -1029,15 +1042,16 @@ $(function(){
       .menuleft .menutop .logoimg{
         height: 70px;
         width:50px;
-        background-image: linear-gradient(-90deg, 
+        /* background-image: linear-gradient(-90deg, 
         #3355ff 0%, 
-        #667fff 100%);
+        #667fff 100%); */
         position: relative;
+        border-right:1px solid #E0E0E0;
       }
 
       .menuleft .menutop .logoimg img{
-        height: 30px;
-        width:31px;
+        height: 40px;
+        width:40px;
         position: absolute;
         left:0;
         right:0;
@@ -1444,15 +1458,16 @@ $(function(){
       .menuleft .menutop .logoimg{
         height: 70px;
         width:50px;
-        background-image: linear-gradient(-90deg, 
+        /* background-image: linear-gradient(-90deg, 
         #3355ff 0%, 
-        #667fff 100%);
+        #667fff 100%); */
         position: relative;
+        border-right:1px solid #E0E0E0;
       }
 
         .menuleft .menutop .logoimg img{
-        height: 30px;
-        width:31px;
+        height: 40px;
+        width:40px;
         position: absolute;
         left:0;
         right:0;

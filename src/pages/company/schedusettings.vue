@@ -87,7 +87,7 @@
         let params = new URLSearchParams();
         params.append('id',this.delid);
         this.$http.post(url,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             this.success(res['data'].message);
             this.modalmsg = false;
@@ -95,7 +95,7 @@
             this.getschedulist();
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       cancel(){
@@ -108,10 +108,10 @@
       getschedulist(){
         let url = window.localStorage.api+"/get/check/work";
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.schedulist = res['data'].message.data;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //页面提示信息

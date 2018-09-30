@@ -25,7 +25,7 @@
 
       <div class="comcontent-top-img" v-show="showed">
         <div class="comcontent-top-img-box  fl">
-          <img :src="comlogo==''?rootImg:rootUrl+comlogo" width="148" height="110" />
+          <img :src="comlogo==''?rootImg:rootUrl+comlogo" width="110" height="110" />
           <div class="imgtext">LOGO</div>
         </div>
 
@@ -75,7 +75,7 @@
         this.$http.get(geturl).then(res=>{
           if(res['data'].success){
             this.getaddress();
-            console.log(res['data'].message);
+            //console.log(res['data'].message);
             this.comid = res['data'].message.id
             this.comname = res['data'].message.name;
             this.comscale = res['data'].message.scale;
@@ -89,7 +89,7 @@
             this.infoslist = res['data'].message;
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
        
       },
@@ -109,14 +109,14 @@
         this.$http.get('../static/json/map.json').then(res=>{
             if (res.status==200){
               let data = res.data
-              console.log('---------------------------1');
+              //('---------------------------1');
               this.sheng = data[this.infoslist.province_id];
               this.shi = data[this.infoslist.city_id];
               this.qu = data[this.infoslist.county_id];
-              console.log(this.sheng);
-              console.log(this.shi);
-              console.log(this.qu);
-              console.log('---------------------------2');
+              // console.log(this.sheng);
+              // console.log(this.shi);
+              // console.log(this.qu);
+              // console.log('---------------------------2');
             }
         });
       },
@@ -213,6 +213,7 @@
     border-radius: 4px;
     border: solid 1px #ededed;
     margin-right: 30px;
+    text-align: center;
   }
 
   .combox .comcontent .comcontent-top-img .comcontent-top-img-box img{

@@ -197,13 +197,13 @@
   export default {
     filters:{
       srctransformation:function(value){
-          console.log('-------------------------------------');
+          //console.log('-------------------------------------');
           if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
             return value.replace(window.localStorage.api,"");
           }else{
             return value;
           }
-          console.log('------------------------------------');
+          //console.log('------------------------------------');
       }
     },
     data(){
@@ -252,10 +252,10 @@
       getjobusers(){
         let url = window.localStorage.api+'/organization/getPostAndUser';
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.joblist=res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       deleteuser(_id){
@@ -269,7 +269,7 @@
         params.append('type','user');
         params.append('id',this.userid);
         this.$http.post(url,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             //如果重新加载数据
             this.success(res['data'].message);
@@ -279,7 +279,7 @@
           }
           this.modalo = false;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       cancel(){
@@ -298,21 +298,20 @@
         this.$http.get(url).then(res=>{
           this.adduserlist.deplist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       selectdepevent(){//根据部门查询岗位
-        console.log(this.adduserlist.depid);
+        //console.log(this.adduserlist.depid);
         let url = window.localStorage.api+"/organization/getPostAndUser?department_id="+this.adduserlist.udepid;
         this.$http.get(url).then(res=>{
             this.adduserlist.ldeplist = res['data'].message;
-            console.log(res['data'].message);
+            //console.log(res['data'].message);
             if(res['data'].message.length==0){//如果不存在岗位
                this.adduserlist.uldepid='';
             }
-
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       adduserinformations(){//添加用户
@@ -334,7 +333,7 @@
         params.append('post_id',this.adduserlist.uldepid);//岗位id	
         params.append('ismanage',this.adduserlist.isadmin);//是否为主管，0不是，1是
         this.$http.post(addurl,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             this.success('添加成员成功！');
             this.adduserlist.usercall="";
@@ -349,30 +348,30 @@
             this.error(res['data'].message);
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
 
       },
       getteams(_id){
-        console.log(_id);
+        //console.log(_id);
         let url = window.localStorage.api+"/organization/getDepartment?="+_id;
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           if (res['data'].message.existNext==1) {
-            console.log('存在下级部门');
+            //console.log('存在下级部门');
           }else{
-            console.log('不存在下级部门');
+            //console.log('不存在下级部门');
             let uerurl = window.localStorage.api+'/organization/getPostAndUser?department_id='+_id;
             this.$http.get(uerurl).then(res=>{
               //console.log(res);
               this.userlist = res['data'].message;
-              console.log(this.userlist);
+              //console.log(this.userlist);
             }).catch(err=>{
-              console.log(err);
+              //console.log(err);
             })
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //添加岗位
@@ -387,10 +386,10 @@
       getpostdepinfos(){
         let url = window.localStorage.api+'/organization/getGroundDepartment?type=post';
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.addpostlist.deplist = res['data'].message;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //添加岗位
@@ -409,7 +408,7 @@
         params.append('name',this.addpostlist.postname);
         params.append('department_id',this.addpostlist.pid);
         this.$http.post(addurl,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             this.success(res['data'].message);
             this.getjobusers();//重新加载岗位和用户数据
@@ -418,11 +417,11 @@
             this.addpostlist.postname="";
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       showandhidden(){
-        console.log("12311213231");
+        //console.log("12311213231");
       },
       editdep(_id){//编辑岗位
         this.isid = _id;
@@ -446,7 +445,7 @@
           }
           this.modalmsg = false;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       cancel2(){
@@ -465,7 +464,7 @@
             this.error(res['data'].message);
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //页面提示信息

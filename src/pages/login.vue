@@ -135,7 +135,7 @@ export default {
               params.append('mill',this.commill);//厂商
               params.append('type','admin');
               this.$http.post(loginurl,params).then((res)=>{
-                console.log(res.data);
+                //console.log(res.data);
                 if(res['data'].success){
                   this.success("登录成功！");             
                   this.loadingblack();
@@ -146,7 +146,7 @@ export default {
                   window.sessionStorage['status'] = false;
                 }
               }).catch((err)=>{
-                console.log(err);
+                //console.log(err);
               })
               //console.log("---------------------------------------------------------");
             }else{
@@ -155,7 +155,7 @@ export default {
               return;
             }
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
         }
       }
@@ -185,7 +185,7 @@ export default {
               params.append('password',this.adminpassword);//验证码
               
               this.$http.post(loginurl,params).then((res)=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                   this.success("登录成功！");
                   this.loadingblack();
@@ -197,7 +197,7 @@ export default {
                   return;
                 }
               }).catch((err)=>{
-                console.log(err);
+                //console.log(err);
                 this.error('网络错误，请稍候重试！'+err);
                 return;
               })
@@ -215,7 +215,7 @@ export default {
       let actype = "home_login";
       let apiurl = window.localStorage.api+"/get/phone/code?mobile_phone="+this.adminphone+"&type="+actype;
       this.$http.get(apiurl).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('验证码发送成功，请注意查收!');
           //设置一分钟获取一次
@@ -224,7 +224,7 @@ export default {
           this.error(res['data'].message+",发送失败，请重试");
         }
       }).catch(err=>{
-        console.log("网络错误"+err);
+        //console.log("网络错误"+err);
       })
     },
     forgetpas(){
@@ -262,7 +262,7 @@ export default {
         //清除setinterval
         clearInterval(this.setintervalid);
       }
-      console.log(this.count);
+      //console.log(this.count);
 
     },
     loadingblack(){//加载动画，用于增加用户体验
@@ -284,7 +284,7 @@ export default {
           this.error('您输入的手机号不符合，请重新输入');
           this.adminphone = '';
         }else{
-          console.log("是手机号");
+          //console.log("是手机号");
         }
       }
       if(this.adminphone.length>11){
@@ -301,10 +301,10 @@ export default {
       }
     },
     codeandpassword(){
-      console.log(this.cp);
+      //console.log(this.cp);
     },
     test(){
-      console.log(this.agreeseleced);
+      //console.log(this.agreeseleced);
     }
   },
   mounted(){

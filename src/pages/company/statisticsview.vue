@@ -7,7 +7,7 @@
       </div>
       <div class="top-container">
         <div class="datePicker-container">
-          <DatePicker type="date" placeholder="请选择日期" @on-change="getData" :disabledDate="Date.now()+1"></DatePicker>
+          <DatePicker type="date" placeholder="请选择日期" @on-change="getData" :options="timeoptions"></DatePicker>
         </div>
         <div class="add-project" @click="addProject()">
           <img src="../../images/icon_tianjia.png"/>
@@ -370,7 +370,7 @@
         return "eChart_" + index;
       },
       //编辑项目
-      editProject(id, type, param) {
+      editProject(id, type,param){
         this.isid = '';
         let self = this
         let params = new URLSearchParams();
@@ -381,7 +381,7 @@
           self.$Message.success('保存成功');
           self.getData(self.selectTime);
         }, function (res) {
-          console.log(res)
+          //console.log(res)
         })
       },
       editlist(id, type, param){
@@ -395,7 +395,7 @@
           //self.$Message.success('保存成功');
           self.getData(self.selectTime);
         }, function (res) {
-          console.log(res)
+          //console.log(res)
         })      },
       //获取所有用户
       getUsers() {
@@ -534,7 +534,7 @@
 
       //版本列表
       getVersionList(id) {
-        console.log(id+"要切换此ID的版本");
+        //console.log(id+"要切换此ID的版本");
         this.thenid = id;
         let self = this;
         let params = new URLSearchParams();
@@ -558,7 +558,7 @@
 
       //切换版本
       changeVersion(id) {
-        console.log(id+'第二个按钮。id代表版本')
+        //console.log(id+'第二个按钮。id代表版本')
         let self = this;
         let params = new URLSearchParams();
         if (id !== '' && id !== null && (typeof(id) !== "undefined")){
@@ -581,10 +581,10 @@
     },
     data() {
       return {
-        pickoptinns:{
-          disabledDate(time) {
-          return time.getTime() > Date.now();
-        },
+        timeoptions:{
+          disabledDate (date) {
+            return date && date.valueOf() > Date.now();
+          }
         },
         thenid:0,//切换版本时使用id
         versionId: '',
