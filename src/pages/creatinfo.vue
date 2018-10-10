@@ -7,7 +7,7 @@
           <Tabs style="width:400; height:680px;" active-key="key1">
             <Tab-pane label="创建企业" key="key1">
                 <el-scrollbar style="height:100%;">
-                  <div style="height:620px; padding:10px;">
+                  <div style="height:620px;">
 
                     <div class="boxlist">
                       <div class="list-title fl">公司logo</div>
@@ -392,91 +392,210 @@ export default {
 </script>
 
 <style scoped>
-  .thebox{
-    background: url(../assets/login_bg.png) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height:100vh;
-    /*兼容低版本*/
-   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale')";
-  }
-
-  /*登录框样式*/
-  .loginbox{
-    width:640px;
-    height:720px;
-    padding:20px;
-    background: white;
-    position: absolute;
-    border-radius: 5px;
-    left:0;
-    right:0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    /*50%为自身尺寸的一半*/
-    -webkit-box-shadow: 2px 2px 5px #333;
-    box-shadow: 2px 2px 5px #333;
-  }
-
-  /*右部分盒子样式*/
-  .loginbox .login-select{
-    width:600px;
-    height: 680px;
-  }
-
-
-  .boxlist{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-  }
-
-  .boxlist .list-title{
-    padding-right:20px;
-    font-weight:bold;
-    width:100px;
-  }
-  .boxlist .list-content{
-    width:300px;
-  }
-  .boxlist .list-content .list-content-img{
-    margin-right:10px;
-  }
-  .boxlist .list-content .list-content-img img{
-    width:88px;
-    height:88px;
-  }
-  .boxlist .list-content-upbtn{}
-  .boxlist .list-content-upbtn span{
-    text-align: center;
-  }
 
   /*适配各种尺寸-手机端*/
-  @media only screen and (max-width: 768px) and (min-width: 320px)
+  @media only screen and (max-width: 767px) and (min-width: 320px)
   {
+    .thebox{
+      background: url(../assets/login_bg.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height:100vh;
+      /*兼容低版本*/
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale');
+      -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale')";
+    }
+
+    /*登录框样式*/
+    .loginbox{
+      width:100%;
+      height:100%;
+      padding:20px;
+      background: white;
+      position: absolute;
+      left:0;
+      right:0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /*50%为自身尺寸的一半*/
+    }
+
+    /*右部分盒子样式*/
+    .loginbox .login-select{
+      width:100%;
+      height:100%;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:300px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
 
   }
 
   /*适配各种尺寸-平板电脑*/
-  @media only screen and (max-width: 1024px) and (min-width: 768px)
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
   {
+    .thebox{
+      background: url(../assets/login_bg.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height:100vh;
+      /*兼容低版本*/
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale');
+      -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale')";
+    }
 
+    /*登录框样式*/
+    .loginbox{
+      width:640px;
+      height:720px;
+      padding:20px;
+      background: white;
+      position: absolute;
+      border-radius: 5px;
+      left:0;
+      right:0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /*50%为自身尺寸的一半*/
+      -webkit-box-shadow: 2px 2px 5px #333;
+      box-shadow: 2px 2px 5px #333;
+    }
+
+    /*右部分盒子样式*/
+    .loginbox .login-select{
+      width:600px;
+      height: 680px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:300px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
   }
 
   /*适配各种尺寸-PC端小屏幕*/
-  @media only screen and (max-width: 1920px) and (min-width: 1024px)
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
   {
+    .thebox{
+      background: url(../assets/login_bg.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height:100vh;
+      /*兼容低版本*/
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale');
+      -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../assets/logo.png', sizingMethod='scale')";
+    }
+
+    /*登录框样式*/
+    .loginbox{
+      width:640px;
+      height:720px;
+      padding:20px;
+      background: white;
+      position: absolute;
+      border-radius: 5px;
+      left:0;
+      right:0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /*50%为自身尺寸的一半*/
+      -webkit-box-shadow: 2px 2px 5px #333;
+      box-shadow: 2px 2px 5px #333;
+    }
+
+    /*右部分盒子样式*/
+    .loginbox .login-select{
+      width:600px;
+      height: 680px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:300px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
 
   }
-
-
-    /*适配各种尺寸-PC端高分辨率屏幕*/
-  @media only screen and (max-width: 1920px) and (min-width: 2560px)
-  {
-
-  }
+</style>
+<style>
+    .el-scrollbar__thumb{
+      width:1px !important;
+      overflow:hidden !important;
+    }
 </style>

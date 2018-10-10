@@ -35,7 +35,6 @@ import vuescroll from 'vuescroll';
 import Map from './components/map'
 //---------------------------------------------------组件引入
 
-
 HighchartsMore(Highcharts)
 Vue.prototype.$api = api
 Vue.prototype.$echarts=echarts
@@ -66,7 +65,7 @@ Vue.prototype.$http = axios
 Vue.prototype.$echarts=echarts
 Vue.prototype.$hightChart = Highcharts
 
-new Vue({
+let vm = new Vue({
   el: '#app',
   router,
   components: { App },

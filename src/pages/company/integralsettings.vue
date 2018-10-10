@@ -267,7 +267,7 @@
                 </div>
               </div>
             </Tab-pane>
-            <Tab-pane label="打卡价值观" key="key5">
+            <Tab-pane label="自我管理设置" key="key5">
               <div class="comcontent-topa" style="padding:10px;">
                   <span class="comcontent-topa-title">自我价值观</span>
                   <span class="comcontent-topa-des">自我加减分是自我行为管理的表现，基于信任原则，诚信为自己加分，据实为自己加分，据实为自己减分</span>
@@ -276,14 +276,24 @@
                   <div class="content-listbox" style="padding:20px;">
                       <div class="content-listbox-left fl">自我加分</div>
                       <div class="content-listbox-right fl">
-                          <el-tag @close="deletetags(item.id)" style="margin:5px;" size="small" v-for="item in brefenlistadd" :key="item.index" closable>{{item.text}}(+{{item.bangfen}}邦分)</el-tag>
+                          <div style="padding:0px 0px 5px 5px; float:left;" v-for="item in brefenlistadd" :key="item.index">
+                            <div class="classtagslist">
+                              <div @click="edittags(item.id,'add')" class="tagstext">{{item.text}}(+{{item.bangfen}}邦分)</div>
+                              <div @click="deletetags(item.id)" class="tagsbtn">X</div>
+                            </div>
+                          </div>
                           <el-button @click="showwin('add')" size="mini" icon="el-icon-plus">添加标签</el-button>
                       </div>
                   </div>
                   <div class="content-listbox" style="padding:20px;">
                       <div class="content-listbox-left fl">自我减分</div>
                       <div class="content-listbox-right fl">
-                          <el-tag  @close="deletetags(item.id)" style="margin:5px;" size="small" v-for="item in brefenlistred" :key="item.index" closable>{{item.text}}(-{{item.bangfen}}邦分)</el-tag>
+                          <div style="padding:0px 0px 5px 5px; float:left;" v-for="item in brefenlistred" :key="item.index">
+                            <div class="classtagslist">
+                              <div @click="edittags(item.id,'reduce')" class="tagstext">{{item.text}}(-{{item.bangfen}}邦分)</div>
+                              <div @click="deletetags(item.id)" class="tagsbtn">X</div>
+                            </div>
+                          </div>
                           <el-button @click="showwin('reduce')" size="mini" icon="el-icon-plus">添加标签</el-button>
                       </div>
                   </div>
@@ -321,7 +331,7 @@
         </div>
         <div class="combox-tags-box-content">
             <div>自我价值观</div>
-            <div><i-input type="textarea" :maxlength="15" v-model="ownnerprice" :value="ownnerprice" placeholder="请输入一个词汇..."></i-input></div>
+            <div><el-input type="textarea" :maxlength="15" v-model="ownnerprice" :value="ownnerprice" placeholder="请输入一个词汇..."></el-input></div>
             <div style="color:#ff6666;">注：每个标签最多为15个字，单项最多不能超过15个标签</div>
             <div>
 
@@ -446,12 +456,141 @@
         <div class="addtags-title"><span>添加标签</span><span class="fr" @click="closeaddtags" style="cursor: pointer;">x</span></div>
         <div class="addtagscontents">
             <div style="color:#5c5d66; font-size:14px;">符合价值</div>
-            <div><i-input :maxlength="6" v-model="tags" type="textarea" :value="tags" placeholder="请输入..."></i-input></div>
+            <div><el-input :maxlength="6" v-model="tags" type="textarea" :value="tags" placeholder="请输入..."></el-input></div>
             <div style="color:#ff6666;">注：每个标签最多6个字符，单项最多不能超过6个标签</div>
             <div style="text-align:right;"><i-button @click="savetags" >确认完成</i-button></div>
         </div>
     </div>
   <!--打卡价值观---------------------------------------------------------------------------------------------------->
+
+  <!-- 编辑标签开始 -->
+    <div class="editcomboxtagsbox unshow">
+        <div class="combox-tags-box-title">
+            <span class="fl">添加价值标签</span><span class="fr" @click="closeeditwin" style="cursor: pointer;" >x</span>
+        </div>
+        <div class="combox-tags-box-content">
+            <div>自我价值观</div>
+            <div><el-input type="textarea" :maxlength="15" v-model="editinfoes.des" :value="ownnerprice" placeholder="请输入一个词汇..."></el-input></div>
+            <div style="color:#ff6666;">注：每个标签最多为15个字，单项最多不能超过15个标签</div>
+            <div>
+
+                <span>
+                    <i-select v-show="isshowselected" v-model="editinfoes.buff" placeholder="请选择分值">
+                        <i-option :value="0.5">+0.5邦分</i-option>
+                        <i-option :value="1">+1邦分</i-option>
+                        <i-option :value="1.5">+1.5邦分</i-option>
+                        <i-option :value="2">+2邦分</i-option>
+                        <i-option :value="2.5">+2.5邦分</i-option>
+                        <i-option :value="3">+3邦分</i-option>
+                        <i-option :value="3.5">+3.5邦分</i-option>
+                        <i-option :value="4">+4邦分</i-option>
+                        <i-option :value="4.5">+4.5邦分</i-option>
+                        <i-option :value="5">+5邦分</i-option>
+                        <i-option :value="5.5">+5.5邦分</i-option>
+                        <i-option :value="6">+6邦分</i-option>
+                        <i-option :value="6.5">+6.5邦分</i-option>
+                        <i-option :value="7">+7邦分</i-option>
+                        <i-option :value="7.5">+7.5邦分</i-option>
+                        <i-option :value="8">+8邦分</i-option>
+                        <i-option :value="8.5">+8.5邦分</i-option>
+                        <i-option :value="8">+9邦分</i-option>
+                        <i-option :value="9.5">+9.5邦分</i-option>
+                        <i-option :value="10">+10邦分</i-option>
+                        <i-option :value="15">+15邦分</i-option>
+                    </i-select>
+                    <i-select v-show="!isshowselected" v-model="editinfoes.buff" placeholder="请选择分值">
+                        <i-option :value="0.5">-0.5邦分</i-option>
+                        <i-option :value="1">-1邦分</i-option>
+                        <i-option :value="1.5">-1.5邦分</i-option>
+                        <i-option :value="2">-2邦分</i-option>
+                        <i-option :value="2.5">-2.5邦分</i-option>
+                        <i-option :value="3">-3邦分</i-option>
+                        <i-option :value="3.5">-3.5邦分</i-option>
+                        <i-option :value="4">-4邦分</i-option>
+                        <i-option :value="4.5">-4.5邦分</i-option>
+                        <i-option :value="5">-5邦分</i-option>
+                        <i-option :value="5.5">-5.5邦分</i-option>
+                        <i-option :value="6">-6邦分</i-option>
+                        <i-option :value="6.5">-6.5邦分</i-option>
+                        <i-option :value="7">-7邦分</i-option>
+                        <i-option :value="7.5">-7.5邦分</i-option>
+                        <i-option :value="8">-8邦分</i-option>
+                        <i-option :value="8.5">-8.5邦分</i-option>
+                        <i-option :value="8">-9邦分</i-option>
+                        <i-option :value="9.5">-9.5邦分</i-option>
+                        <i-option :value="10">-10邦分</i-option>
+                        <i-option :value="15">-15邦分</i-option>
+                    </i-select>
+                </span>
+            </div>
+            <div>
+                <i-select v-model="zp"  placeholder="自评">
+                    <i-option value="自评">自评</i-option>
+                </i-select>
+            </div>
+            <div>
+                <div>图片</div>
+                <div>
+                    <div class="demo-upload-list" v-for="(item,index) in editinfoes.img" :key="index">
+                        <template>
+                            <img :src="rootUrl+item.url">
+                            <div class="demo-upload-list-cover">
+                                <Icon type="ios-trash-outline" @click="imgclear(index)"></Icon>
+                            </div>
+                        </template>
+                    </div>
+                    <Upload :show-upload-list="false" :format="['jpg','jpeg','png']" :before-upload="imghandleBeforeUpload" :on-format-error="handleFormatError" action="/" type="drag" style="display: inline-block; border:none;">
+                        <div class="colorpar">添加模范图片</div>
+                    </Upload>
+                </div> 
+            </div>
+            <div>
+                <el-radio @change="ischange"  v-model="editinfoes.sm" label="1">标签说明</el-radio>
+                <el-radio @change="ischange"  v-model="editinfoes.sm" label="2">文字说明</el-radio>
+            </div>
+
+
+
+            <div v-show="!isshow">标签</div>
+            <div v-show="!isshow">
+                <el-tag @close="tagsclear(index)" size="small" style="background:white; color:gray; margin-right:5px;" v-for="(item,index) in editinfoes.smlist" :key="index" closable>{{item.tagsname}}</el-tag>
+                <el-button @click="showaddtags" size="mini" icon="el-icon-plus">添加标签</el-button>
+            </div>
+
+            <div v-show="isshow">文字说明</div>
+            <div v-show="isshow">
+                <i-input v-model="editinfoes.smdes" :maxlength="40" type="textarea" placeholder="请输入描述..."></i-input>
+            </div>
+
+
+            <div style="height:30px; width:100%;"></div>
+            <div>
+                <span>是否需要理由</span>
+                <span class="fr">
+                    <i-switch @on-change="isopen" v-model="editinfoes.isly">
+                        <span style="color:#FFFFFF;" slot="open"><i slot="open" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-right"></i></span>
+                        <span style="color:#FFFFFF;" slot="close"><i slot="close" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-error"></i></span>
+                    </i-switch>
+                </span>
+            </div>
+
+            <div style="height:30px; width:100%;"></div>
+            <div>
+                <span>是否需要上传图片</span>
+                <span class="fr">
+                    <i-switch @on-change="ispic" v-model="editinfoes.ispic">
+                        <span style="color:#FFFFFF;" slot="open"><i slot="open" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-right"></i></span>
+                        <span style="color:#FFFFFF;" slot="close"><i slot="close" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-error"></i></span>
+                    </i-switch>
+                </span>
+            </div>
+
+
+            <div style="border-bottom:1px solid #ededed; height:30px; width:100%; margin-bottom:30px;"></div>
+            <div><i-button class="fr backgroundpar" @click="saveeditinfos" type="primary">确定完成</i-button></div>
+        </div>
+    </div>
+  <!-- 编辑标签结束 -->
 </div>
 </template>
 
@@ -539,6 +678,20 @@
           tearly:0//早退
         },
         count:0,
+
+        //编辑时需要
+        editinfoes:{
+          editid:0,//编辑的id
+          des:'',//自我价值观
+          buff:'',//邦分
+          zp:'',//自评
+          img:[],//图片
+          sm:'',//标签说明，文字说明
+          smlist:[],
+          smdes:'',//说明描述
+          isly:'',//是否需要理由
+          ispic:'',//是否需要图片
+        }
       }
     },
     methods:{
@@ -562,6 +715,7 @@
             this.tagscount ++;
             this.tagslist.push({'id':this.tagscount,'tagsname':this.tags});
             this.tags = '';
+            this.closeaddtags();
         },
         subsaveinfos(){//保存添加价值标签
           if (this.ownnerprice==''||this.brefens=='') {
@@ -701,6 +855,32 @@
         },
         ispic(){
             //console.log(this.is_img);
+        },
+        closeeditwin(){//关闭编辑窗口
+          $('.editcomboxtagsbox').removeClass('animated fadeIn show');
+          $('.editcomboxtagsbox').addClass('animated fadeIn unshow');
+        },
+        edittags(_id,_type){//打开编辑窗口
+          this.editid = _id;
+          console.log(_id+" | "+_type);
+          return;//因没有获取数据接口，有了再弄好
+          this.thetype = _type;
+          if(_type=="add"){
+              this.isshowselected = true;
+          }else{
+              this.isshowselected = false;
+          }
+          $('.editcomboxtagsbox').removeClass('animated fadeIn unshow');
+          $('.editcomboxtagsbox').addClass('animated fadeIn show');
+          //获取编辑默认信息
+          this.$http.get().then(res=>{
+
+          }).catch(err=>{
+
+          })
+        },
+        saveeditinfos(){//保存编辑信息
+
         },
         deletetags(_id){
             let url = window.localStorage.api+'/delete/admin/self/managed';
@@ -1200,5 +1380,69 @@
             text-align: center;
             line-height: 90px;
           }
+
+          .classtagslist{
+            padding:5px;
+            background:#f5f6ff;
+            height: 28px;
+            color:#6680ff;
+            float: left;
+            border-radius: 5px;
+            border:1px solid #bfccff;
+          }
+
+          .classtagslist .tagstext{
+            float: left;
+            padding:0px 5px 0px 5px;
+            cursor: pointer;
+          }
+
+          .classtagslist .tagsbtn{
+            padding:0px 5px 0px 5px;
+            height: 28px;
+            text-align: center;
+            cursor: pointer;
+            float: left;
+          }
+
+          .classtagslist .tagsbtn:hover{
+            color:red;
+          }
+
+
+          /* 编辑标签样式开始 */
+          .combox .editcomboxtagsbox{
+              width:340px;
+              min-height:568px;
+              height:100%;
+              background:white;
+              position: absolute;
+              right:0;
+              top:0;
+              bottom: 0;
+              box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+              
+          }
+
+
+          .combox .editcomboxtagsbox .combox-tags-box-title{
+              height:40px;
+              font-size: 16px;
+              color: #5c5d66;
+              border-bottom: 1px solid #ededed;
+              line-height: 40px;
+              padding:0 10px;
+          }
+
+          .combox .editcomboxtagsbox .combox-tags-box-content{
+              padding:20px;
+              width:100%;
+              height:calc(100% - 40px);
+          }
+
+          .combox .editcomboxtagsbox .combox-tags-box-content div{
+              padding:5px;
+          }
+          /* 编辑标签样式结束 */
 
 </style>

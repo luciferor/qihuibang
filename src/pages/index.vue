@@ -74,7 +74,7 @@
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li ><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>1功能开发中</span></li>
+                    <li @click="developing" ><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>1功能开发中</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
@@ -89,7 +89,7 @@
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>2功能开发中</span></li>
+                    <li @click="developing" ><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>2功能开发中</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
@@ -103,7 +103,7 @@
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>功能开发中</span></li>
+                    <li @click="developing" ><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>功能开发中</span></li>
                   </ul>
                 </div>
               </el-scrollbar>
@@ -514,7 +514,11 @@ export default {
       this.$router.push({path:'/pages/company/notice'});
       this.lightboxevents();
     },
-    //
+    //显示功能开发中
+     developing(){
+      this.$router.push({path:'/pages/company/none'});
+      this.lightboxevents();
+     },
     //
     //
     //

@@ -141,6 +141,7 @@
 	  border-radius: 4px;
 	  border:solid 1px #ededed;
       padding: 10px;
+      margin-bottom: 5px;
   }
 
 

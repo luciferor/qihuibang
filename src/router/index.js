@@ -26,6 +26,7 @@ import Editschedu from '../pages/company/editschedu'//编辑排班
 import DepTable from '../pages/company/deptable'//部门列表
 import Notice from '../pages/company/notice'//通知设置
 import Chat from '../pages/chat'//聊天界面
+import None from '../pages/company/none'//显示开发中界面
 
 Vue.use(Router)
 
@@ -119,6 +120,11 @@ export default new Router({
           path:'/pages/company/notice',
           name:'Notice',
           component:Notice
+        },
+        {
+          path:'/pages/company/none',
+          name:'None',
+          component:None
         }
         //-------------------------------------------------------------------------------------------
       ]

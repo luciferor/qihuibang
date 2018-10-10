@@ -13,11 +13,18 @@ export default {
     }
   },
   mounted(){
+
     //获取地址
     let url = window.location.href.split('/');
-    window.localStorage["api"] = "https://"+url[2];//获取到网址，并取得借口地址
+    //console.log(url);
+    
+    if(url[0].indexOf("https") != -1){
+      window.localStorage["api"] = "https://"+url[2];//获取到网址，并取得借口地址
+    }else{
+      window.localStorage["api"] = "http://"+url[2];//获取到网址，并取得借口地址
+    }
 
-    if(url[2]=='192.168.0.183:8888'||url[2]=='localhost:8888'){
+    if(url[2]=='192.168.3.104:8888'||url[2]=='localhost:8888'){
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
       //console.log('当前测试环境');
     }
