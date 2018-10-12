@@ -63,7 +63,7 @@
               <div class="comboxnuminputbox">
                 <div class="comboxnuminputbox-title">
                   <div style="width:90%; float:left;">
-                    <span class="tt">打卡邦分</span><span class="td">时间管理尊用时间平等原则，每个小时1邦分，如需特别设置请联系我们开放个性化设置</span>
+                    <span class="tt">打卡邦分&nbsp;&nbsp;&nbsp;</span><span class="td">时间管理尊用时间平等原则，每个小时1邦分，如需特别设置请联系我们开放个性化设置</span>
                   </div>
                   <div style="width:10%; float:right;"><span class="fr"><i-button v-show="false" type="primary" class="backgroundpar">打卡价值观</i-button></span></div>
                 </div>
@@ -131,7 +131,7 @@
               <div class="comboxnuminputbox">
                 <div class="comboxnuminputbox-title">
                   <div style="width:90%; float:left;">
-                    <span class="tt">目标邦分</span><span class="td">目标管理遵循计划原则，让每个人都能为自己定计划，按照计划来办事，定了计划就给分，计划不在多而在重点，目标计划根据333原则设定</span>
+                    <span class="tt">目标邦分&nbsp;&nbsp;&nbsp;</span><span class="td">目标管理遵循计划原则，让每个人都能为自己定计划，按照计划来办事，定了计划就给分，计划不在多而在重点，目标计划根据333原则设定</span>
                   </div>
                   <div style="width:10%; float:right;"><span class="fr"><i-button v-show="false" type="primary" class="backgroundpar">目标价值观</i-button></span></div>
                 </div>
@@ -189,7 +189,7 @@
               <div class="comboxnuminputbox">
                 <div class="comboxnuminputbox-title">
                   <div style="width:90%; float:left;">
-                    <span class="tt">自我加减邦分</span><span class="td">自我加减邦分自我行为管理的表现，基于信任原则，诚信为自己加分，据实自己减分</span>
+                    <span class="tt">自我加减邦分&nbsp;&nbsp;&nbsp; </span><span class="td">自我加减邦分自我行为管理的表现，基于信任原则，诚信为自己加分，据实自己减分</span>
                   </div>
                   <div style="width:10%; float:right;"><span class="fr"><i-button v-show="false" type="primary" class="backgroundpar" @click="gotoowner">自我价值观</i-button></span></div>
                 </div>
@@ -1445,4 +1445,11 @@
           }
           /* 编辑标签样式结束 */
 
+</style>
+<style>
+  .el-message{
+    text-align:center !important;
+    margin:auto !important;
+    width:300px !important;
+  }
 </style>

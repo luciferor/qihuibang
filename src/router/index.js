@@ -16,6 +16,10 @@ import Rightsettings from '../pages/company/rightsettings.vue'//引入权限管�
 import Schedusettings from '../pages/company/schedusettings.vue'//引入排班设置页
 import Tasksettings from '../pages/company/tasksettings.vue'//常规任务设置页
 import Welfaresettings from '../pages/company/welfaresettings.vue'//福利设置页
+import Reciatesettings from '../pages/company/reciatesettings.vue'//赞赏设置
+import Addreciates from '../pages/company/addreciates.vue'//添加赞赏页面
+import Eidtreciates from '../pages/company/eidtreciates.vue'//编辑赞赏页面
+import Reciatesdescriptions from '../pages/company/reciatesdescriptions.vue'//赞赏详情
 import Editinfos from '../pages/company/editinfos.vue'//公司信息编辑页
 import Jobmanager from '../pages/company/Jobmanager.vue'//工作岗位管理页
 import Departmentmanager from '../pages/company/Departmentmanager'//部门管理
@@ -85,6 +89,26 @@ export default new Router({
           path:'/pages/company/welfaresettings',
           name:'Welfaresettings',
           component:Welfaresettings
+        },
+        {
+          path:'/pages/company/reciatesettings',
+          name:'Reciatesettings',
+          component:Reciatesettings
+        },
+        {
+          path:'/pages/company/addreciates',
+          name:'Addreciates',
+          component:Addreciates
+        },
+        {
+          path:'/pages/company/eidtreciates',
+          name:'Eidtreciates',
+          component:Eidtreciates
+        },
+        {
+          path:'/pages/company/reciatesdescriptions',
+          name:'Reciatesdescriptions',
+          component:Reciatesdescriptions
         },
         {
           path:'/pages/company/editinfos',

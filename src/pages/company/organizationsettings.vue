@@ -204,7 +204,7 @@
           <div class="boxlist">
             <div class="list-title fl">岗位</div>
             <div class="list-content fl">
-                <i-select v-model="edituserdeps.ldepid">
+                <i-select v-model="edituserdeps.ldepid" ref="exame" :clearable="true">
                     <i-option v-for="item in adduserlist.ldeplist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                 </i-select>
             </div>
@@ -470,6 +470,7 @@
         return _arr;
       },
       getteams(_id,_name,_pid){
+        this.adduserlist.udepid=_id;
         this.thenid = _id;
         //console.log(_id+"|"+_name+"|"+_pid);
         //处理面包屑导航显示数据
@@ -488,8 +489,7 @@
                     for(let k=0;k<this.thennavis.length;k++){
                       if(this.thennavis[k].pid==_id){
                         this.thennavis.splice(k,1);
-                      }
-                                         
+                      }                
                     }
                     this.thennavis.push({'id':_id,'name':_name,'pid':_pid});
                   }
@@ -631,8 +631,9 @@
             //重新获取
             this.success('更新成功！');
             if(this.adduserlist.udepid==0){
-              this.adduserlist.udepid = this.edituserdeps.depid;
+              //this.adduserlist.udepid = this.edituserdeps.depid;
             }
+            console.log(this.adduserlist.udepid+"看看是哪一个类目ID")
             this.getteams(this.adduserlist.udepid);//重新加载部门信息
             //重新加载用户数据、
             this.useres(this.userinfoes.userid);
@@ -738,10 +739,12 @@
         let url = window.localStorage.api+"/organization/getPostAndUser?department_id="+this.edituserdeps.depid;
         this.$http.get(url).then(res=>{
               this.adduserlist.ldeplist = res['data'].message;
-              console.log(res['data'].message);
+              //console.log(res['data'].message);
             if(res['data'].message.length==0){//如果不存在岗位
               this.adduserlist.uldepid='';
             }
+            //清除选项
+            this.$refs.exame.clearSingleSelect();
         }).catch(err=>{
           console.log(err);
         })

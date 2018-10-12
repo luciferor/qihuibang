@@ -150,8 +150,8 @@
 
   
   .combox .comtitle{
-    height:62px;
-    line-height: 62px;
+    height:69px;
+    line-height: 69px;
     padding-left:10px;
     font-size: 16px;
     color: #2e2f33;
@@ -160,7 +160,7 @@
 
   .combox .comcontent{
     background:#FFF;
-    padding:50px;
+    padding:10px;
     overflow: hidden;
     min-height:885px;
   }

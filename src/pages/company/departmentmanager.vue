@@ -126,7 +126,7 @@
             <p>是否继续删除？</p>
         </div>
         <div slot="footer" style="text-align:center;">
-            <i-button type="ghost" style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
+            <i-button style="width:80px; color:#6680ff;" @click="cancel" class="colorpar">取 消</i-button>
             <i-button type="primary" style="width:80px;" @click="ok" class="backgroundpar">确 定</i-button>
         </div>
     </Modal>

@@ -4,7 +4,7 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon>福利设置
+              <img style="padding-right:10px;" src="../../assets/iMenu/sMenu/icon_fuli.png" /><span>福利设置</span>
           </Breadcrumb-item>
         </Breadcrumb>
       </span>
@@ -13,10 +13,10 @@
       <div class="welfaretop">
         <Row>
           <i-col span="12">
-            <div class="imgbox fl"><img src="../../assets/iMenu/contents/banner_01.png"/></div>
+            <div @click="welfareevents" class="imgbox fl posor"><img src="../../assets/iMenu/contents/banner_01.png"/></div>
           </i-col>
           <i-col span="12">
-            <div class="imgbox fr"><img src="../../assets/iMenu/contents/banner_02.png" /></div>
+            <div @click="reciateevents" class="imgbox fr posor"><img src="../../assets/iMenu/contents/banner_02.png" /></div>
           </i-col>
         </Row>
       </div>
@@ -253,6 +253,12 @@
       }
     },
     methods:{
+      welfareevents(){
+        this.$router.push({path:'/pages/company/welfaresettings'});
+      },//福利设置
+      reciateevents(){  
+        this.$router.push({path:'/pages/company/reciatesettings'})
+      },//赞赏设置
       ok(){
         let url = window.localStorage.api+'/delete/prize';
           let params = new URLSearchParams();
@@ -454,32 +460,34 @@
     width:100%;
     height:100%;
     border: solid 1px #ededed;
-    background: #FFF;
     position: relative;
   }
 
   .combox .comtitle{
-    height:62px;
-    line-height: 62px;
+    height:69px;
+    line-height: 69px;
     padding-left:10px;
     font-size: 16px;
     color: #2e2f33;
     border-bottom: 1px solid #ededed;
+    background:white;
   }
 
   .combox .comcontent{
     background:#FFF;
-    padding:50px;
     overflow: hidden;
     min-height:885px;
+    margin:10px;
   }
 
   .combox .comcontent .welfaretitle{
     text-align: right;
     padding-top:30px;
+    padding-right:10px;
   }
   .combox .comcontent .welfaretop{
     overflow: hidden;
+    padding:10px;
   }
 
   .combox .comcontent .welfaretop .imgbox{
@@ -496,7 +504,7 @@
     width:100%;
     height:100%;
     overflow: hidden;
-    padding-top:10px;
+    padding:10px;
   }
 
   .combox .comcontent .welfarecontent .welfare-listbox{

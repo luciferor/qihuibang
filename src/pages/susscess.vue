@@ -37,7 +37,24 @@ export default {
   },
   methods:{
     gotologin(){
-      this.$router.push({path:"/pages/login"});
+      //判断是安卓或者是ios
+      //获取到是什么系统
+      // alert(navigator.platform);
+      // return;
+      let os = navigator.platform;
+      if(os=="Win32"){//windows电脑pc端
+        this.$router.push({path:"/pages/login"});
+      }else{
+        if(os=="iPhone"){//苹果
+          window.back = function(){
+            history.go(-1);
+          }
+        }else{//安卓
+          window.back = function(){
+            history.go(-1);
+          }
+        }
+      }   
     }
   }
 };

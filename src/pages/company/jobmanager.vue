@@ -20,7 +20,7 @@
       <ul class="menuses">
         <li v-for="item in joblist" :key="item.id">
           <div class="listboxli" :id="item.id">
-            <div v-show="item.id==isid?false:true" class="listlitext">{{item.top_level}}>{{item.id|convertdepname}}</div>
+            <div v-show="item.id==isid?false:true" class="listlitext">{{item.top_level}}{{item.id|convertdepname}}</div>
             <span class="posor fl"><img class="posor fl" :id="'img'+item.id" src="../../assets/right.png" style="padding-top:15px; padding-right:10px;" /><el-input @blur="saveedit(item.id,item.name)" v-show="item.id==isid?true:false" v-model="item.name" placeholder="请输入..." style="width:200px;"></el-input><label @click="showhidden(item.id)" class="posor" v-show="item.id==isid?false:true">{{item.name}}</label><el-button @click="deletedep(item.id)" style="color:gray; width:40px;" class="fr" type="text"  icon="el-icon-delete"></el-button><el-button @click="editdep(item.id)" style="color:gray; width:40px;" class="fr" type="text" icon="el-icon-edit"></el-button></span>
           </div>
           <ul class="undis">
@@ -208,20 +208,9 @@
           //console.log('------------------------------------');
       },
       convertdepname:function(value){
-        // let dep=[];
-        // //取得数据
-        // let url = window.localStorage.api+'/organization/getGroundDepartment?type=user';
-        // that.$http.get(url).then(res=>{
-        //   dep = res['data'].message;
-        //   for (let i = 0; i < dep.array.length; i++) {
-        //     if(dep[i].id==value){
-        //       return dep[i].name;
-        //     }
-        //   }
-        // }).catch(err=>{
-        //   //console.log(err);
-        // });
-        return value;
+        //console.log(window.localStorage.dep);
+        //return value;
+        return ''
       }
     },
     data(){
@@ -410,6 +399,10 @@
         this.$http.get(url).then(res=>{
           //console.log(res);
           this.addpostlist.deplist = res['data'].message;
+          
+          //JSON.stringify(this.addpostlist/deplist);
+          //alert(JSON.stringify(this.adduserlist.deplist));
+          
         }).catch(err=>{
           //console.log(err);
         })

@@ -600,7 +600,6 @@ $(function(){
 
       .mainbox .admincontentbox{
         height:100%;
-        padding:10px;
       }
 
       .menuleft{
@@ -1020,7 +1019,6 @@ $(function(){
 
       .mainbox .admincontentbox{
         height:100%;
-        padding:10px;
       }
 
       .menuleft{
@@ -1442,7 +1440,6 @@ $(function(){
 
       .mainbox .admincontentbox{
         height:100%;
-        padding:10px;
       }
 
       .menuleft{
