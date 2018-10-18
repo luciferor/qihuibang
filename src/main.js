@@ -35,6 +35,12 @@ import vuescroll from 'vuescroll';
 import Map from './components/map'
 //---------------------------------------------------组件引入
 
+import 'babel-polyfill'//让vue支持ie兼容
+
+import vueDrag from 'vue-dragging'//div拖动
+Vue.use(vueDrag)
+
+
 HighchartsMore(Highcharts)
 Vue.prototype.$api = api
 Vue.prototype.$echarts=echarts

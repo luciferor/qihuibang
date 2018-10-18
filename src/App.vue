@@ -1,5 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
+    <div v-show="isie" class="ifie">您好，您使用的是骨灰级IE浏览器，请下载并安装使用"<span style="color:yellow;">谷歌浏览器</span>"！谢谢</div>
     <router-view/>
   </div>
 </template>
@@ -9,10 +10,15 @@ export default {
   name: 'Index',
   data(){
     return{
-
+      isie:false,
     }
   },
   mounted(){
+    if (!!window.ActiveXObject || "ActiveXObject" in window)
+      { this.isie = true; }
+    else
+      { this.isie = false; }
+
 
     //获取地址
     let url = window.location.href.split('/');
@@ -28,7 +34,7 @@ export default {
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
       //console.log('当前测试环境');
     }
-  }
+  },
 }
 </script>
 
@@ -54,6 +60,16 @@ body{
   color: #181818;
   padding: 0;
   margin:0;
+}
+
+.ifie{
+  width:100%;
+  background:red;
+  font-size:48px;
+  color:rgb(38, 35, 240);
+  line-height:100px;
+  text-align: center;
+  overflow: hidden;
 }
 </style>
 
@@ -156,6 +172,10 @@ body{
   /*鼠标手指头*/
   .posor{
     cursor: pointer;
+  }
+
+  .pomove{
+    cursor: move;
   }
 
   /*去掉边框*/

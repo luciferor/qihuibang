@@ -46,12 +46,10 @@ export default {
         this.$router.push({path:"/pages/login"});
       }else{
         if(os=="iPhone"){//苹果
-          window.back = function(){
-            history.go(-1);
-          }
+          window.android.finishActivity();
         }else{//安卓
           window.back = function(){
-            history.go(-1);
+            window.webkit.messageHandlers.goBack.postMessage(null);
           }
         }
       }   

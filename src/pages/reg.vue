@@ -55,7 +55,19 @@ export default {
   },
   methods:{
     gotologin(){//去登录
-      this.$router.push({path:"/pages/login"});
+      let os = navigator.platform;
+      if(os=="Win32"){//windows电脑pc端
+        this.$router.push({path:"/pages/login"});
+      }else{
+        if(os=="iPhone"){//苹果
+          window.android.finishActivity();
+        }else{//安卓
+          window.back = function(){
+            window.webkit.messageHandlers.goBack.postMessage(null);
+          }
+        }
+      }   
+    
     },
     regover(){//提交
       //验证手机号是否为空

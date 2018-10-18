@@ -203,16 +203,16 @@
         let map=this.amapManager.getMap();
         AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
           var positionPicker = new PositionPicker({
-              mode:'dragMarker',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
+              mode:'dragMap',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
               map: map
           });
           //定位
           let geolocation;
           map.plugin('AMap.Geolocation', function () {
             geolocation=new AMap.Geolocation({
-              showButton: false,        //显示定位按钮，默认：true
+              showButton: true,        //显示定位按钮，默认：true
               showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
-              extensions:'all'
+              extensions:'all'         //
             })
             map.addControl(geolocation);
             geolocation.getCurrentPosition();

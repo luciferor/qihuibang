@@ -4,10 +4,10 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item href="/">
-              <Icon type="ios-home-outline"></Icon><router-link to="/pages/company/informations">公司信息</router-link>
+              <span style="padding-right:10px;"><img width="20" height="20" src="../..\assets\iMenu\sMenu\icon_gongshi.png"  /></span><span style="font-weight:bold;"><router-link to="/pages/company/informations">公司信息</router-link></span>
           </Breadcrumb-item>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon>编辑公司信息
+              编辑公司信息
           </Breadcrumb-item>
         </Breadcrumb>
       </span>
@@ -117,7 +117,7 @@
             <div class="list-title fl">公司简介</div>
             <div class="list-content fl">
               <div style="width:100%" class="list-content-upbtn fl">
-                <el-input size="small" type="textarea" placeholder="请输入简介内容..." v-model="comdes"></el-input>
+                <el-input autosize="true" size="small" type="textarea" placeholder="请输入简介内容..." v-model="comdes"></el-input>
               </div>
             </div>
           </div>
@@ -425,51 +425,138 @@ export default {
   }
 
   .combox .comtitle{
-    height:62px;
-    line-height: 62px;
+    height:69px;
+    line-height: 69px;
     padding-left:10px;
     font-size: 16px;
     color: #2e2f33;
     border-bottom: 1px solid #ededed;
   }
 
-  .combox .comcontent{
-    background:#FFF;
-    padding:50px;
-    overflow: hidden;
-    min-height:885px;
-  }
+
+  /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+    }
 
 
-  .boxlist{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-  }
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
 
-  .boxlist .list-title{
-    padding-right:20px;
-    font-weight:bold;
-    width:100px;
-  }
-  .boxlist .list-content{
-    width:500px;
-  }
-  .boxlist .list-content .list-content-img{
-    margin-right:10px;
-  }
-  .boxlist .list-content .list-content-img img{
-    width:88px;
-    height:88px;
-  }
-  .boxlist .list-content-upbtn{}
-  .boxlist .list-content-upbtn span{
-    text-align: center;
-  }
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:315px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
 
-  .el-input__inner{
-      border:1px solid #ededed !important;
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
   }
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:20px;
+      overflow: hidden;
+      min-height:885px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:300px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
+  }
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:50px;
+      overflow: hidden;
+      min-height:885px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:500px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
+  }   
 </style>
 
 <style>

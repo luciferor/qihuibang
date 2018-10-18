@@ -26,34 +26,34 @@
       </div>
 
       <div class="welfarecontent">
-        <div>
+        <div v-for="item in reciateslist" :key="item.id">
           <div class="reciatelist">
               <el-row>
                 <el-col :span="6" :xs="24">
                   <div class="oneclass">
                     <div class="dateclass fl">
-                      <div class="yearclass">2018</div>
-                      <div class="monthclass">十月</div>
+                      <div class="yearclass">{{item.effective_time|convertyear}}</div>
+                      <div class="monthclass">{{item.effective_time| convertmoth}}</div>
                     </div>
                     <div class="titledesclass">
-                      <div class="titleclass">已经分配的邦分：2000邦分</div>
-                      <div class="desclass">分配的人数：10人</div>
+                      <div class="titleclass">已经分配的邦分：{{item.total}}邦分</div>
+                      <div class="desclass">分配的人数：{{item.number}}人</div>
                     </div>
                   </div>
                 </el-col>
                 <el-col :span="6" :xs="24">
                   <div class="twoclass">
-                    <div class="titleclass">已经分配的邦分：2000邦分</div>
-                    <div class="desclass">分配的人数：10人</div>
+                    <div class="titleclass">已兑换的邦分：{{item.used}}邦分</div>
+                    <div class="desclass">邦分价值：1邦分=10元</div>
                   </div>
                 </el-col>
                 <el-col :span="6" :xs="24">
-                  <div class="threeclass"><span>已回收邦分：</span><span style="color:#ff6666;">200邦分</span></div>
+                  <div class="threeclass"><span>已回收邦分：</span><span style="color:#ff6666;">{{item.rescore}}邦分</span></div>
                 </el-col>
                 <el-col :span="6" :xs="24">
                   <div class="fourclass fr">
-                    <el-button @click="editreciatesevents(1)" class="colorpar fr" size="small" type="primary" plain>编辑</el-button>
-                    <el-button @click="viewdescriptons(1)" class="fr" size="small" plain style="margin-right:10px;">查看详情</el-button>
+                    <el-button @click="editreciatesevents(item.id)" class="colorpar fr" size="small" type="primary" plain>编辑</el-button>
+                    <el-button @click="viewdescriptons(item.id)" class="fr" size="small" plain style="margin-right:10px;">查看详情</el-button>
                   </div>
                 </el-col>
               </el-row>
@@ -67,10 +67,74 @@
 
 <script>
   export default {
+    filters:{
+      convertyear(value){
+        let date = new Date(value * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        let Y = date.getFullYear();// + '-';
+        //let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth());//+1) + '-';
+        // var D = date.getDate() + ' ';
+        // var h = date.getHours() + ':';
+        // var m = date.getMinutes() + ':';
+        // var s = date.getSeconds();
+        return Y;//+M;//+D+h+m+s;
+      },
+      convertmoth(value){
+        let date = new Date(value * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        //let Y = date.getFullYear();// + '-';
+        let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth());//+1) + '-';
+        // var D = date.getDate() + ' ';
+        // var h = date.getHours() + ':';
+        // var m = date.getMinutes() + ':';
+        // var s = date.getSeconds();
+        //return M;//+M;//+D+h+m+s;
+        switch(M)
+        {
+        case '01':
+          return "一月"
+          break;
+        case '02':
+          return "二月"
+          break;
+        case '03':
+          return "三月"
+          break;
+        case '04':
+          return "四月"
+          break;
+        case '05':
+          return "五月"
+          break;
+        case '06':
+          return "六月"
+          break;
+        case '07':
+          return "七月"
+          break;
+        case '08':
+          return "八月"
+          break;
+        case '09':
+          return "九月"
+          break;
+        case 10:
+          return "十月"
+          break;
+        case 11:
+          return "十一月"
+          break;
+        case 12:
+          return "十二月"
+          break;
+        // default:
+        //   return 0;
+        }
+      }
+    },
     data(){
       return{
         rootUrl:window.localStorage.api,
         rootImg:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAEQElEQVR4nO2bYXOqOhCG34AVBBkH7P//gxWFqiFIJPfDnXCgx1rbcQn07POJdijJPA2bTTaIqqoMGDI81x347bBgYlgwMSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTMyCuoGmaSClRF3XaNsWxrgtYgsh4HkegiBAFEV4eXmhbY+ybC+lRFmWVI9/CpvNBlEUkT2fLEQ0TTN5uQBQliWapiF7PlmIkFJ210IIJEmC5XJJ1dzDGGNQVdWgf1JKbDYbkvbIBNd13V0nSYI4jqma+jbL5RJt20IpBWDY12dDFiKu12t3HQQBVTM/pv829fv6bEZJ04QQYzTzLTxvnAyV82BifpVg1zn2LcgXGpQYY3A+n6GU6lItIQSCIMBqtUIYho57OGPBdV2jKAq0bTv4vTEGSikopbBcLpGm6Wjx9hazDBGXywWHw+Evubfuy/PcaeiY3Qg2xuBwOHTShBCI4xhhGMLzPGitcT6fu9xWa42iKJCmqZP+zk7w6XTqRq4QAlmWDXJa3/cRBAGOxyNOpxMAdDGaemPnFrMLEXb1BQDr9frT5XeSJFgs/oyf/t+NyawEG2Ogte5+/ipLWK1W3TXlhs49ZiX446Tm+/7d+/vZg6uJblaCP6Zb/dF8i/4eg6tUbVaChRCDiaq/5fgRuy1pcTHBATMTDGBQfZBS3pRsjEFRFN0IFkIM4vGYzC5Ni6II5/O5Cw9lWUIpNciDpZSD8BDH8ZfxmorZCQaANE2R53k36dV1/emmeRiGSJJkzO4NmF2IAIDFYoHX19e7JSi7wnO1grPMcgQD/6do2+0WdV13KzVjTFeSX61WzsJCn9kKtgRBMMmSlGUSIWKKG+XPwtkIbtsWx+MRVVXBGIPFYoEkSSaxSf5MnIxgrTV2ux2klN3o1VrjcDjgeDy66BIZowvWWiPP809L5afTCUVRjNwrOkYNEU3TYL/ff1mJqKoKbdsiTdO7JX9bjzPGIAxDxHE8uSMCowmu63pQiXjk/v1+jyzL/pJmqxr9xUXTNKiqClmWTSI9s4wSIpRS35JrsTW1/oi/Xq/Y7XY3V25a64fekDEZRfD7+/uPU7GmabqYba/vbVPaGD8VybNYaGit8fb29vA/yY7k7XbrPCZPYqHxCN99A+yE6noRMxvBP+FyuTiX/KsFA38OqXBNjhB7zMoFZIJdTy4fUUoNJPdXkpR9JRPs8sDdZ1RVhbIs0bbtoJbXP6DybMieHATB3aqvK6SUUEoN8mTKHTyyYbZerycXJix9uZ7nzfM7Od/3kWXZJEOFRQhBfn6Y9EtPAF28U0pBa+088bef0trdN+qNIXLB/zrTfX9/CSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTAwLJoYFE/Mfuu8crG4Pn8IAAAAASUVORK5CYII=',
+        reciateslist:[],//赞赏列表数据
       }
     },
     methods:{
@@ -88,7 +152,16 @@
       },//查看详情
       editreciatesevents(_id){
         this.$router.push({name:'Eidtreciates',params:{id:_id}});
-      }//编辑赞赏
+      },//编辑赞赏
+      getreciatesing(){//获取赞赏数据
+        let url = window.localStorage.api+'/allotlist/appreciate';
+        this.$http.get(url).then(res=>{
+          this.reciateslist = res['data'].message;
+          //console.log(this.reciateslist)
+        }).catch(err=>{
+          console.log('网络错误，请稍后重试！');
+        })
+      }
     },
     mounted(){
       //验证是否登录
@@ -97,6 +170,7 @@
         this.$router.push({path:'/pages/login'});
         return;
       }
+      this.getreciatesing();//获取赞赏类型
     },
     
   }

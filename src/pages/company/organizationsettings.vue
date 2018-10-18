@@ -296,7 +296,7 @@
           <div class="boxlist">
             <div class="list-title fl">岗位</div>
             <div class="list-content fl">
-                <i-select v-model="adduserlist.uldepid">
+                <i-select ref="works" :clearable="true" v-model="adduserlist.uldepid">
                     <i-option v-for="item in adduserlist.ldeplist" :key="item.id" :value="item.id">{{ item.name }}</i-option>
                 </i-select>
             </div>
@@ -329,7 +329,7 @@
             <div class="line10"></div>
             <!--列表开始-->
             <div class="boxlist">
-              <i-button @click="adduserinformations" style="background:#6680ff; color:white; float:right;">确认添加</i-button>
+              <i-button @click="adduserinformations" style="background:#6680ff; color:white; float:right; width:120px;">确认添加</i-button>
             </div>
           </div>
       </div>
@@ -526,6 +526,7 @@
             this.$http.get(uerurl).then(res=>{
               //console.log(res);
               this.userlist = res['data'].message;
+              this.adduserlist.ldeplist = this.userlist;
               //console.log(this.userlist);
             }).catch(err=>{
               //console.log(err);
@@ -652,6 +653,8 @@
       },
       closeadduserwins(){
         $('.adduserwin').removeClass('show animated fadeIn');
+        this.adduserlist.usercall="";
+        this.adduserlist.username="";
       },
       //-------------------------------------------------------
       //*************************** */
@@ -681,7 +684,34 @@
         },
       //*************************** */
       adduserinformations(){
-        console.log('添加用户');
+        if (this.adduserlist.username=="") {
+          this.error('用户名不能为空');
+          return;
+        }
+        //验证是不是手机号
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(this.adduserlist.usercall)) {
+          this.error('请输入正确的11位数手机号');
+          return;
+        }
+        if (this.adduserlist.usercall=="") {
+          this.error('手机号不能为空');
+          return;
+        }
+        if (this.adduserlist.udepid=="") {
+          this.error('部门不能为空');
+          return;
+        }
+        if (this.adduserlist.uldepid=="") {
+          this.error('岗位不能为空');
+          return;
+        }
+        if (this.adduserlist.isadmin=="") {
+          this.error('是否为管理员必须选择');
+          return;
+        }
+        
+        //console.log('添加用户');
         let addurl = window.localStorage.api+'/add/user';
         let params = new URLSearchParams();
         params.append('mobile_phone',this.adduserlist.usercall);//手机号	
@@ -690,7 +720,7 @@
         params.append('post_id',this.adduserlist.uldepid);//岗位id	
         params.append('ismanage',this.adduserlist.isadmin);//是否为主管，0不是，1是
         this.$http.post(addurl,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             this.closeadduserwins();
             this.adduserlist.usercall="";
@@ -699,25 +729,28 @@
             this.adduserlist.uldepid="";
             this.adduserlist.isadmin="";
             //重新加载
-            this.getteams(this.userinfoes.depid);//重新加载部门信息
+            //this.getteams(this.userinfoes.depid);//重新加载部门信息
+            //this.getteams(this.adduserlist.udepid);//重新加载部门信息
+            this.getteams(this.thenid,"",0);
             this.success('添加成员成功！');
           }else{
             this.error(res['data'].message);
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
+          this.error(err);
         })
 
       },
       loadinglastdep(){//获取用户上一级部门
         let url = window.localStorage.api+"/organization/getGroundDepartment?type=user";
         this.$http.get(url).then(res=>{
-          console.log('*******');
-          console.log(res);
-          console.log('*******');
+          // console.log('*******');
+          // console.log(res);
+          // console.log('*******');
           this.adduserlist.deplist=res['data'].message;
         }).catch(err=>{
-          console.log(err);
+         this.error(err);
         })
       },
       //添加新用户事件
@@ -730,6 +763,8 @@
             if(res['data'].message.length==0){//如果不存在岗位
                this.adduserlist.uldepid='';
             }
+            //清除选项
+            this.$refs.works.clearSingleSelect();
         }).catch(err=>{
           console.log(err);
         })
@@ -767,7 +802,7 @@
       error(_str) {
             this.$message({
               message:_str,
-              type: 'error'
+              type: 'success'
             });
       },
       
@@ -1345,8 +1380,8 @@
 
 
     .adduserwin{
-      width: 444px;
-      height: 450px;
+      width: 374px;
+      height: 380px;
       background-color: #ffffff;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
@@ -1359,7 +1394,7 @@
     }
 
     .adduserwin .adduserwin-title{
-      width: 444px;
+      width: 374px;
       height: 50px;
       background-color: #ededed;
       border-radius: 4px 4px 0px 0px;
@@ -1376,9 +1411,9 @@
     }
 
     .adduserwin .adduserwin-content{
-      width:444px;
+      width:374px;
       height: calc(100% - 50px);
-      padding:70px 70px;
+      padding:20px 30px 30px 30px;
       position: relative;
     }
 

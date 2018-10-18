@@ -16,7 +16,7 @@
             <div @click="welfareevents" class="imgbox fl posor"><img src="../../assets/iMenu/contents/banner_01.png"/></div>
           </i-col>
           <i-col span="12">
-            <div @click="reciateevents" class="imgbox fr posor"><img src="../../assets/iMenu/contents/banner_02.png" /></div>
+            <div class="imgbox fr posor"><img src="../../assets/iMenu/contents/banner_02.png" /></div>
           </i-col>
         </Row>
       </div>
@@ -473,241 +473,728 @@
     background:white;
   }
 
-  .combox .comcontent{
-    background:#FFF;
-    overflow: hidden;
-    min-height:885px;
-    margin:10px;
+
+
+  /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      overflow: hidden;
+      min-height:885px;
+      margin:10px;
+    }
+
+    .combox .comcontent .welfaretitle{
+      text-align: right;
+      padding-top:30px;
+      padding-right:10px;
+    }
+    .combox .comcontent .welfaretop{
+      overflow: hidden;
+      padding:10px;
+    }
+
+    .combox .comcontent .welfaretop .imgbox{
+      width:98%;
+      height:100%;
+    }
+
+    .combox .comcontent .welfaretop .imgbox img{
+      width:100%;
+      height:100%;
+    }
+
+    .combox .comcontent .welfarecontent{
+      width:100%;
+      height:100%;
+      overflow: hidden;
+      padding:10px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox{
+      padding:10px;
+      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox{
+      width:80px;
+      height: 80px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox img{
+      border:none;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox{
+      heigth:80px;
+      padding-left:10px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-top{
+      height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      line-height: 40px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-under{
+      height: 40px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #8a8c99;
+      line-height: 40px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .btnbox{
+      height: 80px;
+      width:160px;
+      text-align: center;
+      line-height: 80px;
+      
+    }
+
+    .combox .addwelfare{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
+
+    .combox .addwelfare .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    .combox .addwelfare .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
+
+
+    .combox .addwelfare .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
+
+
+
+    .combox .addwelfare .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+
+    .combox .addwelfaredit{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
+
+    .combox .addwelfaredit .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    .combox .addwelfaredit .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
+
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
   }
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      overflow: hidden;
+      min-height:885px;
+      margin:10px;
+    }
 
-  .combox .comcontent .welfaretitle{
-    text-align: right;
-    padding-top:30px;
-    padding-right:10px;
+    .combox .comcontent .welfaretitle{
+      text-align: right;
+      padding-top:30px;
+      padding-right:10px;
+    }
+    .combox .comcontent .welfaretop{
+      overflow: hidden;
+      padding:10px;
+    }
+
+    .combox .comcontent .welfaretop .imgbox{
+      width:98%;
+      height:100%;
+    }
+
+    .combox .comcontent .welfaretop .imgbox img{
+      width:100%;
+      height:100%;
+    }
+
+    .combox .comcontent .welfarecontent{
+      width:100%;
+      height:100%;
+      overflow: hidden;
+      padding:10px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox{
+      height: 100px;
+      padding:10px;
+      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      margin-bottom: 10px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox{
+      width:80px;
+      height: 80px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox img{
+      border:none;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox{
+      heigth:80px;
+      padding-left:10px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-top{
+      height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      line-height: 40px;
+    }
+
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-under{
+      height: 40px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #8a8c99;
+      line-height: 40px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .btnbox{
+      height: 80px;
+      width:160px;
+      text-align: center;
+      line-height: 80px;
+    }
+
+    .combox .addwelfare{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
+
+    .combox .addwelfare .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    .combox .addwelfare .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
+
+
+    .combox .addwelfare .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
+
+
+
+    .combox .addwelfare .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+
+    .combox .addwelfare .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+
+    .combox .addwelfaredit{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
+
+    .combox .addwelfaredit .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    .combox .addwelfaredit .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
+
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
   }
-  .combox .comcontent .welfaretop{
-    overflow: hidden;
-    padding:10px;
-  }
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      overflow: hidden;
+      min-height:885px;
+      margin:10px;
+    }
 
-  .combox .comcontent .welfaretop .imgbox{
-    width:98%;
-    height:100%;
-  }
+    .combox .comcontent .welfaretitle{
+      text-align: right;
+      padding-top:30px;
+      padding-right:10px;
+    }
+    .combox .comcontent .welfaretop{
+      overflow: hidden;
+      padding:10px;
+    }
 
-  .combox .comcontent .welfaretop .imgbox img{
-    width:100%;
-    height:100%;
-  }
+    .combox .comcontent .welfaretop .imgbox{
+      width:98%;
+      height:100%;
+    }
 
-  .combox .comcontent .welfarecontent{
-    width:100%;
-    height:100%;
-    overflow: hidden;
-    padding:10px;
-  }
+    .combox .comcontent .welfaretop .imgbox img{
+      width:100%;
+      height:100%;
+    }
 
-  .combox .comcontent .welfarecontent .welfare-listbox{
-    height: 100px;
-    padding:10px;
-    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    border: solid 1px #ededed;
-    margin-bottom: 10px;
-  }
+    .combox .comcontent .welfarecontent{
+      width:100%;
+      height:100%;
+      overflow: hidden;
+      padding:10px;
+    }
 
-  .combox .comcontent .welfarecontent .welfare-listbox .imgbox{
-    width:80px;
-    height: 80px;
-  }
-  .combox .comcontent .welfarecontent .welfare-listbox .imgbox img{
-    border:none;
-  }
-  .combox .comcontent .welfarecontent .welfare-listbox .titlebox{
-    heigth:80px;
-    padding-left:10px;
-  }
+    .combox .comcontent .welfarecontent .welfare-listbox{
+      height: 100px;
+      padding:10px;
+      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      margin-bottom: 10px;
+    }
 
-  .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-top{
-    height: 40px;
-    font-size: 16px;
-    font-weight: bold;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-    line-height: 40px;
-  }
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox{
+      width:80px;
+      height: 80px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .imgbox img{
+      border:none;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox{
+      heigth:80px;
+      padding-left:10px;
+    }
 
-  .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-under{
-    height: 40px;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #8a8c99;
-    line-height: 40px;
-  }
-  .combox .comcontent .welfarecontent .welfare-listbox .btnbox{
-    height: 80px;
-    width:160px;
-    text-align: center;
-    line-height: 80px;
-  }
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-top{
+      height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      line-height: 40px;
+    }
 
-  .combox .addwelfare{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom: 0;
-    margin:auto;
-    width: 400px;
-    height: 459px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 20px 0px 
-      rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index:1000;
-  }
+    .combox .comcontent .welfarecontent .welfare-listbox .titlebox .titlebox-under{
+      height: 40px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #8a8c99;
+      line-height: 40px;
+    }
+    .combox .comcontent .welfarecontent .welfare-listbox .btnbox{
+      height: 80px;
+      width:160px;
+      text-align: center;
+      line-height: 80px;
+    }
 
-  .combox .addwelfare .addwelfare-title{
-    height: 50px;
-    width:100%;
-    line-height: 50px;
-    background-color: #ededed;
-    border-radius: 5px 5px 0px 0px;
-  }
+    .combox .addwelfare{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
 
-  .combox .addwelfare .addwelfare-title span{
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #5c5d66;
-  }
+    .combox .addwelfare .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
 
-
-  .combox .addwelfare .addwelfare-content{
-    height:calc(100% - 50px);
-    width:100%;
-    padding:30px;
-  }
-
-
-
-   .combox .addwelfare .addwelfare-content .boxlist{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-  }
-
-
-  .combox .addwelfare .addwelfare-content .boxlist .list-content{
-    overflow: hidden;
-    width:100%;
-  }
-
-   .combox .addwelfare .addwelfare-content .boxlist .list-content .spanlist{
-    display: block;
-    line-height: 40px;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-    padding-right:10px;
-    
-  }
-
-   .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img{
-    margin-right:10px;
-  }
-   .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img img{
-    width:88px;
-    height:88px;
-  }
-
-   .combox .addwelfare .addwelfare-content .boxlist .list-content-upbtn span{
-    text-align: center;
-  }
+    .combox .addwelfare .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
 
 
-  .combox .addwelfaredit{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom: 0;
-    margin:auto;
-    width: 400px;
-    height: 459px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 20px 0px 
-      rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index:1000;
-  }
-
-  .combox .addwelfaredit .addwelfare-title{
-    height: 50px;
-    width:100%;
-    line-height: 50px;
-    background-color: #ededed;
-    border-radius: 5px 5px 0px 0px;
-  }
-
-  .combox .addwelfaredit .addwelfare-title span{
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #5c5d66;
-  }
-
-
-  .combox .addwelfaredit .addwelfare-content{
-    height:calc(100% - 50px);
-    width:100%;
-    padding:30px;
-  }
+    .combox .addwelfare .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
 
 
 
-   .combox .addwelfaredit .addwelfare-content .boxlist{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-  }
+    .combox .addwelfare .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
 
 
-  .combox .addwelfaredit .addwelfare-content .boxlist .list-content{
-    overflow: hidden;
-    width:100%;
-  }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
 
-   .combox .addwelfaredit .addwelfare-content .boxlist .list-content .spanlist{
-    display: block;
-    line-height: 40px;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-    padding-right:10px;
-    
-  }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
 
-   .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img{
-    margin-right:10px;
-  }
-   .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img img{
-    width:88px;
-    height:88px;
-  }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
 
-   .combox .addwelfaredit .addwelfare-content .boxlist .list-content-upbtn span{
-    text-align: center;
-  }
+    .combox .addwelfare .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+
+    .combox .addwelfaredit{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom: 0;
+      margin:auto;
+      width: 400px;
+      height: 459px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index:1000;
+    }
+
+    .combox .addwelfaredit .addwelfare-title{
+      height: 50px;
+      width:100%;
+      line-height: 50px;
+      background-color: #ededed;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    .combox .addwelfaredit .addwelfare-title span{
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content{
+      height:calc(100% - 50px);
+      width:100%;
+      padding:30px;
+    }
+
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content{
+      overflow: hidden;
+      width:100%;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .spanlist{
+      display: block;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-right:10px;
+      
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+
+    .combox .addwelfaredit .addwelfare-content .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+  }   
+
+
 
 
   .unshow{

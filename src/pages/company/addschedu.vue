@@ -725,5 +725,9 @@ input{
     background:#2d8cf0;
     color:white;
 }
+
+.input-content-inputbox .el-input--prefix .el-input__inner{
+    padding-left:30px !important;
+}
 </style>
 

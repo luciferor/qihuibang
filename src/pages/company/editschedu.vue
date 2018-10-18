@@ -52,7 +52,7 @@
                     </div>
                     <div class="input-content-inputbox padborder">
                         <div class="thecreatborder"></div>
-                        <DatePicker type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 298px"></DatePicker>
+                        <DatePicker :clearable="false" type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 298px"></DatePicker>
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
@@ -793,6 +793,9 @@
 </style>
 
 <style>
+    .input-content-inputbox .ivu-icon-ios-calendar-outline:before {
+        /* content: "" !important; */
+    }
     .ivu-date-picker-cells-cell-range:before{
         background:#2d8cf0;
         color:white;

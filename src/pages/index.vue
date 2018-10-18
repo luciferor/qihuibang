@@ -579,7 +579,7 @@ $(function(){
 <style scoped>
 
     /*适配各种尺寸-手机端*/
-    @media only screen and (max-width: 767px) and (min-width: 320px)
+    @media only screen and (max-width: 767px) and (min-width: 10px)
     {
       .mainbox{
         width:100%;

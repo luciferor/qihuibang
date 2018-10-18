@@ -4,7 +4,7 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon> 审批设置
+            <span style="padding-right:10px;"><img width="20" height="20" src="../..\assets\iMenu\sMenu\icon_gongshi.png"  /></span><span>审批设置</span>
           </Breadcrumb-item>
         </Breadcrumb>
       </span>
@@ -15,34 +15,34 @@
     <div class="comcontent">
 
       <div class="examboxlist" v-for="item in moudellist" :key="item.index">
-        <Row>
-            <i-col span="6">
+        <el-row>
+            <el-col :span="6" :xs="24">
               <div class="iconimg color1 fl"><img :src="item.img==''?rootImg:rootUrl+item.img" style="width:50px; height:50px;" /></div>
               <div class="icontxt fl">
                 <div class="icontxt-title">{{item.name}}</div>
                 <div class="icontxt-desc">{{item.info}}<br />{{item.updated_at}}更新</div>
               </div>
-            </i-col>
-            <i-col span="6">
+            </el-col>
+            <el-col :span="6" :xs="24">
               <div class="icontxt fl">
                 <div class="icontxt-title">可见范围</div>
                 <div class="icontxt-desc"><span style="cursor: pointer;"><el-button v-show="false"  style="color:#6680ff;" @click="editrights(item.id)" type="text">修改</el-button></span>{{item.scope=="all"?"全部可见":"部分可见"}}</div>
               </div>
-            </i-col>
-            <i-col span="6">
+            </el-col>
+            <el-col :span="6" :xs="24">
               <div class="icontxt fl">
                 <el-button type="text" @click="examsetting(item.id,item.name)" style="color:#6680ff;">{{item.name=="简报"?"设置审批人":"设置审批流程"}}</el-button>
               </div>
-            </i-col>
-            <i-col span="6">
+            </el-col>
+            <el-col :span="6" :xs="24">
               <div class="icontxt fr">
-                <i-switch v-model="istrue">
+                <i-switch v-model="item.status">
                     <span style="color:#FFFFFF;" slot="open"><i slot="open" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-right"></i></span>
                     <span style="color:#FFFFFF;" slot="close"><i slot="close" style="color:#FFF; width:15px; height:15px;" class="iconfont icon-error"></i></span>
                 </i-switch>
               </div>
-            </i-col>
-        </Row>     
+            </el-col>
+        </el-row>     
       </div>
     </div>
 
@@ -108,7 +108,7 @@
 
 
     <!--简报审批人设置-------------------------------------------->
-    <div class="examsetprobox unshow">
+    <div class="examsetprobox unshow" v-drag>
       <div class="edittitle">
         <span class="fl">简报审批人设置</span>
         <span class="fr"><el-button @click="jbcloseexamset" type="text"><img src="../../assets/delete.png" /></el-button></span>
@@ -284,7 +284,7 @@
         },
         editselecteduserlist:[],//可视化，已经选择了的用户
         titlename:'',//窗口名称
-        moudellist:Object,//审批项目
+        moudellist:[],//审批项目
         deplist:Object,//部门列表
         userlist:[],//用户列表
         depradio:'1',
@@ -452,7 +452,15 @@
         let url = window.localStorage.api+"/get/admin/modeule";
         this.$http.get(url).then(res=>{
           //console.log(res);
-          this.moudellist = res['data'].message;
+          let item = res['data'].message;
+          console.log(item)
+          for(let i=0;i<item.length;i++){
+            this.moudellist.push({'id':item[i].id,'img':item[i].img,'info':item[i].info,'name':item[i].name,'updated_at':item[i].updated_at,'scope':item[i].scope,'status':true});
+            console.log(item[i].id)
+          }
+          console.log(this.moudellist);
+          //this.moudellist = res['data'].message;
+          //console.log(res['data'].message);
         }).catch(err=>{
           //console.log(err);
         })
@@ -831,6 +839,9 @@
       this.getinfosmoudle();//获取审批项目列表
       this.getalldeparment();//获取所有部门
       this.getalluseres();//获取所有用户
+    },
+    created(){
+        
     }
   }
 
@@ -843,6 +854,7 @@
       })//当鼠标进入时，让改元素撑开，而其他的元素合住，stop()用来防止当鼠标晃动多次时带来的延迟的bug   
     })
   })
+
 </script>
 
 
@@ -865,6 +877,819 @@
     border-bottom: 1px solid #ededed;
   }
 
+
+
+  /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+      width:calc(100% - 20px);
+    }
+
+    .combox .comcontent .examboxlist{
+      width:100%;
+      background-color: #ffffff;
+      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      padding:10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .combox .comcontent .examboxlist .iconimg{
+      width:50px;
+      height:55px;
+      padding:10px;
+      padding-top:15px;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .combox .comcontent .examboxlist .iconimg img{
+      position: absolute;
+      margin:auto;
+      left:0;
+      top:12px;
+      right:0;
+      bottom: 0;
+    }
+    .combox .comcontent .examboxlist .icontxt{
+      padding:10px;
+      line-height: 100%;
+    }
+    .combox .comcontent .examboxlist .icontxt span{
+      padding-right:10px;
+      color:#6680ff;
+    }
+
+
+    .combox .comcontent .examboxlist .icontxt .icontxt-title{
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      padding-bottom: 10px;
+    }
+    .combox .comcontent .examboxlist .icontxt .icontxt-desc{
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #8a8c99;
+      line-height: 25px;
+    }
+
+    /* .color1{
+      background:#429cff;
+    }
+    .color2{
+      background:#429cff;
+    }
+    .color3{
+      background:#ff6946;
+    }
+    .color4{
+      background:#6680ff;
+    }
+    .color5{
+      background:#ff5d77;
+    } */
+
+    .viseditbox{
+      width: 788px;
+      height: 475px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom: 0;
+      margin:auto;
+    }
+
+      .viseditbox .edittitle{
+        width:100%;
+        height: 60px;
+        background-color: #ededed;
+        border-radius: 4px 4px 0px 0px
+      }
+
+      .viseditbox .edittitle span{
+        display:block;
+        height:60px;
+        line-height: 60px;
+        font-size: 18px;
+        color: #5c5d66;
+        padding:0px 10px;
+      }
+
+      .viseditbox .editcontents{
+        height:calc(100% - 120px);
+      }
+
+      .viseditbox .editcontents .editleft{
+        height:100%;
+        width:33%;
+        padding:20px;
+      }
+
+      .viseditbox .editcontents .editleft .listbox{
+        width:100%;
+        height:100%;
+        padding:10px;
+        background:#f7f7f7;
+      }
+
+      .viseditbox .editcontents .editleft .listbox ul{
+      
+      }
+      .viseditbox .editcontents .editleft .listbox ul li{
+        height:30px;
+        line-height: 30px;
+      }
+      .viseditbox .editcontents .editleft .listbox ul li:hover{
+        background: linear-gradient(to right, rgba(219, 217, 217, 0), rgb(109, 209, 255));
+      }
+      
+      .viseditbox .editcontents .editright{
+        height:100%;
+        width:33%;
+      }
+
+      
+
+      .viseditbox .editcontents .editright .userlistbox{
+        height:100%;
+        width:100%;
+        padding:20px;;
+      }
+
+      .viseditbox .editcontents .editright .userlistbox .listboxusers{
+        width:100%;
+        height:100%;
+        padding:10px;
+        background:#f7f7f7;
+      }
+
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul{
+        overflow: hidden;
+      }
+      
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li{
+        height:40px;
+        list-style: none;
+        margin-bottom: 5px;
+      }
+
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox{
+        height:40px;
+        padding:5px;
+        background:rgb(228, 228, 228);
+      }
+
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userimgs{
+        width:30px;
+        height:30px;
+      }
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userimgs img{
+        width:30px;
+        height:30px;
+        border-radius: 15px;
+        
+      }
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .usernames{
+        height:30px;
+        line-height: 30px;
+        padding:0px 10px;
+        width:calc(100% - 55px);
+      }
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userclears{
+        width:15px;
+        height:15px;
+        border-radius: 7.5px;
+        text-align: center;
+        line-height: 15px;
+        padding-top:1.5px;
+        background:rgb(0, 255, 76);
+        cursor: pointer;
+      }
+      .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userclears img{
+        border-radius:5px;
+        width:10px;
+        height:10px;
+      }
+
+
+
+      .viseditbox .editcontents .editcenter{
+        height:100%;
+        width:33%;
+
+      }
+
+      /*------------------------------------------------------*/
+      .viseditbox .editcontents .editcenter .userlistbox{
+        height:100%;
+        width:100%;
+        padding:20px;;
+      }
+
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers{
+        width:100%;
+        height:100%;
+        padding:10px;
+        background:#f7f7f7;
+      }
+
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul{
+        overflow: hidden;
+      }
+      
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li{
+        height:40px;
+        list-style: none;
+        margin-bottom: 5px;
+      }
+
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox{
+        height:40px;
+        padding:5px;
+        background:rgb(228, 228, 228);
+      }
+
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userimgs{
+        width:30px;
+        height:30px;
+      }
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userimgs img{
+        width:30px;
+        height:30px;
+        border-radius: 15px;
+        
+      }
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .usernames{
+        height:30px;
+        line-height: 30px;
+        padding:0px 10px;
+        width:calc(100% - 55px);
+      }
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userclears{
+        width:15px;
+        height:15px;
+        border-radius: 7.5px;
+        text-align: center;
+        line-height: 15px;
+        padding-top:1.5px;
+        cursor: pointer;
+      }
+      .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userclears img{
+        border-radius:5px;
+      }
+
+      /*------------------------------------------------------*/
+
+      .viseditbox .editunder{
+        height:60px;
+        padding:10px;
+        border-radius: 0px 0px 4px 4px;
+        border-top:1px solid #ededed;
+        text-align:center;
+      }
+
+      .viseditbox .editunder button{
+        padding:8px 40px;
+        margin:0 6px;
+      }
+    
+
+    
+    /*--简报评审样式---------------------------------------------------------------------------*/
+    .examsetprobox{
+      width: 588px;
+      height: 555px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom: 0;
+      margin:auto;
+    }
+
+        .examsetprobox .edittitle{
+        width:100%;
+        height: 60px;
+        background-color: #ededed;
+        border-radius: 4px 4px 0px 0px
+      }
+
+      .examsetprobox .edittitle span{
+        display:block;
+        height:60px;
+        line-height: 60px;
+        font-size: 18px;
+        color: #5c5d66;
+        padding:0px 10px;
+      }
+
+      .examsetprobox .editcontents{
+        height:calc(100% - 120px);
+      }
+
+      .examsetprobox .editcontents .examsbox-top{
+        color:#b8bbcc;
+      }
+
+
+
+      .examsetprobox .editcontents .editcontensbox{
+        width:100%;
+        height:365px;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-top{
+        padding:0 20px;
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-top span{
+        height:30px;
+        line-height:30px;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content{
+        height:310px;
+        padding:0 20px;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left{
+        height:310px;
+        width:calc(50% - 10px);
+        padding:0 20px;
+        background:#f7f7f7;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul{
+      
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul li{
+        height:30px;
+        line-height: 30px;
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul li:hover{
+        background: #f7f7f7;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right{
+        height:310px;
+        width:calc(50% - 10px);
+        padding:10px 20px;
+        background:#f7f7f7;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchbox{
+        
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult{
+        padding:5px;
+        height: 100%;
+        z-index:100;
+        position: absolute;
+        width:210px;
+        /*-----------------------------------------------------*/
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul{
+        overflow: hidden;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li{
+        padding-bottom:1px;
+        overflow: hidden;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox{
+        height:40px;
+        padding:5px;
+        background:rgb(228, 228, 228);
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userimgs{
+        width:30px;
+        height:30px;
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userimgs img{
+        width:30px;
+        height:30px;
+        border-radius: 15px;
+        
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .usernames{
+        height:30px;
+        line-height: 30px;
+        padding:0px 10px;
+        width:calc(100% - 55px);
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userclears{
+        width:15px;
+        height:15px;
+        border-radius: 7.5px;
+        text-align: center;
+        line-height: 15px;
+        padding-top:1.5px;
+        cursor: pointer;
+      }
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userclears img{
+        border-radius:5px;
+        width:15px;
+        height:15px;
+      }
+
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser{
+        padding:5px;
+        height:calc(100% - 30px);
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected{
+        padding:5px;
+        position: relative;
+        width:50px;
+        height: 80px;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected img{
+        border-radius: 20px;
+      }
+
+      .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected .remove{
+        width:15px;
+        height:15px;
+        background:red;
+        position: absolute;
+        color:rgb(224, 224, 224);
+        cursor: pointer;
+        text-align: center;
+        line-height: 15px;
+        border-radius: 7.5px;
+        padding-top:1px;
+        right:0;
+        top:0;
+      }
+
+      .namebox{
+        height:30px;
+        line-height:30px;
+        text-align: center;
+        color:black;
+      }
+
+      .examsetprobox .editunder{
+        height:60px;
+        padding:10px;
+        border-radius: 0px 0px 4px 4px;
+        border-top:1px solid #ededed;
+        text-align:center;
+      }
+
+      .examsetprobox .editunder button{
+        padding:8px 40px;
+        margin:0 6px;
+      }
+    /*-----------------------------------------------------------------------------*/
+
+
+    /*----其他审批设置--------------------------------------------------------------------------*/
+      .otherexamsetprobox{
+        width: 688px;
+        height: 575px;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 20px 0px 
+          rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        position:absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom: 0;
+        margin:auto;
+      }
+
+        .otherexamsetprobox .edittitle{
+        width:100%;
+        height: 60px;
+        background-color: #ededed;
+        border-radius: 4px 4px 0px 0px
+      }
+
+      .otherexamsetprobox .edittitle span{
+        display:block;
+        height:60px;
+        line-height: 60px;
+        font-size: 18px;
+        color: #5c5d66;
+        padding:0px 10px;
+      }
+
+      .otherexamsetprobox .editcontents{
+        height:calc(100% - 120px);
+      }
+
+
+      .otherexamsetprobox .editcontents .examsbox-top{
+        height:80px;
+        padding:10px;
+      }
+
+
+
+      .otherexamsetprobox .editcontents .examsbox-top span{
+        height:30px;
+        line-height: 30px;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-top .examsbox-des{
+        width:100%;
+        height:30ox;
+        line-height: 30px;
+        font-size: 14px;
+        color: #b8bbcc;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content{
+        height:calc(100% - 80px);
+        padding:10px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left{
+        width:34%;
+        height:100%;
+        padding:10px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-title{
+        width:100%;
+        height:30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #5c5d66;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content{
+        width:100%;
+        height:calc(100% - 30px);
+        padding:5px;
+        background:#f7f7f7;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul{
+        overflow: hidden;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul li{
+        height:30px;
+        line-height: 30px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul li:hover{
+        background:rgb(216, 216, 216);
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center{
+        width:33%;
+        height:100%;
+        padding:10px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-title{
+        width:100%;
+        height:30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #5c5d66;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content{
+        width:100%;
+        height:calc(100% - 30px);
+        padding:5px;
+        background:#f7f7f7;
+      }
+
+      /*-------------------------------------------------------------------------------------*/
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchbox{
+        text-align: center;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult{
+        padding:5px;
+        height: 45%;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul{
+        overflow: hidden;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li{
+        padding-bottom:1px;
+        overflow: hidden;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox{
+        height:40px;
+        padding:5px;
+        background:rgb(228, 228, 228);
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userimgs{
+        width:30px;
+        height:30px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userimgs img{
+        width:30px;
+        height:30px;
+        border-radius: 15px;
+        
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .usernames{
+        height:30px;
+        line-height: 30px;
+        padding:0px 10px;
+        width:calc(100% - 55px);
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userclears{
+        width:15px;
+        height:15px;
+        border-radius: 7.5px;
+        text-align: center;
+        line-height: 15px;
+        padding-top:1.5px;
+        cursor: pointer;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userclears img{
+        border-radius:5px;
+        width:15px;
+        height: 15px;
+      }
+
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser{
+        padding:5px;
+        height:calc(100% - 30px);
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected{
+        padding:5px;
+        position: relative;
+        width:50px;
+        height: 80px;
+      }
+      
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected img{
+        border-radius: 20px;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected .remove{
+        width:15px;
+        height:15px;
+        background:red;
+        position: absolute;
+        color:rgb(224, 224, 224);
+        cursor: pointer;
+        text-align: center;
+        line-height: 15px;
+        border-radius: 7.5px;
+        padding-top:1px;
+        right:0;
+        top:0;
+      }
+      /*-------------------------------------------------------------------------------------*/
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right{
+        width:33%;
+        height:100%;
+        padding:10px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-title{
+        width:100%;
+        height:30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #5c5d66;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content{
+        width:100%;
+        height:calc(100% - 30px);
+        padding:5px;
+        background:#f7f7f7;
+      }
+      /*-------------------------------------------------------------------------------------*/
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchbox{
+        text-align: center;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult{
+        padding:5px;
+        height: 45%;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul{
+        overflow: hidden;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li{
+        padding-bottom:1px;
+        overflow: hidden;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox{
+        height:40px;
+        padding:5px;
+        background:rgb(228, 228, 228);
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userimgs{
+        width:30px;
+        height:30px;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userimgs img{
+        width:30px;
+        height:30px;
+        border-radius: 15px;
+        
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .usernames{
+        height:30px;
+        line-height: 30px;
+        padding:0px 10px;
+        width:calc(100% - 55px);
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userclears{
+        width:15px;
+        height:15px;
+        border-radius: 7.5px;
+        text-align: center;
+        line-height: 15px;
+        padding-top:1.5px;
+        cursor: pointer;
+      }
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userclears img{
+        border-radius:5px;
+        width:15px;
+        height: 15px;
+      }
+
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser{
+        padding:5px;
+        height: 100%;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected{
+        padding:5px;
+        position: relative;
+        width:50px;
+        height: 80px;
+      }
+      
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected img{
+        border-radius: 20px;
+      }
+
+      .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected .remove{
+        width:15px;
+        height:15px;
+        background:red;
+        position: absolute;
+        color:rgb(224, 224, 224);
+        cursor: pointer;
+        text-align: center;
+        line-height: 15px;
+        border-radius: 7.5px;
+        padding-top:1px;
+        right:0;
+        top:0;
+      }
+      /*-------------------------------------------------------------------------------------*/
+      .otherexamsetprobox .editunder{
+        height:60px;
+        padding:10px;
+        border-radius: 0px 0px 4px 4px;
+        border-top:1px solid #ededed;
+        text-align:center;
+      }
+
+      .otherexamsetprobox .editunder button{
+        padding:8px 40px;
+        margin:0 6px;
+      }
+  /*-----------------------------------------------------------------------------------------*/
+  }
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
   .combox .comcontent{
     background:#FFF;
     padding:50px;
@@ -1668,6 +2493,814 @@
       margin:0 6px;
     }
   /*-----------------------------------------------------------------------------------------*/
+  }
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+  .combox .comcontent{
+    background:#FFF;
+    padding:50px;
+    overflow: hidden;
+    min-height:885px;
+  }
+
+  .combox .comcontent .examboxlist{
+    width:100%;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    border: solid 1px #ededed;
+    padding:10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .combox .comcontent .examboxlist .iconimg{
+    width:50px;
+    height:55px;
+    padding:10px;
+    padding-top:15px;
+    border-radius: 5px;
+    position: relative;
+  }
+
+  .combox .comcontent .examboxlist .iconimg img{
+    position: absolute;
+    margin:auto;
+    left:0;
+    top:12px;
+    right:0;
+    bottom: 0;
+  }
+  .combox .comcontent .examboxlist .icontxt{
+    padding:10px;
+    line-height: 100%;
+  }
+  .combox .comcontent .examboxlist .icontxt span{
+    padding-right:10px;
+    color:#6680ff;
+  }
+
+
+  .combox .comcontent .examboxlist .icontxt .icontxt-title{
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    padding-bottom: 10px;
+  }
+  .combox .comcontent .examboxlist .icontxt .icontxt-desc{
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #8a8c99;
+    line-height: 25px;
+  }
+
+  /* .color1{
+    background:#429cff;
+  }
+  .color2{
+    background:#429cff;
+  }
+  .color3{
+    background:#ff6946;
+  }
+  .color4{
+    background:#6680ff;
+  }
+  .color5{
+    background:#ff5d77;
+  } */
+
+  .viseditbox{
+    width: 788px;
+    height: 475px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px 
+      rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom: 0;
+    margin:auto;
+  }
+
+    .viseditbox .edittitle{
+      width:100%;
+      height: 60px;
+      background-color: #ededed;
+      border-radius: 4px 4px 0px 0px
+    }
+
+    .viseditbox .edittitle span{
+      display:block;
+      height:60px;
+      line-height: 60px;
+      font-size: 18px;
+      color: #5c5d66;
+      padding:0px 10px;
+    }
+
+    .viseditbox .editcontents{
+      height:calc(100% - 120px);
+    }
+
+    .viseditbox .editcontents .editleft{
+      height:100%;
+      width:33%;
+      padding:20px;
+    }
+
+    .viseditbox .editcontents .editleft .listbox{
+      width:100%;
+      height:100%;
+      padding:10px;
+      background:#f7f7f7;
+    }
+
+    .viseditbox .editcontents .editleft .listbox ul{
+    
+    }
+    .viseditbox .editcontents .editleft .listbox ul li{
+      height:30px;
+      line-height: 30px;
+    }
+    .viseditbox .editcontents .editleft .listbox ul li:hover{
+      background: linear-gradient(to right, rgba(219, 217, 217, 0), rgb(109, 209, 255));
+    }
+    
+    .viseditbox .editcontents .editright{
+      height:100%;
+      width:33%;
+    }
+
+    
+
+    .viseditbox .editcontents .editright .userlistbox{
+      height:100%;
+      width:100%;
+      padding:20px;;
+    }
+
+    .viseditbox .editcontents .editright .userlistbox .listboxusers{
+      width:100%;
+      height:100%;
+      padding:10px;
+      background:#f7f7f7;
+    }
+
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul{
+      overflow: hidden;
+    }
+    
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li{
+      height:40px;
+      list-style: none;
+      margin-bottom: 5px;
+    }
+
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox{
+      height:40px;
+      padding:5px;
+      background:rgb(228, 228, 228);
+    }
+
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userimgs{
+      width:30px;
+      height:30px;
+    }
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userimgs img{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      
+    }
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .usernames{
+      height:30px;
+      line-height: 30px;
+      padding:0px 10px;
+      width:calc(100% - 55px);
+    }
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userclears{
+      width:15px;
+      height:15px;
+      border-radius: 7.5px;
+      text-align: center;
+      line-height: 15px;
+      padding-top:1.5px;
+      background:rgb(0, 255, 76);
+      cursor: pointer;
+    }
+    .viseditbox .editcontents .editright .userlistbox .listboxusers ul li .theuserbox .userclears img{
+      border-radius:5px;
+      width:10px;
+      height:10px;
+    }
+
+
+
+    .viseditbox .editcontents .editcenter{
+      height:100%;
+      width:33%;
+
+    }
+
+    /*------------------------------------------------------*/
+    .viseditbox .editcontents .editcenter .userlistbox{
+      height:100%;
+      width:100%;
+      padding:20px;;
+    }
+
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers{
+      width:100%;
+      height:100%;
+      padding:10px;
+      background:#f7f7f7;
+    }
+
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul{
+      overflow: hidden;
+    }
+    
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li{
+      height:40px;
+      list-style: none;
+      margin-bottom: 5px;
+    }
+
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox{
+      height:40px;
+      padding:5px;
+      background:rgb(228, 228, 228);
+    }
+
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userimgs{
+      width:30px;
+      height:30px;
+    }
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userimgs img{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      
+    }
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .usernames{
+      height:30px;
+      line-height: 30px;
+      padding:0px 10px;
+      width:calc(100% - 55px);
+    }
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userclears{
+      width:15px;
+      height:15px;
+      border-radius: 7.5px;
+      text-align: center;
+      line-height: 15px;
+      padding-top:1.5px;
+      cursor: pointer;
+    }
+    .viseditbox .editcontents .editcenter .userlistbox .listboxusers ul li .theuserbox .userclears img{
+      border-radius:5px;
+    }
+
+    /*------------------------------------------------------*/
+
+    .viseditbox .editunder{
+      height:60px;
+      padding:10px;
+      border-radius: 0px 0px 4px 4px;
+      border-top:1px solid #ededed;
+      text-align:center;
+    }
+
+    .viseditbox .editunder button{
+      padding:8px 40px;
+      margin:0 6px;
+    }
+  
+
+  
+  /*--简报评审样式---------------------------------------------------------------------------*/
+  .examsetprobox{
+    width: 588px;
+    height: 555px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px 
+      rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom: 0;
+    margin:auto;
+  }
+
+      .examsetprobox .edittitle{
+      width:100%;
+      height: 60px;
+      background-color: #ededed;
+      border-radius: 4px 4px 0px 0px
+    }
+
+    .examsetprobox .edittitle span{
+      display:block;
+      height:60px;
+      line-height: 60px;
+      font-size: 18px;
+      color: #5c5d66;
+      padding:0px 10px;
+    }
+
+    .examsetprobox .editcontents{
+      height:calc(100% - 120px);
+    }
+
+    .examsetprobox .editcontents .examsbox-top{
+      color:#b8bbcc;
+    }
+
+
+
+    .examsetprobox .editcontents .editcontensbox{
+      width:100%;
+      height:365px;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-top{
+      padding:0 20px;
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-top span{
+      height:30px;
+      line-height:30px;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content{
+      height:310px;
+      padding:0 20px;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left{
+      height:310px;
+      width:calc(50% - 10px);
+      padding:0 20px;
+      background:#f7f7f7;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul{
+    
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul li{
+      height:30px;
+      line-height: 30px;
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-left ul li:hover{
+      background: #f7f7f7;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right{
+      height:310px;
+      width:calc(50% - 10px);
+      padding:10px 20px;
+      background:#f7f7f7;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchbox{
+      
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult{
+      padding:5px;
+      height: 100%;
+      z-index:100;
+      position: absolute;
+      width:210px;
+      /*-----------------------------------------------------*/
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul{
+      overflow: hidden;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li{
+      padding-bottom:1px;
+      overflow: hidden;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox{
+      height:40px;
+      padding:5px;
+      background:rgb(228, 228, 228);
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userimgs{
+      width:30px;
+      height:30px;
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userimgs img{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .usernames{
+      height:30px;
+      line-height: 30px;
+      padding:0px 10px;
+      width:calc(100% - 55px);
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userclears{
+      width:15px;
+      height:15px;
+      border-radius: 7.5px;
+      text-align: center;
+      line-height: 15px;
+      padding-top:1.5px;
+      cursor: pointer;
+    }
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .searchresult ul li .theuserbox .userclears img{
+      border-radius:5px;
+      width:15px;
+      height:15px;
+    }
+
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser{
+      padding:5px;
+      height:calc(100% - 30px);
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected{
+      padding:5px;
+      position: relative;
+      width:50px;
+      height: 80px;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected img{
+      border-radius: 20px;
+    }
+
+    .examsetprobox .editcontents .editcontensbox .editcontents-content .content-right .selecteduser .listboxselected .remove{
+      width:15px;
+      height:15px;
+      background:red;
+      position: absolute;
+      color:rgb(224, 224, 224);
+      cursor: pointer;
+      text-align: center;
+      line-height: 15px;
+      border-radius: 7.5px;
+      padding-top:1px;
+      right:0;
+      top:0;
+    }
+
+    .namebox{
+      height:30px;
+      line-height:30px;
+      text-align: center;
+      color:black;
+    }
+
+    .examsetprobox .editunder{
+      height:60px;
+      padding:10px;
+      border-radius: 0px 0px 4px 4px;
+      border-top:1px solid #ededed;
+      text-align:center;
+    }
+
+    .examsetprobox .editunder button{
+      padding:8px 40px;
+      margin:0 6px;
+    }
+  /*-----------------------------------------------------------------------------*/
+
+
+  /*----其他审批设置--------------------------------------------------------------------------*/
+    .otherexamsetprobox{
+      width: 688px;
+      height: 575px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 20px 0px 
+        rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom: 0;
+      margin:auto;
+    }
+
+      .otherexamsetprobox .edittitle{
+      width:100%;
+      height: 60px;
+      background-color: #ededed;
+      border-radius: 4px 4px 0px 0px
+    }
+
+    .otherexamsetprobox .edittitle span{
+      display:block;
+      height:60px;
+      line-height: 60px;
+      font-size: 18px;
+      color: #5c5d66;
+      padding:0px 10px;
+    }
+
+    .otherexamsetprobox .editcontents{
+      height:calc(100% - 120px);
+    }
+
+
+    .otherexamsetprobox .editcontents .examsbox-top{
+      height:80px;
+      padding:10px;
+    }
+
+
+
+    .otherexamsetprobox .editcontents .examsbox-top span{
+      height:30px;
+      line-height: 30px;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-top .examsbox-des{
+      width:100%;
+      height:30ox;
+      line-height: 30px;
+      font-size: 14px;
+	    color: #b8bbcc;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content{
+      height:calc(100% - 80px);
+      padding:10px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left{
+      width:34%;
+      height:100%;
+      padding:10px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-title{
+      width:100%;
+      height:30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #5c5d66;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content{
+      width:100%;
+      height:calc(100% - 30px);
+      padding:5px;
+      background:#f7f7f7;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul{
+      overflow: hidden;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul li{
+      height:30px;
+      line-height: 30px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-left .examsbox-content-left-content ul li:hover{
+      background:rgb(216, 216, 216);
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center{
+      width:33%;
+      height:100%;
+      padding:10px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-title{
+      width:100%;
+      height:30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #5c5d66;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content{
+      width:100%;
+      height:calc(100% - 30px);
+      padding:5px;
+      background:#f7f7f7;
+    }
+
+    /*-------------------------------------------------------------------------------------*/
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchbox{
+      text-align: center;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult{
+      padding:5px;
+      height: 45%;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul{
+      overflow: hidden;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li{
+      padding-bottom:1px;
+      overflow: hidden;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox{
+      height:40px;
+      padding:5px;
+      background:rgb(228, 228, 228);
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userimgs{
+      width:30px;
+      height:30px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userimgs img{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .usernames{
+      height:30px;
+      line-height: 30px;
+      padding:0px 10px;
+      width:calc(100% - 55px);
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userclears{
+      width:15px;
+      height:15px;
+      border-radius: 7.5px;
+      text-align: center;
+      line-height: 15px;
+      padding-top:1.5px;
+      cursor: pointer;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .searchresult ul li .theuserbox .userclears img{
+      border-radius:5px;
+      width:15px;
+      height: 15px;
+    }
+
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser{
+      padding:5px;
+      height:calc(100% - 30px);
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected{
+      padding:5px;
+      position: relative;
+      width:50px;
+      height: 80px;
+    }
+    
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected img{
+      border-radius: 20px;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-center .examsbox-content-center-content .selecteduser .listboxselected .remove{
+      width:15px;
+      height:15px;
+      background:red;
+      position: absolute;
+      color:rgb(224, 224, 224);
+      cursor: pointer;
+      text-align: center;
+      line-height: 15px;
+      border-radius: 7.5px;
+      padding-top:1px;
+      right:0;
+      top:0;
+    }
+    /*-------------------------------------------------------------------------------------*/
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right{
+      width:33%;
+      height:100%;
+      padding:10px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-title{
+      width:100%;
+      height:30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #5c5d66;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content{
+      width:100%;
+      height:calc(100% - 30px);
+      padding:5px;
+      background:#f7f7f7;
+    }
+    /*-------------------------------------------------------------------------------------*/
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchbox{
+      text-align: center;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult{
+      padding:5px;
+      height: 45%;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul{
+      overflow: hidden;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li{
+      padding-bottom:1px;
+      overflow: hidden;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox{
+      height:40px;
+      padding:5px;
+      background:rgb(228, 228, 228);
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userimgs{
+      width:30px;
+      height:30px;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userimgs img{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .usernames{
+      height:30px;
+      line-height: 30px;
+      padding:0px 10px;
+      width:calc(100% - 55px);
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userclears{
+      width:15px;
+      height:15px;
+      border-radius: 7.5px;
+      text-align: center;
+      line-height: 15px;
+      padding-top:1.5px;
+      cursor: pointer;
+    }
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .searchresult ul li .theuserbox .userclears img{
+      border-radius:5px;
+      width:15px;
+      height: 15px;
+    }
+
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser{
+      padding:5px;
+      height: 100%;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected{
+      padding:5px;
+      position: relative;
+      width:50px;
+      height: 80px;
+    }
+    
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected img{
+      border-radius: 20px;
+    }
+
+    .otherexamsetprobox .editcontents .examsbox-content .examsbox-content-right .examsbox-content-right-content .selecteduser .listboxselected .remove{
+      width:15px;
+      height:15px;
+      background:red;
+      position: absolute;
+      color:rgb(224, 224, 224);
+      cursor: pointer;
+      text-align: center;
+      line-height: 15px;
+      border-radius: 7.5px;
+      padding-top:1px;
+      right:0;
+      top:0;
+    }
+    /*-------------------------------------------------------------------------------------*/
+    .otherexamsetprobox .editunder{
+      height:60px;
+      padding:10px;
+      border-radius: 0px 0px 4px 4px;
+      border-top:1px solid #ededed;
+      text-align:center;
+    }
+
+    .otherexamsetprobox .editunder button{
+      padding:8px 40px;
+      margin:0 6px;
+    }
+  /*-----------------------------------------------------------------------------------------*/
+  }   
 
   .unshow{
     visibility: hidden;

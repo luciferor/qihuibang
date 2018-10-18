@@ -71,7 +71,7 @@
           <div class="line10"></div>
           <!--列表开始-->
           <div class="boxlist">
-            <i-button @click="addpostaction" style="background:#6680ff; color:white; float:right;">确认添加</i-button>
+            <i-button @click="addpostaction" style="background:#6680ff; color:white; float:right; width:120px;">确认添加</i-button>
           </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
           <div class="line10"></div>
           <!--列表开始-->
           <div class="boxlist">
-            <i-button @click="adduserinformations" style="background:#6680ff; color:white; float:right;">确认添加</i-button>
+            <i-button @click="adduserinformations" style="background:#6680ff; color:white; float:right; width:120px;">确认添加</i-button>
           </div>
       </div>
     </div>
@@ -327,15 +327,34 @@
       },
       adduserinformations(){//添加用户
         
-        //验证
-        if(this.adduserlist.usercall==""||this.adduserlist.usercall==null||this.adduserlist.usercall==undefined){
-          this.error('电话号码不能为空');
+        if (this.adduserlist.username=="") {
+          this.error('用户名不能为空');
           return;
         }
-        if(this.adduserlist.username==""||this.adduserlist.username==null||this.adduserlist.username==undefined){
+        //验证是不是手机号
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(this.adduserlist.usercall)) {
+          this.error('请输入正确的11位数手机号');
+          return;
+        }
+        if (this.adduserlist.usercall=="") {
           this.error('手机号不能为空');
           return;
         }
+        if (this.adduserlist.udepid=="") {
+          this.error('部门不能为空');
+          return;
+        }
+        if (this.adduserlist.uldepid=="") {
+          this.error('岗位不能为空');
+          return;
+        }
+        if (this.adduserlist.isadmin=="") {
+          this.error('是否为管理员必须选择');
+          return;
+        }
+
+        
         let addurl = window.localStorage.api+'/add/user';
         let params = new URLSearchParams();
         params.append('mobile_phone',this.adduserlist.usercall);//手机号	
@@ -354,7 +373,14 @@
             this.adduserlist.isadmin="";
             this.closeadduserwins();
             //重新加载
-            this.getjobusers();//重新加载岗位和用户数据
+            //重新加载岗位和用户数据
+            //加载岗位和用户
+            this.getjobusers();
+            //加载添加用户时的部门
+            this.getorgdepinfos();
+            //加载添加岗位是时的部门
+            this.getpostdepinfos();
+
           }else{
             this.error(res['data'].message);
           }
@@ -426,7 +452,13 @@
           //console.log(res);
           if(res['data'].success){
             this.success(res['data'].message);
-            this.getjobusers();//重新加载岗位和用户数据
+            //重新加载岗位和用户数据
+            //加载岗位和用户
+            this.getjobusers();
+            //加载添加用户时的部门
+            this.getorgdepinfos();
+            //加载添加岗位是时的部门
+            this.getpostdepinfos();
             //关闭窗口
             this.closeaddpostwins();
             this.addpostlist.postname="";
@@ -494,8 +526,9 @@
             });
       },
       error(_str) {
-          this.$alert(_str, '系统提示', {
-                confirmButtonText: '确定',
+          this.$message({
+              message:_str,
+              type: 'success'
           });
       },
     },
@@ -650,8 +683,8 @@
 
     /*****************************************/
     .adduserwin{
-      width: 444px;
-      height: 450px;
+      width: 374px;
+      height: 380px;
       background-color: #ffffff;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
@@ -664,7 +697,7 @@
     }
 
     .adduserwin .adduserwin-title{
-      width: 444px;
+      width: 374px;
       height: 50px;
       background-color: #ededed;
       border-radius: 4px 4px 0px 0px;
@@ -681,9 +714,9 @@
     }
 
     .adduserwin .adduserwin-content{
-      width:444px;
+      width:374px;
       height: calc(100% - 50px);
-      padding:70px 70px;
+      padding:20px 30px 30px 30px;
     }
 
 
@@ -721,8 +754,8 @@
 
     /*添加岗位*/
     .combox .adddepclassbox{
-      width: 444px;
-      height: 360px;
+      width: 374px;
+      height: 270px;
       background-color: #ffffff;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
@@ -735,7 +768,7 @@
     }
 
     .combox .adddepclassbox .adddepclassbox-title{
-      width: 444px;
+      width: 374px;
       height: 50px;
       background-color: #ededed;
       border-radius: 4px 4px 0px 0px;
@@ -752,9 +785,9 @@
     }
 
     .combox .adddepclassbox .adddepclassbox-content{
-      width:444px;
+      width:374px;
       height: calc(100% - 50px);
-      padding:70px 70px;
+      padding:20px 30px 30px 30px;
     }
 
 

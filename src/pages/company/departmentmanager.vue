@@ -97,7 +97,7 @@
           <div class="boxlist">
             <div class="list-title fl">部门名称</div>
             <div class="list-content fl">
-                <el-input v-model="littledep" placeholder="请输入部门名称..." style="width:100%;"></el-input>
+                <el-input size="small" v-model="littledep" placeholder="请输入部门名称..." style="width:100%;"></el-input>
             </div>
           </div>
           <!--列表结束-->          
@@ -108,7 +108,7 @@
           <div class="line10"></div>
           <!--列表开始-->
           <div class="boxlist">
-            <i-button @click="adddepinfoes" style="background:#6680ff; color:white; float:right;">确认添加</i-button>
+            <i-button @click="adddepinfoes" style="background:#6680ff; color:white; float:right; width:120px;">确认添加</i-button>
           </div>
       </div>
     </div>
@@ -494,8 +494,8 @@
 
     /*添加部门*/
     .combox .adddepclassbox{
-      width: 444px;
-      height: 360px;
+      width: 374px;
+      height: 320px;
       background-color: #ffffff;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
@@ -508,7 +508,7 @@
     }
 
     .combox .adddepclassbox .adddepclassbox-title{
-      width: 444px;
+      width: 374px;
       height: 50px;
       background-color: #ededed;
       border-radius: 4px 4px 0px 0px;
@@ -525,9 +525,9 @@
     }
 
     .combox .adddepclassbox .adddepclassbox-content{
-      width:444px;
+      width:374px;
       height: calc(100% - 50px);
-      padding:70px 70px;
+      padding:20px 30px;
     }
 
 

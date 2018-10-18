@@ -4,7 +4,7 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon>公司信息
+              <span style="padding-right:10px;"><img width="20" height="20" src="../..\assets\iMenu\sMenu\icon_gongshi.png"  /></span><span>公司信息</span>
           </Breadcrumb-item>
         </Breadcrumb>
       </span>
@@ -158,102 +158,317 @@
     border-bottom: 1px solid #ededed;
   }
 
-  .combox .comcontent{
-    background:#FFF;
-    padding:10px;
-    overflow: hidden;
-    min-height:885px;
+  /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+      width:calc(100% - 20px);
+    }
+
+    .combox .comcontent .comcontent-top{
+      height:50px;
+      width:100%;
+      position: relative;
+    }
+
+
+    .combox .comcontent .comcontent-top .comcontent-top-title{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-type{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-edit{
+      position: absolute;
+      top:0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .combox .comcontent .comcontent-top-infos span{
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      line-height: 40px;
+      width:100%;
+    }
+
+    .combox .comcontent .comcontent-top-img{
+      padding-top:50px;
+      overflow: hidden;
+      width:100%;
+      text-align:center;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box{
+      position: relative;
+      width: 100%;
+      background-color: #ffffff;
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      text-align: center;
+      margin:0 auto;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box img{
+      border:none;
+      width:100%;
+      height:60%;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box .imgtext{
+      position:absolute;
+      bottom:0;
+      background: #1414149c;
+      color:white;
+      font-size: 18px;
+      width:100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    .combox .comcontent .companytitle{
+      height:40px;
+      width:100%;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      margin-top:50px;
+    }
+
+    .combox .comcontent .companydescription{
+      text-indent: 20px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      padding: 30px;
+      background:#fcfcfc;
+    }
   }
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+      width:calc(100% - 20px);
+    }
 
-  .combox .comcontent .comcontent-top{
-    height:50px;
-    width:100%;
+    .combox .comcontent .comcontent-top{
+      height:50px;
+      width:100%;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-title{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 24px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-type{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 18px;
+      font-weight: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-edit{
+
+    }
+
+    .combox .comcontent .comcontent-top-infos span{
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      line-height: 40px;
+    }
+
+    .combox .comcontent .comcontent-top-img{
+      padding-top:50px;
+      overflow: hidden;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box{
+      position: relative;
+      width: 150px;
+      height: 110px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      margin-right: 30px;
+      text-align: center;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box img{
+      border:none;
+    }
+
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box .imgtext{
+      position:absolute;
+      bottom:0;
+      background: #1414149c;
+      color:white;
+      font-size: 14px;
+      width:100%;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+    }
+
+    .combox .comcontent .companytitle{
+      height:40px;
+      width:100%;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      margin-top:50px;
+    }
+
+    .combox .comcontent .companydescription{
+      text-indent: 20px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      padding: 30px;
+      background:#fcfcfc;
+    }
   }
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+    }
 
-  .combox .comcontent .comcontent-top .comcontent-top-title{
-    font-family: MicrosoftYaHei-Bold;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-  }
+    .combox .comcontent .comcontent-top{
+      height:50px;
+      width:100%;
+    }
 
-  .combox .comcontent .comcontent-top .comcontent-top-type{
-    font-family: MicrosoftYaHei-Bold;
-    font-size: 18px;
-    font-weight: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-  }
+    .combox .comcontent .comcontent-top .comcontent-top-title{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 24px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
 
-  .combox .comcontent .comcontent-top .comcontent-top-edit{
+    .combox .comcontent .comcontent-top .comcontent-top-type{
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 18px;
+      font-weight: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+    }
 
-  }
+    .combox .comcontent .comcontent-top .comcontent-top-edit{
 
-  .combox .comcontent .comcontent-top-infos span{
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #5c5d66;
-    line-height: 40px;
-  }
+    }
 
-  .combox .comcontent .comcontent-top-img{
-    padding-top:50px;
-    overflow: hidden;
-  }
+    .combox .comcontent .comcontent-top-infos span{
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      line-height: 40px;
+    }
 
-  .combox .comcontent .comcontent-top-img .comcontent-top-img-box{
-    position: relative;
-    width: 150px;
-    height: 110px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    border: solid 1px #ededed;
-    margin-right: 30px;
-    text-align: center;
-  }
+    .combox .comcontent .comcontent-top-img{
+      padding-top:50px;
+      overflow: hidden;
+    }
 
-  .combox .comcontent .comcontent-top-img .comcontent-top-img-box img{
-    border:none;
-  }
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box{
+      position: relative;
+      width: 150px;
+      height: 110px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      border: solid 1px #ededed;
+      margin-right: 30px;
+      text-align: center;
+    }
 
-  .combox .comcontent .comcontent-top-img .comcontent-top-img-box .imgtext{
-    position:absolute;
-    bottom:0;
-    background: #1414149c;
-    color:white;
-    font-size: 14px;
-    width:100%;
-    height: 24px;
-    text-align: center;
-    line-height: 24px;
-  }
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box img{
+      border:none;
+    }
 
-  .combox .comcontent .companytitle{
-    height:40px;
-    width:100%;
-    line-height: 40px;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-    margin-top:50px;
-  }
+    .combox .comcontent .comcontent-top-img .comcontent-top-img-box .imgtext{
+      position:absolute;
+      bottom:0;
+      background: #1414149c;
+      color:white;
+      font-size: 14px;
+      width:100%;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+    }
 
-  .combox .comcontent .companydescription{
-    text-indent: 20px;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #5c5d66;
-    padding: 30px;
-    background:#fcfcfc;
-  }
+    .combox .comcontent .companytitle{
+      height:40px;
+      width:100%;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      margin-top:50px;
+    }
 
-    
+    .combox .comcontent .companydescription{
+      text-indent: 20px;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #5c5d66;
+      padding: 30px;
+      background:#fcfcfc;
+    }
+  }   
+
+
 </style>

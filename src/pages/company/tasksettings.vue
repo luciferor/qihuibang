@@ -345,7 +345,7 @@
             <div style="border-bottom:1px solid #ededed; height:30px; width:100%; margin-bottom:30px;"></div>
             <div><el-input type="textarea" :maxlength="40" v-model="task.tasktext" placeholder="请输入一个任务..."></el-input></div>
             <div style="height:40px;">
-              <span style="display:block; height:40px; line-height:40px; float:left;"> <el-input placeholder="请输入..." style="width: 80px;" v-model="task.taskbf"></el-input></span>
+              <span style="display:block; height:40px; line-height:30px; float:left;"> <el-input size="small" placeholder="请输入..." style="width: 80px;" v-model="task.taskbf"></el-input></span>
               <span style="display:block; height:40px; line-height:40px; float:right; padding:5px;"><i-button class="fr backgroundpar" @click="addtasks" type="primary">确定完成</i-button></span>
               <span style="display:block; height:40px; line-height:40px; float:right; padding:5px;"><i-button class="fr" @click="closetaskwins" style="width:80px;">取消</i-button></span>
             </div>

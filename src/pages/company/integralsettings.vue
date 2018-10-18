@@ -3,8 +3,8 @@
   <!-- <div class="combox" style="height:100%;">
     <div class="comcontent" v-show="false">
       <div class="comcontent-top">
-        <Row>
-          <i-col span="12">
+        <el-row>
+          <el-col :span="12">
             <div class="comcontent-top-list">
               <div class="comcontent-top-list-title">15</div><div class="comcontent-top-con">单日最高分</div>
             </div>
@@ -25,8 +25,8 @@
               <div class="comcontent-top-list-title">15</div><div class="comcontent-top-con">单年最高分</div>
             </div>
             <div class="hline1"></div>
-          </i-col>
-          <i-col span="12">
+          </el-col>
+          <el-col :span="12">
             <div class="comcontent-top-list">
               <div class="comcontent-top-list-title fcolorred">-15</div><div class="comcontent-top-con">单日最高减分</div>
             </div>
@@ -46,8 +46,8 @@
             <div class="comcontent-top-list">
               <div class="comcontent-top-list-title fcolorred">-15</div><div class="comcontent-top-con">单年最高减分</div>
             </div>
-          </i-col>
-        </Row>
+          </el-col>
+        </el-row>
       </div>
     </div>
   </div> -->
@@ -70,60 +70,72 @@
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
                     <div>工作日：</div>
-                    <Row>
-                      <i-col span="8">
-                        <span>按时打上班卡额外奖励</span>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>按时打上班卡</span>
                         <span><Input-number  v-model="setintegralses.timeset" @on-change="setintegrals(setintegralses.timeset,11)"></Input-number></span><span>邦分</span>
-                      </i-col>
+                      </el-col>
                       
-                      <i-col span="16">
-                        <span>每天工作满</span>
-                        <span><Input-number v-model="setintegralses.hourse" @on-change="setintegrals(setintegralses.hourse,16)"></Input-number></span><span>小时，</span>
-                        <span>额外奖励</span>
-                        <span><Input-number v-model="setintegralses.reward" @on-change="setintegrals(setintegralses.reward,17)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
-                    <Row>
-                      <i-col span="8">
-                        <span>按时打下班卡额外奖励</span>
+                      <el-col style="padding-top:10px;" :span="16" :xs="24">
+                        <el-row>
+                          <el-col :span="12" :xs="24">
+                            <span>每天工作满</span>
+                            <span><Input-number v-model="setintegralses.hourse" @on-change="setintegrals(setintegralses.hourse,16)"></Input-number></span><span>小时，</span>
+                          </el-col>
+                          <el-col :span="12" :xs="24">
+                            <span>额外奖励</span>
+                            <span><Input-number v-model="setintegralses.reward" @on-change="setintegrals(setintegralses.reward,17)"></Input-number></span><span>邦分</span>
+                          </el-col>
+                        </el-row>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>按时打下班卡</span>
                         <span><Input-number v-model="setintegralses.gooff" @on-change="setintegrals(setintegralses.gooff,15)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
-                    <Row>
-                      <i-col span="8">
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每工作半小时</span>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>每工作半小时</span>
                         <span><Input-number  v-model="setintegralses.workset" @on-change="setintegrals(setintegralses.workset,12)" ></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
+                      </el-col>
+                    </el-row>
                   </div>
                   <div class="fr" style="width:50%;">
                     <div style="color:#ff6666;">非工作日：</div>
                     <!---------------------------------------------------------------------------------------->
-                    <Row>
-                      <i-col span="8">
-                        <span>按时打上班卡额外奖励</span>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>按时打上班卡</span>
                         <span><Input-number  v-model="unsetintegralses.timeset" @on-change="setintegrals(unsetintegralses.timeset,18)"></Input-number></span><span>邦分</span>
-                      </i-col>
+                      </el-col>
                       
-                      <i-col span="16">
-                        <span>每天工作满</span>
-                        <span><Input-number v-model="unsetintegralses.hourse" @on-change="setintegrals(unsetintegralses.hourse,21)"></Input-number></span><span>小时，</span>
-                        <span>额外奖励</span>
-                        <span><Input-number v-model="unsetintegralses.reward" @on-change="setintegrals(unsetintegralses.reward,22)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
-                    <Row>
-                      <i-col span="8">
-                        <span>按时打下班卡额外奖励</span>
+                      <el-col style="padding-top:10px;" :span="16" :xs="24">
+                        <el-row>
+                          <el-col :span="12" :xs="24">
+                            <span>每天工作满</span>
+                            <span><Input-number v-model="unsetintegralses.hourse" @on-change="setintegrals(unsetintegralses.hourse,21)"></Input-number></span><span>小时，</span>
+                          </el-col>
+                          <el-col :span="12" :xs="24">
+                            <span>额外奖励</span>
+                            <span><Input-number v-model="unsetintegralses.reward" @on-change="setintegrals(unsetintegralses.reward,22)"></Input-number></span><span>邦分</span>
+                          </el-col>
+                        </el-row>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>按时打下班卡</span>
                         <span><Input-number v-model="unsetintegralses.gooff" @on-change="setintegrals(unsetintegralses.gooff,19)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
-                    <Row>
-                      <i-col span="8">
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每工作半小时</span>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="8" :xs="24">
+                        <span>每工作半小时</span>
                         <span><Input-number  v-model="unsetintegralses.workset" @on-change="setintegrals(unsetintegralses.workset,20)" ></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
+                      </el-col>
+                    </el-row>
                     <!---------------------------------------------------------------------------------------->
                   </div>
                 </div>
@@ -138,50 +150,50 @@
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
                   <div>工作日：</div>
-                  <Row>
-                    <i-col span="12">
+                  <el-row>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>单次日目标最高分</span>
                       <span><Input-number  v-model="settargetintegrals.daytar" @on-change="setintegrals(settargetintegrals.daytar,2)" ></Input-number></span><span>邦分</span>
-                    </i-col>
-                    <i-col span="12">
+                    </el-col>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>日目标总分</span>
                       <span><Input-number  v-model="settargetintegrals.daytol"  @on-change="setintegrals(settargetintegrals.daytol,1)"></Input-number></span><span>邦分</span>
-                    </i-col>
-                  </Row>
-                  <Row>
-                    <i-col span="12">
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>单次周目标最高分</span>
                       <span><Input-number  v-model="settargetintegrals.weektar"   @on-change="setintegrals(settargetintegrals.weektar,4)"></Input-number></span><span>邦分</span>
-                    </i-col>
-                    <i-col span="12">
+                    </el-col>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>周目标总分</span>
                       <span><Input-number  v-model="settargetintegrals.weektol"  @on-change="setintegrals(settargetintegrals.weektol,3)"></Input-number></span><span>邦分</span>
-                    </i-col>
-                  </Row>
-                  <Row>
-                    <i-col span="12">
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>单次月目标最高分</span>
                       <span><Input-number  v-model="settargetintegrals.mothtar"  @on-change="setintegrals(settargetintegrals.mothtar,6)"></Input-number></span><span>邦分</span>
-                    </i-col>
-                    <i-col span="12">
+                    </el-col>
+                    <el-col style="padding-top:10px;" :span="12" :xs="24">
                       <span>月目标总分</span>
                       <span><Input-number  v-model="settargetintegrals.mothtol"  @on-change="setintegrals(settargetintegrals.mothtol,5)"></Input-number></span><span>邦分</span>
-                    </i-col>
-                  </Row>
+                    </el-col>
+                  </el-row>
                   </div>
                   <div class="fr" style="width:50%;">
                     <div style="color:#ff6666;">非工作日：</div>
                     <!------------------------------------------------------------------------------------------>
-                    <Row>
-                      <i-col span="12">
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>单次日目标最高分</span>
                         <span><Input-number v-model="unsettargetintegrals.daytar" @on-change="setintegrals(unsettargetintegrals.daytar,23)" ></Input-number></span><span>邦分</span>
-                      </i-col>
-                      <i-col span="12">
+                      </el-col>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>日目标总分</span>
                         <span><Input-number v-model="unsettargetintegrals.daytol" @on-change="setintegrals(unsettargetintegrals.daytol,24)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                    </Row>
+                      </el-col>
+                    </el-row>
                     <!------------------------------------------------------------------------------------------>                    
                   </div>
                 </div>
@@ -196,28 +208,28 @@
                 <div class="comboxnuminputbox-content">
                   <div class="fl" style="width:50%;">
                     <div>工作日</div>
-                    <Row>
-                      <i-col span="12">
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>每次最高加分</span>
                         <span><Input-number  v-model="plussubtegrals.sbestplus"  @on-change="setintegrals(plussubtegrals.sbestplus,7)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                      <i-col span="12">
+                      </el-col>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>每日最多可加邦分</span>
                         <span><Input-number  v-model="plussubtegrals.sbestps"  @on-change="setintegrals(plussubtegrals.sbestps,8)"></Input-number></span>
                         <span>邦分</span>
-                      </i-col>
-                    </Row>
-                    <Row>
-                      <i-col span="12">
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>每次最高减分</span>
                         <span><Input-number  v-model="plussubtegrals.sbestsub"  @on-change="setintegrals(plussubtegrals.sbestsub,9)"></Input-number></span><span>邦分</span>
-                      </i-col>
-                      <i-col span="12">
+                      </el-col>
+                      <el-col style="padding-top:10px;" :span="12" :xs="24">
                         <span>每日最多可减邦分</span>
                         <span><Input-number v-model="plussubtegrals.sbestsp"  @on-change="setintegrals(plussubtegrals.sbestsp,10)"></Input-number></span>
                         <span>邦分</span>
-                      </i-col>
-                    </Row>
+                      </el-col>
+                    </el-row>
                   </div>
                   <div class="fr" style="width:50%;">
                     <div style="color:#ff6666;">非工作日</div>
@@ -244,39 +256,39 @@
                   <span class="tt" style="margin-left:17px; color:#ff6666;"></span><span class="td"></span>
                 </div>
                 <div class="comboxnuminputbox-content">
-                  <Row>
-                    <i-col span="24">
+                  <el-row>
+                    <el-col style="padding-top:10px;" :span="24" :xs="24">
                       <span style="font-size:14px;font-weight:bold; padding-bottom:50px;">排名基准线及要求</span><br /><br />
                       <span>
-                        <el-input style="width:850px;" class="main-text" type="textarea" autosize  v-model="punishments.ranking" @blur="setintegrals(punishments.ranking,26)" placeholder="请输入排名基准线及要求..."></el-input>
+                        <el-input class="main-text" type="textarea" autosize  v-model="punishments.ranking" @blur="setintegrals(punishments.ranking,26)" placeholder="请输入排名基准线及要求..."></el-input>
                       </span>
-                    </i-col>
-                  </Row>
+                    </el-col>
+                  </el-row>
                 </div>
                 <div class="comboxnuminputbox-content">
-                  <Row>
-                    <i-col span="12">
+                  <el-row>
+                    <el-col :span="12" :xs="24">
                       <span>迟到时长</span>
                       <span><Input-number  v-model="punishments.tlate" @on-change="setintegrals(punishments.tlate,13)"></Input-number></span><span>分钟,算旷工</span>
-                    </i-col>
-                    <i-col span="12">
+                    </el-col>
+                    <el-col :span="12" :xs="24" style="padding-top:10px;">
                       <span>早退时长</span>
                       <span><Input-number  v-model="punishments.tearly" @on-change="setintegrals(punishments.tearly,14)" ></Input-number></span><span>分钟,算旷工</span>
-                    </i-col>
-                  </Row>
+                    </el-col>
+                  </el-row>
                 </div>
               </div>
             </Tab-pane>
             <Tab-pane label="自我管理设置" key="key5">
               <div class="comcontent-topa" style="padding:10px;">
-                  <span class="comcontent-topa-title">自我价值观</span>
+                  <span class="comcontent-topa-title" style="padding-right:10px;">自我价值观</span>
                   <span class="comcontent-topa-des">自我加减分是自我行为管理的表现，基于信任原则，诚信为自己加分，据实为自己加分，据实为自己减分</span>
               </div>
               <div class="comcontent-content">
                   <div class="content-listbox" style="padding:20px;">
                       <div class="content-listbox-left fl">自我加分</div>
                       <div class="content-listbox-right fl">
-                          <div style="padding:0px 0px 5px 5px; float:left;" v-for="item in brefenlistadd" :key="item.index">
+                          <div style="padding:0px 5px 5px 0px; float:left;" v-for="item in brefenlistadd" :key="item.index">
                             <div class="classtagslist">
                               <div @click="edittags(item.id,'add')" class="tagstext">{{item.text}}(+{{item.bangfen}}邦分)</div>
                               <div @click="deletetags(item.id)" class="tagsbtn">X</div>
@@ -288,7 +300,7 @@
                   <div class="content-listbox" style="padding:20px;">
                       <div class="content-listbox-left fl">自我减分</div>
                       <div class="content-listbox-right fl">
-                          <div style="padding:0px 0px 5px 5px; float:left;" v-for="item in brefenlistred" :key="item.index">
+                          <div style="padding:0px 5px 5px 0px; float:left;" v-for="item in brefenlistred" :key="item.index">
                             <div class="classtagslist">
                               <div @click="edittags(item.id,'reduce')" class="tagstext">{{item.text}}(-{{item.bangfen}}邦分)</div>
                               <div @click="deletetags(item.id)" class="tagsbtn">X</div>
@@ -307,7 +319,7 @@
                       <div class="plusrebox-list" v-for="(itemes,index) in dynamiclist" :key="index">
                           <div class="plusrebox-left-img fl"><img :src="itemes.user_img==''?userImg:rootUrl+itemes.user_img|srctransformation" width="40" height="40" /></div>
                           <div class="plusrebox-left-text fl">
-                              <span style="display:block;font-family: MicrosoftYaHei; font-size: 14px; color: #2e2f33;">{{itemes.name}}</span>
+                              <span style="display:block;font-family: MicrosoftYaHei; font-size: 14px; color: #2e2f33;">{{itemes.name}}<span :class="itemes.status=='add'?'bluecorecolor':'redcorecolor'" style="padding-left:10px;">{{itemes.status=='add'?'+':''}}{{itemes.bangfen}}邦分</span></span>
                               <span style="display:block;font-family: MicrosoftYaHei; font-size: 12px; color: #b8bbcc;">{{itemes.content}}</span>
                           </div>
                           <div class="plusrebox-left-time fr">{{itemes.updated_at}}</div>
@@ -317,7 +329,7 @@
                   </el-scrollbar>
               </div>
               <div class="underpages">
-                  <Page :total="pageTotal" :current="pageNum" v-model="pageNum" :show-total="true" @on-change="getpagescontents"></Page>
+                  <Page :total="pageTotal"  :page-size="40" :show-total="true" @on-change="getpagescontents"></Page>
               </div>
             </Tab-pane>
         </Tabs>
@@ -452,8 +464,8 @@
         </div>
     </div>
 
-    <div style="margin-top:100px;" class="addtags unshow">
-        <div class="addtags-title"><span>添加标签</span><span class="fr" @click="closeaddtags" style="cursor: pointer;">x</span></div>
+    <div class="addtags unshow" transfer>
+        <div class="addtags-title" style="cursor:move;"><span>添加标签</span><span class="fr" @click="closeaddtags" style="cursor: pointer;"><img src="../../assets/delete.png" /></span></div>
         <div class="addtagscontents">
             <div style="color:#5c5d66; font-size:14px;">符合价值</div>
             <div><el-input :maxlength="6" v-model="tags" type="textarea" :value="tags" placeholder="请输入..."></el-input></div>
@@ -607,6 +619,7 @@
     },
     data(){
       return{
+        current_page:'',
         //打卡价值观---------------------------------------------------------------------------------------------------
           //添加标签
           tags:'',
@@ -631,7 +644,7 @@
           dynamiclist:[],//动态
           pageTotal: 0,
           pageNum: 1,
-          pageSize: 10,
+          pageSize: 40,
         //打卡价值观---------------------------------------------------------------------------------------------------
         rootUrl:window.localStorage.api,
         rootImg:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAEQElEQVR4nO2bYXOqOhCG34AVBBkH7P//gxWFqiFIJPfDnXCgx1rbcQn07POJdijJPA2bTTaIqqoMGDI81x347bBgYlgwMSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTMyCuoGmaSClRF3XaNsWxrgtYgsh4HkegiBAFEV4eXmhbY+ybC+lRFmWVI9/CpvNBlEUkT2fLEQ0TTN5uQBQliWapiF7PlmIkFJ210IIJEmC5XJJ1dzDGGNQVdWgf1JKbDYbkvbIBNd13V0nSYI4jqma+jbL5RJt20IpBWDY12dDFiKu12t3HQQBVTM/pv829fv6bEZJ04QQYzTzLTxvnAyV82BifpVg1zn2LcgXGpQYY3A+n6GU6lItIQSCIMBqtUIYho57OGPBdV2jKAq0bTv4vTEGSikopbBcLpGm6Wjx9hazDBGXywWHw+Evubfuy/PcaeiY3Qg2xuBwOHTShBCI4xhhGMLzPGitcT6fu9xWa42iKJCmqZP+zk7w6XTqRq4QAlmWDXJa3/cRBAGOxyNOpxMAdDGaemPnFrMLEXb1BQDr9frT5XeSJFgs/oyf/t+NyawEG2Ogte5+/ipLWK1W3TXlhs49ZiX446Tm+/7d+/vZg6uJblaCP6Zb/dF8i/4eg6tUbVaChRCDiaq/5fgRuy1pcTHBATMTDGBQfZBS3pRsjEFRFN0IFkIM4vGYzC5Ni6II5/O5Cw9lWUIpNciDpZSD8BDH8ZfxmorZCQaANE2R53k36dV1/emmeRiGSJJkzO4NmF2IAIDFYoHX19e7JSi7wnO1grPMcgQD/6do2+0WdV13KzVjTFeSX61WzsJCn9kKtgRBMMmSlGUSIWKKG+XPwtkIbtsWx+MRVVXBGIPFYoEkSSaxSf5MnIxgrTV2ux2klN3o1VrjcDjgeDy66BIZowvWWiPP809L5afTCUVRjNwrOkYNEU3TYL/ff1mJqKoKbdsiTdO7JX9bjzPGIAxDxHE8uSMCowmu63pQiXjk/v1+jyzL/pJmqxr9xUXTNKiqClmWTSI9s4wSIpRS35JrsTW1/oi/Xq/Y7XY3V25a64fekDEZRfD7+/uPU7GmabqYba/vbVPaGD8VybNYaGit8fb29vA/yY7k7XbrPCZPYqHxCN99A+yE6noRMxvBP+FyuTiX/KsFA38OqXBNjhB7zMoFZIJdTy4fUUoNJPdXkpR9JRPs8sDdZ1RVhbIs0bbtoJbXP6DybMieHATB3aqvK6SUUEoN8mTKHTyyYbZerycXJix9uZ7nzfM7Od/3kWXZJEOFRQhBfn6Y9EtPAF28U0pBa+088bef0trdN+qNIXLB/zrTfX9/CSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTAwLJoYFE/Mfuu8crG4Pn8IAAAAASUVORK5CYII=',
@@ -695,6 +708,25 @@
       }
     },
     methods:{
+      drag(e){//拖动窗体
+      console.log(e.clientX);
+      console.log(e.clientY);
+      
+        let odiv = e.path[1];
+        let disX  = e.pageX;//e.clientX-odiv.offsetLeft-210;
+        let disY = e.pageY;//e.clientY-odiv.offsetTop-135;
+        document.onmousemove=(e)=>{
+          e.preventDefault();
+          let l = e.clientX;
+          let t = e.clientY;
+          odiv.style.left = l+'px';
+          odiv.style.top = t+'px';
+        }
+        document.onmouseup=()=>{
+          document.onmousemove=null;
+          document.onmouseup=null;
+        }
+      },
       //打卡价值观------------------------------------------------------------------------------------------------------
         savetags(){//保存标签
             if(this.tags==""){
@@ -916,10 +948,13 @@
             //console.log('切换了'+page);
             let url = window.localStorage.api+'/get/task/notice?page='+page;
             this.$http.get(url).then(res=>{
-                this.pageTotal = res['data'].message.total,
-                this.dynamiclist = res['data'].message.data;
+              //console.log(res);
+              this.pageTotal = res['data'].message.total,
+              this.current_page = res['data'].message.current_page,
+              //console.log(this.pageTotal);
+              this.dynamiclist = res['data'].message.data;
             }).catch(err=>{
-                //console.log(err);
+              //console.log(err);
             })
         },
         handlePageSize(){
@@ -1076,374 +1111,1133 @@
   }
 
   .combox .comtitle{
-    height:62px;
-    line-height: 62px;
+    height:69px;
+    line-height: 69px;
     padding-left:10px;
     font-size: 16px;
     color: #2e2f33;
     border-bottom: 1px solid #ededed;
   }
 
-  .combox .comcontent{ 
-    background:#FFF;
-    padding:50px;
-    overflow: hidden;
-  }
 
-  .combox .comcontent .comcontent-top{
-    overflow: hidden;
-    height:100%;
-  }
-
-  .combox .comcontent .comcontent-top .comcontent-top-list{
-    float:left;
-    width:calc(20% - 1px);
-  }
-
-  .combox .comcontent .comcontent-top .hline1{
-    width:1px;
-    height:70px;
-    background:rgb(219, 219, 219);
-    overflow: hidden;
-    float: left;
-  }
-
-  .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-list-title{
-    width:100%;
-    height:50%;
-    font-size: 30px;
-    font-weight: bold;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #6680ff;
-    text-align: center;
-  }
-
-  .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-con{
-    width:100%;
-    height:50%;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    letter-spacing: 0px;
-    color: #2e2f33;
-    text-align: center;
-  }
-  
-  .fcolorred{
-    color:#ff6666 !important;
-  }
-  .comboxunder{
-    /* margin-top:10px; */
-    background:white;
-    padding:10px;
-    min-height:949px;
-    height:100%;
-  }
-
-  .comboxunder .comboxbtnbox{
-    overflow: hidden;
-    padding:10px;
-    text-align: right;
-  }
-
-  .comboxunder .comboxnuminput{
-    overflow: hidden;
-  }
-
-  .comboxunder .comboxnuminput ul{
-  }
-  .comboxunder .comboxnuminput ul li{
-    height:40px;
-    line-height: 40px;
-  }
-
-  .comboxnuminputbox{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-    border-bottom: 1px solid #E0E0E0;
-  }
-
-    .comboxnuminputbox .comboxnuminputbox-title{
-      height:60px;
+    /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .main-text{
       width:100%;
     }
 
-    .comboxnuminputbox .comboxnuminputbox-title .tt{
-      font-size: 18px;
-      font-weight: normal;
+    .combox .comcontent{ 
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      width:calc(100% - 20px);
+    }
+    .combox .comcontent .comcontent-top{
+      overflow: hidden;
+      height:100%;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list{
+      float:left;
+      width:calc(20% - 1px);
+    }
+
+    .combox .comcontent .comcontent-top .hline1{
+      width:1px;
+      height:70px;
+      background:rgb(219, 219, 219);
+      overflow: hidden;
+      float: left;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-list-title{
+      width:100%;
+      height:50%;
+      font-size: 30px;
+      font-weight: bold;
       font-stretch: normal;
       letter-spacing: 0px;
       color: #6680ff;
+      text-align: center;
     }
 
-    .comboxnuminputbox .comboxnuminputbox-title .td{
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-con{
+      width:100%;
+      height:50%;
       font-size: 14px;
       font-weight: normal;
       font-stretch: normal;
       letter-spacing: 0px;
-      color: #b8bbcc;
+      color: #2e2f33;
+      text-align: center;
+    }
+    
+    .fcolorred{
+      color:#ff6666 !important;
+    }
+    .comboxunder{
+      /* margin-top:10px; */
+      background:white;
+      padding:10px;
+      min-height:949px;
+      height:100%;
+      width:calc(100% - 30px)
     }
 
-
-    .comboxnuminputbox .comboxnuminputbox-title span{
-      display: block;
-      float: left;
-      height:60px;
-      line-height:60px;
+    .comboxunder .comboxbtnbox{
+      overflow: hidden;
+      padding:10px;
+      text-align: right;
     }
 
-    .comboxnuminputbox .comboxnuminputbox-content{
-      padding:20px;
+    .comboxunder .comboxnuminput{
+      overflow: hidden;
     }
 
-    .comboxnuminputbox .comboxnuminputbox-content .ivu-row{
-      padding:10px 0;
+    .comboxunder .comboxnuminput ul{
+    }
+    .comboxunder .comboxnuminput ul li{
+      height:40px;
+      line-height: 40px;
     }
 
-    /* =====打开价值观============================================================================= */
-      .combox .comboxtagsbox{
-          width:340px;
-          min-height:568px;
-          height:100%;
-          background:white;
-          position: absolute;
-          right:0;
-          top:0;
-          bottom: 0;
-          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-          
-      }
-
-
-      .combox .comboxtagsbox .combox-tags-box-title{
-          height:40px;
-          font-size: 16px;
-          color: #5c5d66;
-          border-bottom: 1px solid #ededed;
-          line-height: 40px;
-          padding:0 10px;
-      }
-
-      .combox .comboxtagsbox .combox-tags-box-content{
-          padding:20px;
-          width:100%;
-          height:calc(100% - 40px);
-      }
-
-      .combox .comboxtagsbox .combox-tags-box-content div{
-          padding:5px;
-      }
-
-      .combox .addtags{
-          width:420px;
-          height:350px;
-          background:white;
-          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-          border-radius: 4px;
-          position: absolute;
-          left:0;
-          right:0;
-          top:0;
-          bottom: 0;
-          margin: auto;
-      }
-
-      .combox .addtags .addtags-title{
-          width:420px;
-          height:60px;
-          background: #ededed;
-          border-radius: 4px 4px 0px 0px;
-          font-size: 16px;
-          line-height: 60px;
-          padding:0 10px;
-          color:#5c5d66;
-      }
-
-      .combox .addtags .addtagscontents{
-            height: 290px;
-            width:420px;
-            padding:10px;
-      }
-      .combox .addtags .addtagscontents div{
-        padding:5px; 
-      }
-
-
-    .show{
-        visibility: visible;
-        -webkit-z-index: 1000;
-        -moz-z-index: 1000;
-        -ms-z-index: 1000;
-        -o-z-index: 1000;
-        z-index: 1000;
+    .comboxnuminputbox{
+      padding:10px;
+      overflow: hidden;
+      border-bottom: 1px solid #E0E0E0;
     }
 
-    .unshow{
-        visibility: hidden;
-        -webkit-z-index: -1000;
-        -moz-z-index: -1000;
-        -ms-z-index: -1000;
-        -o-z-index: -1000;
-        z-index: -1000;
-    }
-    /* =====打开价值观============================================================================= */
-
-      .comboxnuminput .comcontent-topa{
-          height:50px;
-          line-height: 50px;
+      .comboxnuminputbox .comboxnuminputbox-title{
+        /* height:60px; */
+        width:100%;
+        overflow: hidden;
       }
 
-      .comboxnuminput .comcontent-topa .comcontent-topa-title{
-          color:#6680ff;
-          font-size: 18px;
+      .comboxnuminputbox .comboxnuminputbox-title .tt{
+        font-size: 18px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #6680ff;
       }
 
-      .comboxnuminput .comcontent-topa .comcontent-topa-des{
-          color:#b8bbcc;
-          font-size: 14px;
+      .comboxnuminputbox .comboxnuminputbox-title .td{
+        display: block;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #b8bbcc;
+        overflow: hidden;
       }
 
-        .comboxnuminput .comcontent-content{
-            overflow: hidden;
-            width:100%;
+
+      .comboxnuminputbox .comboxnuminputbox-title span{
+        display: block;
+        float: left;
+        height:60px;
+        line-height:60px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content{
+        padding:20px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content .ivu-row{
+        padding:10px 0;
+      }
+
+      /* =====打开价值观============================================================================= */
+        .combox .comboxtagsbox{
+            width:340px;
+            min-height:568px;
+            height:100%;
+            background:white;
+            position: absolute;
+            right:0;
+            top:0;
+            bottom: 0;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            
         }
 
-        .comboxnuminput .comcontent-content .content-listbox{
-            padding:10px 0;
-        }
-        .comboxnuminput .comcontent-content .content-listbox .content-listbox-left{
-          width:100px;
-          font-size: 16px;
-        color: #2e2f33;
-          padding:10px 0;
 
-        }
-        .comboxnuminput .comcontent-content .content-listbox .content-listbox-right{
-          width:calc(100% - 100px);
-          padding:10px 0;
-        }
-
-        .comboxnuminput .plusrebox-title{
-            height:60px;
-            line-height: 60px;
-            font-family: MicrosoftYaHei;
+        .combox .comboxtagsbox .combox-tags-box-title{
+            height:40px;
             font-size: 16px;
-            color: #2e2f33;
-            border-top:1px solid #ededed;
-            border-bottom:1px solid #ededed;
-            margin-top:50px;
+            color: #5c5d66;
+            border-bottom: 1px solid #ededed;
+            line-height: 40px;
+            padding:0 10px;
         }
 
-        .comboxnuminput .plusrebox-content{
-            padding:10px;
-            height: 450px;
+        .combox .comboxtagsbox .combox-tags-box-content{
+            padding:20px;
+            width:100%;
+            height:calc(100% - 40px);
         }
 
-        .comboxnuminput .plusrebox-content .plusrebox-list{
-            height:80px;
-            box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
-            border-radius: 4px;
-            border: solid 1px #ededed;
-            margin-bottom: 10px;
-        }
-
-          .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img{
-              height:80px;
-              width:80px;
-              padding:20px;
-              border-radius: 40px;
-          }
-
-          .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img img{
-              border-radius: 40px;
-          }
-
-          .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-text{
-              height: 80px;
-              width:calc(100% - 230px);
-              padding:20px 20px 20px 0px;
-          }
-
-          .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-time{
-              height:80px;
-              width:150px;
-              line-height: 80px;
-              font-size: 14px;
-              color: #8a8c99;
-          }
-
-          .comboxnuminput .underpages{
-            height: 90px;
-            border-top:1px solid #ededed;
-            text-align: center;
-            line-height: 90px;
-          }
-
-          .classtagslist{
+        .combox .comboxtagsbox .combox-tags-box-content div{
             padding:5px;
-            background:#f5f6ff;
-            height: 28px;
+        }
+
+        .combox .addtags{
+            width:420px;
+            height:270px;
+            background:white;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .combox .addtags .addtags-title{
+            width:420px;
+            height:60px;
+            background: #ededed;
+            border-radius: 4px 4px 0px 0px;
+            font-size: 16px;
+            line-height: 60px;
+            padding:0 10px;
+            color:#5c5d66;
+        }
+
+        .combox .addtags .addtagscontents{
+              width:420px;
+              padding:10px;
+        }
+        .combox .addtags .addtagscontents div{
+          padding:5px; 
+        }
+
+
+      .show{
+          visibility: visible;
+          -webkit-z-index: 1000;
+          -moz-z-index: 1000;
+          -ms-z-index: 1000;
+          -o-z-index: 1000;
+          z-index: 1000;
+      }
+
+      .unshow{
+          visibility: hidden;
+          -webkit-z-index: -1000;
+          -moz-z-index: -1000;
+          -ms-z-index: -1000;
+          -o-z-index: -1000;
+          z-index: -1000;
+      }
+      /* =====打开价值观============================================================================= */
+
+        .comboxnuminput .comcontent-topa{
+            /* height:50px; */
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .comboxnuminput .comcontent-topa .comcontent-topa-title{
             color:#6680ff;
-            float: left;
-            border-radius: 5px;
-            border:1px solid #bfccff;
-          }
+            font-size: 18px;
+        }
 
-          .classtagslist .tagstext{
-            float: left;
-            padding:0px 5px 0px 5px;
-            cursor: pointer;
-          }
+        .comboxnuminput .comcontent-topa .comcontent-topa-des{
+            color:#b8bbcc;
+            font-size: 14px;
+            overflow: hidden;
+        }
 
-          .classtagslist .tagsbtn{
-            padding:0px 5px 0px 5px;
-            height: 28px;
-            text-align: center;
-            cursor: pointer;
-            float: left;
-          }
-
-          .classtagslist .tagsbtn:hover{
-            color:red;
-          }
-
-
-          /* 编辑标签样式开始 */
-          .combox .editcomboxtagsbox{
-              width:340px;
-              min-height:568px;
-              height:100%;
-              background:white;
-              position: absolute;
-              right:0;
-              top:0;
-              bottom: 0;
-              box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-              
-          }
-
-
-          .combox .editcomboxtagsbox .combox-tags-box-title{
-              height:40px;
-              font-size: 16px;
-              color: #5c5d66;
-              border-bottom: 1px solid #ededed;
-              line-height: 40px;
-              padding:0 10px;
-          }
-
-          .combox .editcomboxtagsbox .combox-tags-box-content{
-              padding:20px;
+          .comboxnuminput .comcontent-content{
+              overflow: hidden;
               width:100%;
-              height:calc(100% - 40px);
           }
 
-          .combox .editcomboxtagsbox .combox-tags-box-content div{
-              padding:5px;
+          .comboxnuminput .comcontent-content .content-listbox{
+              padding:10px 0;
           }
-          /* 编辑标签样式结束 */
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-left{
+            width:100px;
+            font-size: 16px;
+          color: #2e2f33;
+            padding:10px 0;
+
+          }
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-right{
+            width:calc(100% - 100px);
+            padding:10px 0;
+          }
+
+          .comboxnuminput .plusrebox-title{
+              height:60px;
+              line-height: 60px;
+              font-family: MicrosoftYaHei;
+              font-size: 16px;
+              color: #2e2f33;
+              border-top:1px solid #ededed;
+              border-bottom:1px solid #ededed;
+              margin-top:50px;
+          }
+
+          .comboxnuminput .plusrebox-content{
+              padding:10px;
+              height: 450px;
+          }
+
+          .comboxnuminput .plusrebox-content .plusrebox-list{
+              height:80px;
+              box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+              border-radius: 4px;
+              border: solid 1px #ededed;
+              margin-bottom: 10px;
+          }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img{
+                height:80px;
+                width:80px;
+                padding:20px;
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img img{
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-text{
+                height: 80px;
+                width:calc(100% - 230px);
+                padding:20px 20px 20px 0px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-time{
+                height:80px;
+                width:150px;
+                line-height: 80px;
+                font-size: 14px;
+                color: #8a8c99;
+            }
+
+            .comboxnuminput .underpages{
+              height: 90px;
+              border-top:1px solid #ededed;
+              text-align: center;
+              line-height: 90px;
+            }
+
+            .classtagslist{
+              padding:5px;
+              background:#f5f6ff;
+              height: 28px;
+              color:#6680ff;
+              float: left;
+              border-radius: 5px;
+              border:1px solid #bfccff;
+            }
+
+            .classtagslist .tagstext{
+              float: left;
+              padding:0px 5px 0px 5px;
+              cursor: pointer;
+            }
+
+            .classtagslist .tagsbtn{
+              padding:0px 5px 0px 5px;
+              height: 28px;
+              text-align: center;
+              cursor: pointer;
+              float: left;
+            }
+
+            .classtagslist .tagsbtn:hover{
+              color:red;
+            }
+
+
+            /* 编辑标签样式开始 */
+            .combox .editcomboxtagsbox{
+                width:340px;
+                min-height:568px;
+                height:100%;
+                background:white;
+                position: absolute;
+                right:0;
+                top:0;
+                bottom: 0;
+                box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+                
+            }
+
+
+            .combox .editcomboxtagsbox .combox-tags-box-title{
+                height:40px;
+                font-size: 16px;
+                color: #5c5d66;
+                border-bottom: 1px solid #ededed;
+                line-height: 40px;
+                padding:0 10px;
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content{
+                padding:20px;
+                width:100%;
+                height:calc(100% - 40px);
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content div{
+                padding:5px;
+            }
+            /* 编辑标签样式结束 */
+  }
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
+    .main-text{
+      width:100%;
+    }
+    .combox .comcontent{ 
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      width:calc(100% - 20px);
+    }
+    .combox .comcontent .comcontent-top{
+      overflow: hidden;
+      height:100%;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list{
+      float:left;
+      width:calc(20% - 1px);
+    }
+
+    .combox .comcontent .comcontent-top .hline1{
+      width:1px;
+      height:70px;
+      background:rgb(219, 219, 219);
+      overflow: hidden;
+      float: left;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-list-title{
+      width:100%;
+      height:50%;
+      font-size: 30px;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #6680ff;
+      text-align: center;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-con{
+      width:100%;
+      height:50%;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      text-align: center;
+    }
+    
+    .fcolorred{
+      color:#ff6666 !important;
+    }
+    .comboxunder{
+      /* margin-top:10px; */
+      background:white;
+      padding:10px;
+      min-height:949px;
+      height:100%;
+      width:calc(100% - 25px);
+    }
+
+    .comboxunder .comboxbtnbox{
+      overflow: hidden;
+      padding:10px;
+      text-align: right;
+    }
+
+    .comboxunder .comboxnuminput{
+      overflow: hidden;
+    }
+
+    .comboxunder .comboxnuminput ul{
+    }
+    .comboxunder .comboxnuminput ul li{
+      height:40px;
+      line-height: 40px;
+    }
+
+    .comboxnuminputbox{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+      .comboxnuminputbox .comboxnuminputbox-title{
+        /* height:60px; */
+        width:100%;
+        overflow: hidden;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-title .tt{
+        font-size: 18px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #6680ff;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-title .td{
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #b8bbcc;
+      }
+
+
+      .comboxnuminputbox .comboxnuminputbox-title span{
+        display: block;
+        float: left;
+        height:60px;
+        line-height:60px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content{
+        padding:20px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content .ivu-row{
+        padding:10px 0;
+      }
+
+      /* =====打开价值观============================================================================= */
+        .combox .comboxtagsbox{
+            width:340px;
+            min-height:568px;
+            height:100%;
+            background:white;
+            position: absolute;
+            right:0;
+            top:0;
+            bottom: 0;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            
+        }
+
+
+        .combox .comboxtagsbox .combox-tags-box-title{
+            height:40px;
+            font-size: 16px;
+            color: #5c5d66;
+            border-bottom: 1px solid #ededed;
+            line-height: 40px;
+            padding:0 10px;
+        }
+
+        .combox .comboxtagsbox .combox-tags-box-content{
+            padding:20px;
+            width:100%;
+            height:calc(100% - 40px);
+        }
+
+        .combox .comboxtagsbox .combox-tags-box-content div{
+            padding:5px;
+        }
+
+        .combox .addtags{
+            width:420px;
+            height:270px;
+            background:white;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .combox .addtags .addtags-title{
+            width:420px;
+            height:60px;
+            background: #ededed;
+            border-radius: 4px 4px 0px 0px;
+            font-size: 16px;
+            line-height: 60px;
+            padding:0 10px;
+            color:#5c5d66;
+        }
+
+        .combox .addtags .addtagscontents{
+              width:420px;
+              padding:10px;
+        }
+        .combox .addtags .addtagscontents div{
+          padding:5px; 
+        }
+
+
+      .show{
+          visibility: visible;
+          -webkit-z-index: 1000;
+          -moz-z-index: 1000;
+          -ms-z-index: 1000;
+          -o-z-index: 1000;
+          z-index: 1000;
+      }
+
+      .unshow{
+          visibility: hidden;
+          -webkit-z-index: -1000;
+          -moz-z-index: -1000;
+          -ms-z-index: -1000;
+          -o-z-index: -1000;
+          z-index: -1000;
+      }
+      /* =====打开价值观============================================================================= */
+
+        .comboxnuminput .comcontent-topa{
+            /* height:50px; */
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .comboxnuminput .comcontent-topa .comcontent-topa-title{
+            color:#6680ff;
+            font-size: 18px;
+            overflow: hidden;
+        }
+
+        .comboxnuminput .comcontent-topa .comcontent-topa-des{
+            color:#b8bbcc;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+          .comboxnuminput .comcontent-content{
+              overflow: hidden;
+              width:100%;
+          }
+
+          .comboxnuminput .comcontent-content .content-listbox{
+              padding:10px 0;
+          }
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-left{
+            width:100px;
+            font-size: 16px;
+          color: #2e2f33;
+            padding:10px 0;
+
+          }
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-right{
+            width:calc(100% - 100px);
+            padding:10px 0;
+          }
+
+          .comboxnuminput .plusrebox-title{
+              height:60px;
+              line-height: 60px;
+              font-family: MicrosoftYaHei;
+              font-size: 16px;
+              color: #2e2f33;
+              border-top:1px solid #ededed;
+              border-bottom:1px solid #ededed;
+              margin-top:50px;
+          }
+
+          .comboxnuminput .plusrebox-content{
+              padding:10px;
+              height: 450px;
+          }
+
+          .comboxnuminput .plusrebox-content .plusrebox-list{
+              height:80px;
+              box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+              border-radius: 4px;
+              border: solid 1px #ededed;
+              margin-bottom: 10px;
+          }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img{
+                height:80px;
+                width:80px;
+                padding:20px;
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img img{
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-text{
+                height: 80px;
+                width:calc(100% - 230px);
+                padding:20px 20px 20px 0px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-time{
+                height:80px;
+                width:150px;
+                line-height: 80px;
+                font-size: 14px;
+                color: #8a8c99;
+            }
+
+            .comboxnuminput .underpages{
+              height: 90px;
+              border-top:1px solid #ededed;
+              text-align: center;
+              line-height: 90px;
+            }
+
+            .classtagslist{
+              padding:5px;
+              background:#f5f6ff;
+              height: 28px;
+              color:#6680ff;
+              float: left;
+              border-radius: 5px;
+              border:1px solid #bfccff;
+            }
+
+            .classtagslist .tagstext{
+              float: left;
+              padding:0px 5px 0px 5px;
+              cursor: pointer;
+            }
+
+            .classtagslist .tagsbtn{
+              padding:0px 5px 0px 5px;
+              height: 28px;
+              text-align: center;
+              cursor: pointer;
+              float: left;
+            }
+
+            .classtagslist .tagsbtn:hover{
+              color:red;
+            }
+
+
+            /* 编辑标签样式开始 */
+            .combox .editcomboxtagsbox{
+                width:340px;
+                min-height:568px;
+                height:100%;
+                background:white;
+                position: absolute;
+                right:0;
+                top:0;
+                bottom: 0;
+                box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+                
+            }
+
+
+            .combox .editcomboxtagsbox .combox-tags-box-title{
+                height:40px;
+                font-size: 16px;
+                color: #5c5d66;
+                border-bottom: 1px solid #ededed;
+                line-height: 40px;
+                padding:0 10px;
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content{
+                padding:20px;
+                width:100%;
+                height:calc(100% - 40px);
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content div{
+                padding:5px;
+            }
+            /* 编辑标签样式结束 */
+  }
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+    .main-text{
+      width:60%;
+    }
+    .combox .comcontent{ 
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+    }
+    .combox .comcontent .comcontent-top{
+      overflow: hidden;
+      height:100%;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list{
+      float:left;
+      width:calc(20% - 1px);
+    }
+
+    .combox .comcontent .comcontent-top .hline1{
+      width:1px;
+      height:70px;
+      background:rgb(219, 219, 219);
+      overflow: hidden;
+      float: left;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-list-title{
+      width:100%;
+      height:50%;
+      font-size: 30px;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #6680ff;
+      text-align: center;
+    }
+
+    .combox .comcontent .comcontent-top .comcontent-top-list .comcontent-top-con{
+      width:100%;
+      height:50%;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #2e2f33;
+      text-align: center;
+    }
+    
+    .fcolorred{
+      color:#ff6666 !important;
+    }
+    .comboxunder{
+      /* margin-top:10px; */
+      background:white;
+      padding:10px;
+      min-height:949px;
+      height:100%;
+    }
+
+    .comboxunder .comboxbtnbox{
+      overflow: hidden;
+      padding:10px;
+      text-align: right;
+    }
+
+    .comboxunder .comboxnuminput{
+      overflow: hidden;
+    }
+
+    .comboxunder .comboxnuminput ul{
+    }
+    .comboxunder .comboxnuminput ul li{
+      height:40px;
+      line-height: 40px;
+    }
+
+    .comboxnuminputbox{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+      .comboxnuminputbox .comboxnuminputbox-title{
+        height:60px;
+        width:100%;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-title .tt{
+        font-size: 18px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #6680ff;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-title .td{
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #b8bbcc;
+      }
+
+
+      .comboxnuminputbox .comboxnuminputbox-title span{
+        display: block;
+        float: left;
+        height:60px;
+        line-height:60px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content{
+        padding:20px;
+      }
+
+      .comboxnuminputbox .comboxnuminputbox-content .ivu-row{
+        padding:10px 0;
+      }
+
+      /* =====打开价值观============================================================================= */
+        .combox .comboxtagsbox{
+            width:340px;
+            min-height:568px;
+            height:100%;
+            background:white;
+            position: absolute;
+            right:0;
+            top:0;
+            bottom: 0;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            
+        }
+
+
+        .combox .comboxtagsbox .combox-tags-box-title{
+            height:40px;
+            font-size: 16px;
+            color: #5c5d66;
+            border-bottom: 1px solid #ededed;
+            line-height: 40px;
+            padding:0 10px;
+        }
+
+        .combox .comboxtagsbox .combox-tags-box-content{
+            padding:20px;
+            width:100%;
+            height:calc(100% - 40px);
+        }
+
+        .combox .comboxtagsbox .combox-tags-box-content div{
+            padding:5px;
+        }
+
+        .combox .addtags{
+            width:420px;
+            height:270px;
+            background:white;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .combox .addtags .addtags-title{
+            width:420px;
+            height:60px;
+            background: #ededed;
+            border-radius: 4px 4px 0px 0px;
+            font-size: 16px;
+            line-height: 60px;
+            padding:0 10px;
+            color:#5c5d66;
+        }
+
+        .combox .addtags .addtagscontents{
+              width:420px;
+              padding:10px;
+        }
+        .combox .addtags .addtagscontents div{
+          padding:5px; 
+        }
+
+
+      .show{
+          visibility: visible;
+          -webkit-z-index: 1000;
+          -moz-z-index: 1000;
+          -ms-z-index: 1000;
+          -o-z-index: 1000;
+          z-index: 1000;
+      }
+
+      .unshow{
+          visibility: hidden;
+          -webkit-z-index: -1000;
+          -moz-z-index: -1000;
+          -ms-z-index: -1000;
+          -o-z-index: -1000;
+          z-index: -1000;
+      }
+      /* =====打开价值观============================================================================= */
+
+        .comboxnuminput .comcontent-topa{
+            /* height:50px; */
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .comboxnuminput .comcontent-topa .comcontent-topa-title{
+            color:#6680ff;
+            font-size: 18px;
+        }
+
+        .comboxnuminput .comcontent-topa .comcontent-topa-des{
+            color:#b8bbcc;
+            font-size: 14px;
+        }
+
+          .comboxnuminput .comcontent-content{
+              overflow: hidden;
+              width:100%;
+          }
+
+          .comboxnuminput .comcontent-content .content-listbox{
+              padding:10px 0;
+          }
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-left{
+            width:100px;
+            font-size: 16px;
+          color: #2e2f33;
+            padding:10px 0;
+
+          }
+          .comboxnuminput .comcontent-content .content-listbox .content-listbox-right{
+            width:calc(100% - 100px);
+            padding:10px 0;
+          }
+
+          .comboxnuminput .plusrebox-title{
+              height:60px;
+              line-height: 60px;
+              font-family: MicrosoftYaHei;
+              font-size: 16px;
+              color: #2e2f33;
+              border-top:1px solid #ededed;
+              border-bottom:1px solid #ededed;
+              margin-top:50px;
+          }
+
+          .comboxnuminput .plusrebox-content{
+              padding:10px;
+              height: 450px;
+          }
+
+          .comboxnuminput .plusrebox-content .plusrebox-list{
+              height:80px;
+              box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+              border-radius: 4px;
+              border: solid 1px #ededed;
+              margin-bottom: 10px;
+          }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img{
+                height:80px;
+                width:80px;
+                padding:20px;
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-img img{
+                border-radius: 40px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-text{
+                height: 80px;
+                width:calc(100% - 230px);
+                padding:20px 20px 20px 0px;
+            }
+
+            .comboxnuminput .plusrebox-content .plusrebox-list .plusrebox-left-time{
+                height:80px;
+                width:150px;
+                line-height: 80px;
+                font-size: 14px;
+                color: #8a8c99;
+            }
+
+            .comboxnuminput .underpages{
+              height: 90px;
+              border-top:1px solid #ededed;
+              text-align: center;
+              line-height: 90px;
+            }
+
+            .classtagslist{
+              padding:5px;
+              background:#f5f6ff;
+              height: 28px;
+              color:#6680ff;
+              float: left;
+              border-radius: 5px;
+              border:1px solid #bfccff;
+            }
+
+            .classtagslist .tagstext{
+              float: left;
+              padding:0px 5px 0px 5px;
+              cursor: pointer;
+            }
+
+            .classtagslist .tagsbtn{
+              padding:0px 5px 0px 5px;
+              height: 28px;
+              text-align: center;
+              cursor: pointer;
+              float: left;
+            }
+
+            .classtagslist .tagsbtn:hover{
+              color:red;
+            }
+
+
+            /* 编辑标签样式开始 */
+            .combox .editcomboxtagsbox{
+                width:340px;
+                min-height:568px;
+                height:100%;
+                background:white;
+                position: absolute;
+                right:0;
+                top:0;
+                bottom: 0;
+                box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+                
+            }
+
+
+            .combox .editcomboxtagsbox .combox-tags-box-title{
+                height:40px;
+                font-size: 16px;
+                color: #5c5d66;
+                border-bottom: 1px solid #ededed;
+                line-height: 40px;
+                padding:0 10px;
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content{
+                padding:20px;
+                width:100%;
+                height:calc(100% - 40px);
+            }
+
+            .combox .editcomboxtagsbox .combox-tags-box-content div{
+                padding:5px;
+            }
+            /* 编辑标签样式结束 */
+  } 
+  
+  
+  .redcorecolor{
+    font-size:12px; color:#ff4b48;
+  }
+
+  .bluecorecolor{
+    font-size: 12px; color:#3d5afe;
+  }
 
 </style>
 <style>
