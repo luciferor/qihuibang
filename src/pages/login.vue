@@ -724,7 +724,7 @@ export default {
 
 
     /*适配各种尺寸-PC端高分辨率屏幕*/
-  @media only screen and (max-width: 2560px) and (min-width: 1920px)
+  @media only screen and (max-width: 15560px) and (min-width: 1920px)
   {
     /*登录框样式*/
     .loginbox{

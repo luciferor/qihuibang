@@ -15,7 +15,7 @@
                 <el-row>
                     <el-col :span="18">
                         <div class="list-left-title">【{{index+1}}】<span class="colorpar" style="padding-right:10px;">{{item.name}}</span>{{item.title}}......<span class="posor" style="color:#5c5d66; padding-left:10px;">点击跳转该通知详情界面</span></div>
-                        <div class="list-left-content">{{item.info}}老卡积分拉科技发上了飞机阿萨塑料袋卡士大夫加上了宽带缴费；萨拉宽带缴费； 纱礼服的就萨拉宽带缴费；思路 </div>
+                        <div class="list-left-content">{{item.info}} </div>
                     </el-col>
                     <el-col :span="6">
                         <div class="list-right-box">

@@ -20,25 +20,25 @@ import animate from 'animate.css'
 //引入zll的js.api||
 /********************************/
 import api from './services/api.js'
-import echarts from 'echarts'//百度echart
+import echarts from 'echarts' //百度echart
 import Highcharts from 'highcharts/highstock';
 import HighchartsMore from 'highcharts/highcharts-more';
 HighchartsMore(Highcharts)
 Vue.prototype.$api = api
-Vue.prototype.$echarts=echarts
-/********************************/
+Vue.prototype.$echarts = echarts
+    /********************************/
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-//使用iview
+    //使用iview
 Vue.use(iView)
 Vue.prototype.$http = axios
-Vue.prototype.$echarts=echarts
+Vue.prototype.$echarts = echarts
 Vue.prototype.$hightChart = Highcharts
 
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })

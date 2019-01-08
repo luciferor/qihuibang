@@ -28,13 +28,9 @@ export default {
       window.localStorage["api"] = "https://qypyp.xiaohuibang.com";//正式环境
       console.log('当前正式环境');
     }
-    if(url[2]=='192.168.0.183:8888'){
+    if(url[2]=='localhost:8888'){
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
       console.log('当前测试环境');
-    }
-    if(url[2]=='tech.dsnbc.com'){
-      window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//正式环境
-      console.log('当前外网正式环境');
     }
   }
 }
