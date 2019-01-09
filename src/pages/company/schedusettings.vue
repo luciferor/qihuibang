@@ -17,14 +17,14 @@
         <div class="listbox">
           <Row>
             <i-col span="6">
-              <div class="spantitle">{{item.name}}</div>
+              <div class="spantitle">{{item.name.substr(0,15)}}...</div>
               <div class="spandes">{{item.type==0?'白班':'夜班'}} {{item.start_time}}-{{item.end_time}}</div>
             </i-col>
             <i-col span="6">
               <div class="spantitle">考勤地址</div>
               <div class="spandes">
                 <Poptip placement="bottom">
-                    <div class="posor">{{item.check_work_site[0].address}}</div>
+                    <div class="posor">{{item.check_work_site[0].address}}<i style="border:1px solid #ededed; border-radius:3px; margin-left:3px;" class="iconfont icon-gengduo"></i></div>
                     <div class="api" slot="content">
                       <div style="color:gray; line-height:30px;" v-for="i in item.check_work_site" :key="i.id">{{i.address}}</div>
                   </div>
@@ -87,7 +87,7 @@
         let params = new URLSearchParams();
         params.append('id',this.delid);
         this.$http.post(url,params).then(res=>{
-          console.log(res);
+          //console.log(res);
           if(res['data'].success){
             this.success(res['data'].message);
             this.modalmsg = false;
@@ -95,7 +95,7 @@
             this.getschedulist();
           }
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       cancel(){
@@ -108,10 +108,10 @@
       getschedulist(){
         let url = window.localStorage.api+"/get/check/work";
         this.$http.get(url).then(res=>{
-          console.log(res);
+          //console.log(res);
           this.schedulist = res['data'].message.data;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       },
       //页面提示信息
@@ -134,6 +134,7 @@
       $('combox').addClass('animated lightSpeedIn');
     }
   }
+
 </script>
 
 
@@ -152,6 +153,7 @@
     font-size: 16px;
     color: #2e2f33;
     border-bottom: 1px solid #ededed;
+    
   }
 
   .combox .comcontent{
@@ -187,5 +189,6 @@
     letter-spacing: 0px;
     color: #8a8c99;
     line-height: 30px;
+    
   }
 </style>

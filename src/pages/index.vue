@@ -1,12 +1,22 @@
 <template>
   <div class="mainbox">
-    <div class="menuleft fl">
+    <!--遮罩层开始-->
+    <div @click="lightboxevents" class="lightblackbox unshow posor"></div>
+    <!--遮罩层结束-->
+    <div class="menuleft menuunshow fl">
       <div class="menutop">
-        <div class="logoimg fl"><img src="../assets/iMenu/icon_logo.png" /></div>
+        <div class="logoimg fl">
+          <img :src="companyinfo.logo==''?rootImg:rootUrl+companyinfo.logo">
+        </div>
         <div class="searchbox fl">
           <div class="inbox">
-            <div style="height:40px; line-height:40px; font-size:14px;">消汇邦信息科技有限公司</div>
-            <i-input v-show="false" icon="ios-search" style="width:100%; height:100%; border:none;" placeholder="请输入搜索关键字..."></i-input>
+            <div style="height:40px; line-height:40px; font-size:14px;">{{(companyinfo.name)}}</div>
+            <el-input
+              v-show="false"
+              icon="ios-search"
+              style="width:100%; height:100%; border:none;"
+              placeholder="请输入搜索关键字..."
+            ></el-input>
           </div>
         </div>
       </div>
@@ -14,25 +24,61 @@
         <!--左侧菜单开始-->
         <div class="leftmenulist fl">
           <ul>
-            <li v-show="false" @click="Statistics()" name="company"><span><img src="..\assets\iMenu\normal\icon_tab_renwu_normal.png"
-                  width="20" height="20" /></span></li>
-            <li @click="showmenu('some')" name="some"><span><img src="..\assets\iMenu\normal\icon_tab_renwu_normal.png"
-                  width="20" height="20" /></span></li>
-            <li @click="showmenu('task')" name="task"><span><img src="..\assets\iMenu\normal\icon_tab_paimin_normal.png"
-                  width="20" height="20" /></span></li>
-            <li @click="showmenu('ranking')" name="ranking"><span><img src="..\assets\iMenu\normal\icon_tab_xiaoxin_normal.png"
-                  width="20" height="20" /></span></li>
-            <li @click="showmenu('glory')" name="glory"><span><img src="..\assets\iMenu\normal\icon_tab_bangong_normal.png"
-                  width="20" height="20" /></span></li>
-            <div @click="showmenu('company')" class="setting"><span class="settingbox"><img src="..\assets\iMenu\normal\icon_tab_guangli_normal.png"
-                  width="18" height="18" /></span></div>
+            <li v-show="false" @click="Statistics()" name="company">
+              <span>
+                <img src="..\assets\iMenu\normal\icon_tab_renwu_normal.png" width="20" height="20">
+              </span>
+            </li>
+            <li @click="showmenu('some')" name="some">
+              <span>
+                <img src="..\assets\iMenu\normal\icon_tab_renwu_normal.png" width="20" height="20">
+              </span>
+            </li>
+            <li @click="showmenu('task')" name="task">
+              <span>
+                <img src="..\assets\iMenu\normal\icon_tab_paimin_normal.png" width="20" height="20">
+              </span>
+            </li>
+            <li @click="showmenu('ranking')" name="ranking">
+              <span>
+                <img
+                  src="..\assets\iMenu\normal\icon_tab_xiaoxin_normal.png"
+                  width="20"
+                  height="20"
+                >
+              </span>
+            </li>
+            <li @click="showmenu('glory')" name="glory">
+              <span>
+                <img
+                  src="..\assets\iMenu\normal\icon_tab_bangong_normal.png"
+                  width="20"
+                  height="20"
+                >
+              </span>
+            </li>
+            <div @click="showmenu('company')" class="setting">
+              <span class="settingbox">
+                <img
+                  src="..\assets\iMenu\normal\icon_tab_guangli_normal.png"
+                  width="18"
+                  height="18"
+                >
+              </span>
+            </div>
             <div class="userimg">
               <Poptip width="100" placement="right-end">
-                <img :src="userinfolist.user_img==''?userImg:rootUrl+userinfolist.user_img | srctransformation" width="40"
-                  height="40" />
+                <img
+                  :src="userinfolist.user_img==''?userImg:rootUrl+userinfolist.user_img | srctransformation"
+                  width="40"
+                  height="40"
+                >
                 <div class="api" slot="content">
                   <div class="menulist">
-                    <el-button style="color:red; font-weight:bold;" type="text">{{userinfolist.name}}</el-button>
+                    <el-button
+                      style="color:red; font-weight:bold;"
+                      type="text"
+                    >{{userinfolist.name}}</el-button>
                   </div>
                   <div class="menulist">
                     <el-button @click="ownnerinfos" type="text">更改密码</el-button>
@@ -48,123 +94,210 @@
                     <el-button @click="bangfensetting" type="text">邦分设置</el-button>
                   </div>
                   <div style="height: 1px; background-color: #ededed;"></div>
- <div class="menulist">
+                  <div class="menulist">
                     <el-button @click="fulibangfen" type="text">福利邦分</el-button>
                   </div>
-                   <div class="menulist">
+                  <div class="menulist">
                     <el-button @click="selfinfo" type="text">个人信息</el-button>
                   </div>
 
-                    <div style="height: 1px; background-color: #ededed;"></div>
-                      <div class="menulist">
+                  <div style="height: 1px; background-color: #ededed;"></div>
+                  <div class="menulist">
                     <el-button @click="feedback" type="text">意见反馈</el-button>
                   </div>
                   <div class="menulist">
-                    <el-button type="text" @click="centerDialogVisible = true">退出登录</el-button>
+                    <el-button type="text" @click="openLogOut">退出登录</el-button>
                   </div>
-                </div> 
+                </div>
               </Poptip>
             </div>
           </ul>
         </div>
         <div class="rightmenubox fl">
           <div class="rightmenulist">
-            <div class="menu-title">
-              管理后台
-            </div>
+            <div class="menu-title">管理后台</div>
 
-            <div v-show="a" name="company" class="childlist" style="height:calc(100% - 50px); backgroud:red; padding:10px;">
+            <div
+              v-show="a"
+              name="company"
+              class="childlist"
+              style="height:calc(100% - 50px); backgroud:red; padding:10px;"
+            >
               <el-scrollbar style="height:100%;">
                 <div class="rightmenulistbox" style="backgroun:red;">
                   <ul>
-                    <li @click="cominfosset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png" /></span><span>公司信息</span></li>
-                    <li @click="exammanset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shenpi.png" /></span><span>审批设置</span></li>
-                    <li @click="integralset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_bangfeng.png" /></span><span>邦分设置</span></li>
-                    <li @click="welfareset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_fuli.png" /></span><span>福利设置</span></li>
-                    <li @click="taskset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_changgui.png" /></span><span>常规任务设置</span></li>
-                    <li @click="scheduset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_paibang.png" /></span><span>排班设置</span></li>
-                    <li v-show="false" @click="rightset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_quanxiang.png" /></span><span>审批权限设置</span></li>
-                    <li @click="organiset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_zuzhijiagou.png" /></span><span>组织架构设置</span></li>
-                    <li v-show="false" @click="projectset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png" /></span><span>项目管理</span></li>
-                    <li v-show="false" @click="dataset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>数据统计</span></li>
-                    <li @click="noticeset"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_tongzhi.png" /></span><span>通知设置</span></li>
+                    <li @click="cominfosset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_gongshi.png">
+                      </span>
+                      <span>公司信息</span>
+                    </li>
+                    <li @click="exammanset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shenpi.png">
+                      </span>
+                      <span>审批设置</span>
+                    </li>
+                    <li @click="integralset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_bangfeng.png">
+                      </span>
+                      <span>邦分设置</span>
+                    </li>
+                    <li @click="welfareset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_fuli.png">
+                      </span>
+                      <span>福利设置</span>
+                    </li>
+                    <li @click="taskset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_changgui.png">
+                      </span>
+                      <span>常规任务设置</span>
+                    </li>
+                    <li @click="scheduset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_paibang.png">
+                      </span>
+                      <span>排班设置</span>
+                    </li>
+                    <li v-show="false" @click="rightset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_quanxiang.png">
+                      </span>
+                      <span>审批权限设置</span>
+                    </li>
+                    <li @click="organiset">
+                      <span class="pic">
+                        <img
+                          width="20"
+                          height="20"
+                          src="..\assets\iMenu\sMenu\icon_zuzhijiagou.png"
+                        >
+                      </span>
+                      <span>组织架构设置</span>
+                    </li>
+                    <li v-show="false" @click="projectset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png">
+                      </span>
+                      <span>项目管理</span>
+                    </li>
+                    <li v-show="false" @click="dataset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png">
+                      </span>
+                      <span>数据统计</span>
+                    </li>
+                    <li @click="noticeset">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_tongzhi.png">
+                      </span>
+                      <span>通知设置</span>
+                    </li>
                   </ul>
                 </div>
               </el-scrollbar>
             </div>
 
-
-
             <!--菜单复制开始--任务---------------------------------------------------------------------------->
-
             <div v-show="b" name="task" class="childlist">
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li @click="allpeople"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_quanyuan_active.png" /></span><span>全员排名</span></li>
-                    <li @click="departments"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_bumen_active.png" /></span><span>部门排名</span></li>
-                    <li @click="techdepartment"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_jishubu_active.png" /></span><span>技术部</span></li>
-                    <li @click="designdepartment"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shejbu_active.png" /></span><span>设计部</span></li>
-                    <li @click="operationdepartment"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_yunyingbu_active.png" /></span><span>运营部</span></li>
+                    <li @click="allpeople">
+                      <span class="pic">
+                        <img width="17" height="20" src="..\assets\ranking\icon_quanyuan_active.png">
+                      </span>
+                      <span>全员排名</span>
+                    </li>
+                      <li @click="departments">
+                      <span class="pic">
+                        <img width="17" height="20" src="..\assets\ranking\icon_bumen_active.png">
+                      </span>
+                      <span>部门排名</span>
+                    </li>
                   </ul>
                 </div>
               </el-scrollbar>
             </div>
 
             <!--菜单复制结束------------------------------------------------------------------------------>
-
-
             <!--菜单复制开始--排名---------------------------------------------------------------------------->
-
-            <div v-show="c" name="ranking" class="childlist" style="height:calc(100% - 50px); backgroud:red; padding:10px;">
+            <div
+              v-show="c"
+              name="ranking"
+              class="childlist"
+              style="height:calc(100% - 50px); backgroud:red; padding:10px;"
+            >
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png" /></span><span>2功能开发中</span></li>
+                    <li @click="developing">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_shuju.png">
+                      </span>
+                      <span>2功能开发中</span>
+                    </li>
                   </ul>
                 </div>
               </el-scrollbar>
             </div>
 
             <!--菜单复制结束------------------------------------------------------------------------------>
-
             <!--菜单复制开始--荣耀墙---------------------------------------------------------------------------->
-
-            <div v-show="d" name="glory" class="childlist" style="height:calc(100% - 50px); backgroud:red; padding:10px;">
+            <div
+              v-show="d"
+              name="glory"
+              class="childlist"
+              style="height:calc(100% - 50px); backgroud:red; padding:10px;"
+            >
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li @click="officehome"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_office_active.png" /></span><span>办公应用</span></li>
-                    <li @click="officenotice"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_tonzhi_active.png" /></span><span>通知</span></li>
+                    <li @click="bangong">
+                      <span class="pic">
+                        <img width="17" height="20" src="..\assets\iMenu\sMenu\icon_office_active.png">
+                      </span>
+                      <span>办公应用</span>
+                    </li>
                   </ul>
                 </div>
               </el-scrollbar>
             </div>
 
             <!--菜单复制结束------------------------------------------------------------------------------>
-
             <!--菜单复制开始--统计---------------------------------------------------------------------------->
-
             <div v-show="e" name="task" class="childlist">
               <el-scrollbar style="height:90%;">
                 <div class="rightmenulistbox">
                   <ul>
-                    <li @click="openblank"><span class="pic"><img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png" /></span><span>项目管理</span></li>
+                    <li @click="openblank">
+                      <span class="pic">
+                        <img width="20" height="20" src="..\assets\iMenu\sMenu\icon_xiangmu.png">
+                      </span>
+                      <span>项目管理</span>
+                    </li>
                   </ul>
                 </div>
               </el-scrollbar>
             </div>
 
             <!--菜单复制结束------------------------------------------------------------------------------>
-
           </div>
         </div>
         <!--左侧菜单结束-->
       </div>
     </div>
-    <div class="contentright fl">
-      <div v-show="false" style="height:0px; overflow:hidden;" class="admintop">
-        消汇邦信息科技有限公司
+    <div class="contentright fr">
+      <div class="admintop">
+        <el-button type="text" @click="showmenutoggle">
+          <i
+            style="font-size:20px; line-height:42px; font-weight:bold; color:white;"
+            class="iconfont icon-caidan"
+          ></i>
+        </el-button>
       </div>
       <div class="admincontentbox">
         <el-scrollbar style="height:100%;">
@@ -173,13 +306,13 @@
       </div>
     </div>
 
-
-
     <div class="ownnerinfosclass unshow">
       <div class="addwelfare-title">
         <span class="fl">&nbsp;&nbsp;&nbsp;&nbsp;更改密码</span>
         <span class="fr" style="padding-right:10px;">
-          <el-button @click="closeownnerinfosclass" type="text"><img src="../assets/delete.png" /></el-button>
+          <el-button @click="closeownnerinfosclass" type="text">
+            <img src="../assets/delete.png">
+          </el-button>
         </span>
       </div>
       <div class="addwelfare-content">
@@ -199,7 +332,13 @@
             <div class="list-content" style="padding:0px 30px;">
               <span class="spanlist fl">旧密码</span>
               <span class="spanlist fl">
-                <i-input type="password" v-model="userinfo.oldpass" style="width:195px;" placeholder="请输入旧密码..."></i-input>
+                <el-input
+                  size="small"
+                  type="password"
+                  v-model="userinfo.oldpass"
+                  style="width:195px;"
+                  placeholder="请输入旧密码..."
+                ></el-input>
               </span>
             </div>
           </div>
@@ -209,34 +348,36 @@
             <div class="list-content" style="padding:0px 30px;">
               <span class="spanlist fl">新密码</span>
               <span class="spanlist fl">
-                <i-input type="password" v-model="userinfo.newpass" style="width:195px;" placeholder="请输入新密码..."></i-input>
+                <el-input
+                  size="small"
+                  type="password"
+                  v-model="userinfo.newpass"
+                  style="width:195px;"
+                  placeholder="请输入新密码..."
+                ></el-input>
               </span>
             </div>
           </div>
           <!--列表结束-->
-
           <!--列表结束-->
           <div class="line10" style="background:#fafafa;"></div>
           <!--列表结束-->
           <div class="boxlist">
             <div class="list-content fr">
               <span class="spanlist fr">
-                <i-button type="primary" @click="saveeditinformations" class="backgroundpar" style="width:120px;">保 存</i-button>
+                <i-button
+                  type="primary"
+                  @click="saveeditinformations"
+                  class="backgroundpar"
+                  style="width:120px;"
+                >保 存</i-button>
               </span>
             </div>
           </div>
           <!--列表结束-->
-
         </div>
       </div>
     </div>
-    <el-dialog title="是否退出" :visible.sync="centerDialogVisible" width="400px" style="margin-top: 20vh;">
-      <p style="text-align:center">您是否退出当前账户</p>
-      <p slot="footer" class="dialog-footer"  style="text-align:center">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="quitAccount()">确 定</el-button>
-      </p>
-    </el-dialog>
   </div>
 </template>
 
@@ -245,17 +386,18 @@ export default {
   name: "index",
   filters: {
     srctransformation: function(value) {
-      console.log("-------------------------------------");
+      //console.log('-------------------------------------');
       if (value.indexOf("http://thirdwx.qlogo.cn") != -1) {
         return value.replace(window.localStorage.api, "");
       } else {
         return value;
       }
-      console.log("------------------------------------");
+      //console.log('------------------------------------');
     }
   },
   data() {
     return {
+      companyinfo: [],
       rootUrl: window.localStorage.api,
       rootImg:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAEQElEQVR4nO2bYXOqOhCG34AVBBkH7P//gxWFqiFIJPfDnXCgx1rbcQn07POJdijJPA2bTTaIqqoMGDI81x347bBgYlgwMSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTMyCuoGmaSClRF3XaNsWxrgtYgsh4HkegiBAFEV4eXmhbY+ybC+lRFmWVI9/CpvNBlEUkT2fLEQ0TTN5uQBQliWapiF7PlmIkFJ210IIJEmC5XJJ1dzDGGNQVdWgf1JKbDYbkvbIBNd13V0nSYI4jqma+jbL5RJt20IpBWDY12dDFiKu12t3HQQBVTM/pv829fv6bEZJ04QQYzTzLTxvnAyV82BifpVg1zn2LcgXGpQYY3A+n6GU6lItIQSCIMBqtUIYho57OGPBdV2jKAq0bTv4vTEGSikopbBcLpGm6Wjx9hazDBGXywWHw+Evubfuy/PcaeiY3Qg2xuBwOHTShBCI4xhhGMLzPGitcT6fu9xWa42iKJCmqZP+zk7w6XTqRq4QAlmWDXJa3/cRBAGOxyNOpxMAdDGaemPnFrMLEXb1BQDr9frT5XeSJFgs/oyf/t+NyawEG2Ogte5+/ipLWK1W3TXlhs49ZiX446Tm+/7d+/vZg6uJblaCP6Zb/dF8i/4eg6tUbVaChRCDiaq/5fgRuy1pcTHBATMTDGBQfZBS3pRsjEFRFN0IFkIM4vGYzC5Ni6II5/O5Cw9lWUIpNciDpZSD8BDH8ZfxmorZCQaANE2R53k36dV1/emmeRiGSJJkzO4NmF2IAIDFYoHX19e7JSi7wnO1grPMcgQD/6do2+0WdV13KzVjTFeSX61WzsJCn9kKtgRBMMmSlGUSIWKKG+XPwtkIbtsWx+MRVVXBGIPFYoEkSSaxSf5MnIxgrTV2ux2klN3o1VrjcDjgeDy66BIZowvWWiPP809L5afTCUVRjNwrOkYNEU3TYL/ff1mJqKoKbdsiTdO7JX9bjzPGIAxDxHE8uSMCowmu63pQiXjk/v1+jyzL/pJmqxr9xUXTNKiqClmWTSI9s4wSIpRS35JrsTW1/oi/Xq/Y7XY3V25a64fekDEZRfD7+/uPU7GmabqYba/vbVPaGD8VybNYaGit8fb29vA/yY7k7XbrPCZPYqHxCN99A+yE6noRMxvBP+FyuTiX/KsFA38OqXBNjhB7zMoFZIJdTy4fUUoNJPdXkpR9JRPs8sDdZ1RVhbIs0bbtoJbXP6DybMieHATB3aqvK6SUUEoN8mTKHTyyYbZerycXJix9uZ7nzfM7Od/3kWXZJEOFRQhBfn6Y9EtPAF28U0pBa+088bef0trdN+qNIXLB/zrTfX9/CSyYGBZMDAsmhgUTw4KJYcHEsGBiWDAxLJgYFkwMCyaGBRPDgolhwcSwYGJYMDEsmBgWTAwLJoYFE/Mfuu8crG4Pn8IAAAAASUVORK5CYII=",
@@ -272,7 +414,7 @@ export default {
       c: false,
       d: false,
       e: false,
-      centerDialogVisible: false
+      isphone: false //手机端时候显示
     };
   },
   mounted() {
@@ -286,41 +428,65 @@ export default {
         $(this).addClass("selectedclass");
       });
     });
+
+    this.getcompanyinfos();
+    //监听窗口变化
+    const that = this;
+    window.onresize = () => {
+      return (() => {
+        if (document.body.clientWidth >= 1024) {
+          $(".menuleft").removeClass("animated slideOutLeft menushow");
+          $(".menuleft").addClass("animated slideInLeft menushow");
+          //$('.contentright').addClass('animated slideInLeft contentrightnewwidth');
+        } else {
+          this.showmenutoggle();
+        }
+      })();
+    };
   },
   methods: {
-    feedback() {  //意见反馈
-      this.$router.push({
-        path: "/pages/catalog/feedback"
-      });
+    getcompanyinfos() {
+      let geturl = window.localStorage.api + "/get/company";
+      this.$http
+        .get(geturl)
+        .then(res => {
+          if (res["data"].success) {
+            //console.log(res['data'].message);
+            this.companyinfo = res["data"].message;
+          }
+        })
+        .catch(err => {
+          //console.log(err);
+        });
     },
-    fulibangfen() {  //邦分福利
-      this.$router.push({
-        path: "/pages/catalog/fulibangfen"
-      });
+    showmenutoggle() {
+      if ($(".menuleft").css("visibility") != "visible") {
+        $(".menuleft").removeClass("animated slideOutLeft menushow");
+        $(".menuleft").addClass("animated slideInLeft menushow");
+        $(".lightblackbox").addClass("animated slideOut show");
+      } else {
+        $(".menuleft").removeClass("animated slideInLeft menushow");
+        $(".menuleft").addClass("animated slideOutLeft menushow");
+        $(".lightblackbox").removeClass("animated slideOut show");
+      }
     },
-    selfinfo() {  //个人信息
-      this.$router.push({
-       path: "/pages/catalog/selfinfo"
-      });
-    },
-    quitAccount() {
-      this.centerDialogVisible = false;
-      this.$router.push({
-        path: "/pages/login"
-      });
-      this.sessionStorage.status = false;
-      this.sessionStorage.status = "";
+    lightboxevents() {
+      if (document.body.clientWidth <= 1023) {
+        $(".menuleft").removeClass("animated slideInLeft menushow");
+        $(".menuleft").addClass("animated slideOutLeft menushow");
+        $(".lightblackbox").removeClass("animated slideOut show");
+      }
     },
     loaduserinformation() {
       let url = window.localStorage.api + "/get/user/info";
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
+          //console.log(res);
           this.userinfolist = res["data"].message;
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
         });
     },
     saveeditinformations() {
@@ -349,20 +515,18 @@ export default {
       this.$http
         .post(url, params)
         .then(res => {
-          console.log(res);
+          //console.log(res);
           if (res["data"].success) {
             this.success("密码修改成功！需要重新登录");
             //跳转到登录页面
-            this.$router.push({
-              path: "/pages/login"
-            });
+            this.$router.push({ path: "/pages/login" });
             sessionStorage.status = false;
           } else {
             this.error("密码修改失败：" + res["data"].message);
           }
         })
         .catch(err => {
-          console.log("网络错误，请稍候重试！" + err);
+          //console.log('网络错误，请稍候重试！'+err);
         });
     },
     openblank() {
@@ -480,137 +644,131 @@ export default {
     },
     //公司信息
     cominfosset() {
-      this.$router.push({
-        path: "/pages/company/informations"
-      });
+      this.$router.push({ path: "/pages/company/informations" });
+      this.lightboxevents();
     },
     //审批设置
     exammanset() {
-      this.$router.push({
-        path: "/pages/company/examsettings"
-      });
+      this.$router.push({ path: "/pages/company/examsettings" });
+      this.lightboxevents();
     },
     //邦分设置
     integralset() {
-      this.$router.push({
-        path: "/pages/company/integralsettings"
-      });
+      this.$router.push({ path: "/pages/company/integralsettings" });
+      this.lightboxevents();
     },
     //福利设置
     welfareset() {
-      this.$router.push({
-        path: "/pages/company/welfaresettings"
-      });
+      this.$router.push({ path: "/pages/company/welfaresettings" });
+      this.lightboxevents();
     },
     //常规任务设置
     taskset() {
-      this.$router.push({
-        path: "/pages/company/tasksettings"
-      });
+      this.$router.push({ path: "/pages/company/tasksettings" });
+      this.lightboxevents();
     },
     //排班设置
     scheduset() {
-      this.$router.push({
-        path: "/pages/company/schedusettings"
-      });
+      this.$router.push({ path: "/pages/company/schedusettings" });
+      this.lightboxevents();
     },
     //审批权限设置
     rightset() {
-      this.$router.push({
-        path: "/pages/company/rightsettings"
-      });
+      this.$router.push({ path: "/pages/company/rightsettings" });
+      this.lightboxevents();
     },
     //组织架构设置
     organiset() {
-      this.$router.push({
-        path: "/pages/company/organizationsettings"
-      });
+      this.$router.push({ path: "/pages/company/organizationsettings" });
+      this.lightboxevents();
     },
     //项目管理
     projectset() {
-      this.$router.push({
-        path: "/pages/company/projectmanagers"
-      });
+      this.$router.push({ path: "/pages/company/projectmanagers" });
+      this.lightboxevents();
       //this.$router.push({path:'/pages/company/statisticsview'});
     },
     //数据统计
     dataset() {
-      this.$router.push({
-        path: "/pages/company/datastatistics"
-      });
+      this.$router.push({ path: "/pages/company/datastatistics" });
+      this.lightboxevents();
+    },
+    //退出登录
+    loginout() {
+      this.$router.push({ path: "/pages/login" });
+      this.sessionStorage.status = false;
+      this.sessionStorage.status = "";
+    },
+    openLogOut(){
+        this.$confirm('是否退出当前用户?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.loginout()
+        }).catch(() => {
+        });
     },
     //个人信息
     ownnerinfos() {
       $(".ownnerinfosclass").addClass("show animated fadeIn");
+      this.lightboxevents();
     },
     closeownnerinfosclass() {
       $(".ownnerinfosclass").removeClass("show animated fadeIn");
     },
     //公司信息
     companyinfos() {
-      this.$router.push({
-        path: "/pages/company/informations"
-      });
+      this.$router.push({ path: "/pages/company/informations" });
+      this.lightboxevents();
     },
     //公司设置
     companyedit() {
-      this.$router.push({
-        path: "/pages/company/editinfos"
-      });
+      this.$router.push({ path: "/pages/company/editinfos" });
+      this.lightboxevents();
     },
     //邦分设置
     bangfensetting() {
-      this.$router.push({
-        path: "/pages/company/integralsettings"
-      });
+      this.$router.push({ path: "/pages/company/integralsettings" });
+      this.lightboxevents();
     },
+    selfinfo() {
+      this.$router.push({ path: "/pages/catalog/selfinfo" });
+      this.lightboxevents();
+    },
+      fulibangfen() {
+      this.$router.push({ path: "/pages/catalog/fulibangfen" });
+      this.lightboxevents();
+    },
+       feedback() {
+      this.$router.push({ path: "/pages/catalog/feedback" });
+      this.lightboxevents();
+    },
+    
     //通知设置
     noticeset() {
-      this.$router.push({
-        path: "/pages/company/notice"
-      });
+      this.$router.push({ path: "/pages/company/notice" });
+      this.lightboxevents();
     },
-    //全员排名
-    allpeople() {
-      this.$router.push({
-        path: "/pages/ranking/allpeople"
-      });
+    //显示功能开发中
+    developing() {
+      this.$router.push({ path: "/pages/company/none" });
+      this.lightboxevents();
     },
-    //部门排名
-    departments() {
-      this.$router.push({
-        path: "/pages/ranking/departments"
-      });
+   allpeople() {
+      this.$router.push({ path: "/pages/ranking/allpeople" });
+      this.lightboxevents();
     },
-    //技术部排名
-    techdepartment() {
-      this.$router.push({
-        path: "/pages/ranking/techdepartment"
-      });
+      departments() {
+      this.$router.push({ path: "/pages/ranking/departments" });
+      this.lightboxevents();
     },
-    //设计部排名
-    designdepartment() {
-      this.$router.push({
-        path: "/pages/ranking/designdepartment"
-      });
+    bangong() {
+      this.$router.push({ path: "/pages/office/officehome" });
+      this.lightboxevents();
     },
-    //运营部排名
-    operationdepartment() {
-      this.$router.push({
-        path: "/pages/ranking/operationdepartment"
-      });
-    },
-    //办公首页
-    officehome() {
-      this.$router.push({
-        path: "/pages/office/officehome"
-      });
-    },
-    officenotice() {
-      this.$router.push({
-        path: "/pages/office/officenotice"
-      });
-    },
+    //
     //
     //
     //--上传图片--------------------------------------------
@@ -630,19 +788,17 @@ export default {
       let params = new FormData();
       params.append("file", _img, _img.name); //图片
       let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+        headers: { "Content-Type": "multipart/form-data" }
       };
-      console.log(_img);
+      //console.log(_img);
       this.$http
         .post(upurl, params)
         .then(res => {
-          console.log(res["data"].message.fileurl);
+          //console.log(res['data'].message.fileurl);
           this.userinfo.userimg = res["data"].message.fileurl;
         })
         .catch(err => {
-          console.log(err);
+          //console.log(err);
         });
     },
     //页面提示信息
@@ -675,367 +831,1278 @@ $(function() {
 </script>
 
 <style scoped>
-.mainbox {
-  width: 100%;
-  height: 100%;
-  position: relative;
+/*适配各种尺寸-手机端*/
+@media only screen and (max-width: 767px) and (min-width: 10px) {
+  .mainbox {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .mainbox .admintop {
+    height: 70px;
+    background: white;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 70px;
+    text-indent: 20px;
+    font-size: 16px;
+    background: #6680ff;
+  }
+
+  .mainbox .admincontentbox {
+    height: 100%;
+  }
+
+  .menuleft {
+    height: 100%;
+    width: 281px;
+    border-right: 1px solid #ededed;
+    position: absolute;
+    z-index: 1000;
+    background: white;
+  }
+
+  .menubutton {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    opacity: 0.5;
+    background: #e0e0e0;
+    text-align: center;
+    line-height: 30px;
+    left: 5px;
+    top: 72px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-transform: 3s;
+  }
+
+  .menubutton:hover {
+    opacity: 1;
+  }
+
+  .menuunshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .menushow {
+    visibility: visible;
+    z-index: 1000;
+  }
+
+  .lightblackbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background: rgb(0, 0, 0);
+    z-index: 999;
+  }
+
+  .unlightbox {
+    background: transparent;
+    z-index: -999;
+  }
+
+  .menuleft .menutop {
+    height: 70px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .menuleft .menutop .logoimg {
+    height: 70px;
+    width: 50px;
+    /* background-image: linear-gradient(-90deg, 
+        #3355ff 0%, 
+        #667fff 100%); */
+    position: relative;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .menuleft .menutop .logoimg img {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  /*菜单*/
+  .menuleft .menuunder {
+    width: 100%;
+    height: calc(100% - 71px);
+  }
+  /*左侧菜单栏样式*/
+  .menuleft .menuunder .leftmenulist {
+    width: 50px;
+    height: 100%;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .leftmenulist ul {
+    width: 50px;
+    height: 100%;
+    position: relative;
+  }
+
+  .leftmenulist ul li {
+    display: block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 1s ease 0s;
+  }
+
+  .leftmenulist ul li:hover {
+    background: #f5f6ff;
+    transition: background-color 0.3s #d8d8d8;
+  }
+
+  .leftmenulist ul li span {
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 14px;
+  }
+
+  .leftmenulist ul .setting {
+    position: absolute;
+    bottom: 70px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .leftmenulist ul .setting .settingbox {
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    background-color: #6680ff;
+    border-radius: 5px;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .leftmenulist ul .setting .settingbox img {
+    clear: both;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .leftmenulist ul .userimg {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .leftmenulist ul .userimg img {
+    clear: both;
+    border-radius: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: gray !important;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .menuleft .menuunder .rightmenubox {
+    width: calc(100% - 51px);
+    height: 100%;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist {
+    width: 100%;
+    height: 100%;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .childlist {
+    height: calc(100% - 70px);
+    padding: 10px;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .menu-title {
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 50px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    background: red;
+    text-indent: 20px;
+    background: url(..\assets\iMenu\normal\icon_tab_guangli_normal.png)
+      no-repeat 170px 13px;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-indent: 31px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    color: #2e2f33;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li:hover {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    .pic {
+    display: block;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    float: left;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    span {
+    display: block;
+    float: left;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .childlist {
+    height: calc(100% - 70px);
+    padding: 10px;
+  }
+
+  .menuleft .menutop .searchbox {
+    width: calc(100% - 50px);
+    height: 70px;
+    position: relative;
+  }
+
+  .menuleft .menutop .searchbox .inbox {
+    position: absolute;
+    width: 80%;
+    height: 40px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .menuleft .menutop .searchbox .inbox input {
+    width: 100px;
+    height: 40px;
+  }
+
+  .contentright {
+    height: calc(100% - 70px);
+    width: 100%;
+    background: #f7f7f7;
+  }
+
+  .contentrightnewwidth {
+    width: calc(100% - 281px) !important;
+  }
+
+  .menulist {
+    text-align: left;
+    color: gray;
+    font-size: 12px;
+  }
+
+  .menulist button {
+    font-size: 12px;
+    color: gray;
+  }
+
+  .selectedclass {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
+
+  .unselectedclass {
+    color: #f7f7f7;
+    background: #ffffff;
+    border-left: 3px solid #ffffff;
+    transition: background-color #ffffff;
+    transition: border-left #ffffff;
+    text-indent: 35px;
+  }
+
+  /*个人信息*/
+  .ownnerinfosclass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 340px;
+    height: 310px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+  }
+
+  .ownnerinfosclass .addwelfare-title {
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    background-color: #ededed;
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  .ownnerinfosclass .addwelfare-title span {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #5c5d66;
+  }
+
+  .ownnerinfosclass .addwelfare-content {
+    height: calc(100% - 50px);
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content {
+    height: calc(100% - 50px);
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist {
+    padding: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content .spanlist {
+    display: block;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    padding-right: 10px;
+    text-align: left;
+  }
+
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img {
+    margin-right: 10px;
+  }
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img
+    img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content-upbtn span {
+    text-align: center;
+  }
+  /*个人信息*/
+
+  .unshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .show {
+    visibility: visible;
+    z-index: 1000;
+  }
 }
 
-.mainbox .admintop {
-  height: 70px;
-  background: white;
-  border-left: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-  line-height: 70px;
-  text-indent: 20px;
+/*适配各种尺寸-平板电脑*/
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+  .mainbox {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .mainbox .admintop {
+    height: 70px;
+    background: #6680ff;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 70px;
+    text-indent: 20px;
+  }
+
+  .mainbox .admincontentbox {
+    height: 100%;
+  }
+
+  .menuleft {
+    height: 100%;
+    width: 281px;
+    border-right: 1px solid #ededed;
+    position: absolute;
+    z-index: 1000;
+    background: white;
+  }
+
+  .menuunshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .menuleft .menutop {
+    height: 70px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .menuleft .menutop .logoimg {
+    height: 70px;
+    width: 50px;
+    /* background-image: linear-gradient(-90deg, 
+        #3355ff 0%, 
+        #667fff 100%); */
+    position: relative;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .menuleft .menutop .logoimg img {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  /*菜单*/
+  .menuleft .menuunder {
+    width: 100%;
+    height: calc(100% - 71px);
+  }
+  /*左侧菜单栏样式*/
+  .menuleft .menuunder .leftmenulist {
+    width: 50px;
+    height: 100%;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .leftmenulist ul {
+    width: 50px;
+    height: 100%;
+    position: relative;
+  }
+
+  .leftmenulist ul li {
+    display: block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 1s ease 0s;
+  }
+
+  .leftmenulist ul li:hover {
+    background: #f5f6ff;
+    transition: background-color 0.3s #d8d8d8;
+  }
+
+  .leftmenulist ul li span {
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 14px;
+  }
+
+  .leftmenulist ul .setting {
+    position: absolute;
+    bottom: 70px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .leftmenulist ul .setting .settingbox {
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    background-color: #6680ff;
+    border-radius: 5px;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .leftmenulist ul .setting .settingbox img {
+    clear: both;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .leftmenulist ul .userimg {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .leftmenulist ul .userimg img {
+    clear: both;
+    border-radius: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: gray !important;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .menuleft .menuunder .rightmenubox {
+    width: calc(100% - 51px);
+    height: 100%;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist {
+    width: 100%;
+    height: 100%;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .childlist {
+    height: calc(100% - 70px);
+    padding: 10px;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .menu-title {
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 50px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    background: red;
+    text-indent: 20px;
+    background: url(..\assets\iMenu\normal\icon_tab_guangli_normal.png)
+      no-repeat 170px 13px;
+  }
+
+  .menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-indent: 31px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    color: #2e2f33;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li:hover {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    .pic {
+    display: block;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    float: left;
+  }
+
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    span {
+    display: block;
+    float: left;
+  }
+
+  .menubutton {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    opacity: 0.5;
+    background: #e0e0e0;
+    text-align: center;
+    line-height: 30px;
+    left: 5px;
+    top: 72px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-transform: 3s;
+  }
+
+  .menubutton:hover {
+    opacity: 1;
+  }
+
+  .menuunshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .menushow {
+    visibility: visible;
+    z-index: 1000;
+  }
+
+  .lightblackbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background: rgb(0, 0, 0);
+    z-index: 999;
+  }
+
+  .unlightbox {
+    background: transparent;
+    z-index: -999;
+  }
+
+  .menuleft .menutop .searchbox {
+    width: calc(100% - 50px);
+    height: 70px;
+    position: relative;
+  }
+
+  .menuleft .menutop .searchbox .inbox {
+    position: absolute;
+    width: 80%;
+    height: 40px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .menuleft .menutop .searchbox .inbox input {
+    width: 100px;
+    height: 40px;
+  }
+
+  .contentright {
+    height: calc(100% - 70px);
+    width: 100%;
+    background: #f7f7f7;
+  }
+
+  .menulist {
+    text-align: left;
+    color: gray;
+    font-size: 12px;
+  }
+
+  .menulist button {
+    font-size: 12px;
+    color: gray;
+  }
+
+  .selectedclass {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
+
+  .unselectedclass {
+    color: #f7f7f7;
+    background: #ffffff;
+    border-left: 3px solid #ffffff;
+    transition: background-color #ffffff;
+    transition: border-left #ffffff;
+    text-indent: 35px;
+  }
+
+  /*个人信息*/
+  .ownnerinfosclass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 340px;
+    height: 310px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+  }
+
+  .ownnerinfosclass .addwelfare-title {
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    background-color: #ededed;
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  .ownnerinfosclass .addwelfare-title span {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #5c5d66;
+  }
+
+  .ownnerinfosclass .addwelfare-content {
+    height: calc(100% - 50px);
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist {
+    padding: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content .spanlist {
+    display: block;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    padding-right: 10px;
+    text-align: left;
+  }
+
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img {
+    margin-right: 10px;
+  }
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img
+    img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content-upbtn span {
+    text-align: center;
+  }
+  /*个人信息*/
+
+  .unshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
+
+  .show {
+    visibility: visible;
+    z-index: 1000;
+  }
 }
 
-.mainbox .admincontentbox {
-  height: 100%;
-}
+/*适配各种尺寸-PC端小屏幕*/
+@media only screen and (max-width: 2560px) and (min-width: 1024px) {
+  .mainbox {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
 
-.menuleft {
-  height: 100%;
-  width: 281px;
-  border-right: 1px solid #ededed;
-}
+  .mainbox .admintop {
+    display: none;
+    height: 70px;
+    background: white;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 70px;
+    text-indent: 20px;
+  }
 
-.menuleft .menutop {
-  height: 70px;
-  border-bottom: 1px solid #e0e0e0;
-}
+  .mainbox .admincontentbox {
+    height: 100%;
+  }
 
-.menuleft .menutop .logoimg {
-  height: 70px;
-  width: 50px;
-  background-image: linear-gradient(-90deg, #3355ff 0%, #667fff 100%);
-  position: relative;
-}
+  .menuleft {
+    height: 100%;
+    width: 281px;
+    border-right: 1px solid #ededed;
+  }
 
-.menuleft .menutop .logoimg img {
-  height: 30px;
-  width: 31px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-}
+  .menuleft .menutop {
+    height: 70px;
+    border-bottom: 1px solid #e0e0e0;
+  }
 
-/*菜单*/
-.menuleft .menuunder {
-  width: 100%;
-  height: calc(100% - 71px);
-}
+  .menuleft .menutop .logoimg {
+    height: 70px;
+    width: 50px;
+    /* background-image: linear-gradient(-90deg, 
+        #3355ff 0%, 
+        #667fff 100%); */
+    position: relative;
+    border-right: 1px solid #e0e0e0;
+  }
 
-/*左侧菜单栏样式*/
-.menuleft .menuunder .leftmenulist {
-  width: 50px;
-  height: 100%;
-  border-right: 1px solid #e0e0e0;
-}
+  .menuleft .menutop .logoimg img {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
 
-.leftmenulist ul {
-  width: 50px;
-  height: 100%;
-  position: relative;
-}
+  /*菜单*/
+  .menuleft .menuunder {
+    width: 100%;
+    height: calc(100% - 71px);
+  }
+  /*左侧菜单栏样式*/
+  .menuleft .menuunder .leftmenulist {
+    width: 50px;
+    height: 100%;
+    border-right: 1px solid #e0e0e0;
+  }
 
-.leftmenulist ul li {
-  display: block;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  transition: all 1s ease 0s;
-}
+  .leftmenulist ul {
+    width: 50px;
+    height: 100%;
+    position: relative;
+  }
 
-.leftmenulist ul li:hover {
-  background: #f5f6ff;
-  transition: background-color 0.3s #d8d8d8;
-}
+  .leftmenulist ul li {
+    display: block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 1s ease 0s;
+  }
 
-.leftmenulist ul li span {
-  display: block;
-  width: 50px;
-  height: 50px;
-  padding: 14px;
-}
+  .leftmenulist ul li:hover {
+    background: #f5f6ff;
+    transition: background-color 0.3s #d8d8d8;
+  }
 
-.leftmenulist ul .setting {
-  position: absolute;
-  bottom: 70px;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-}
+  .leftmenulist ul li span {
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 14px;
+  }
 
-.leftmenulist ul .setting .settingbox {
-  display: block;
-  text-align: center;
-  line-height: 30px;
-  width: 30px;
-  height: 30px;
-  background-color: #6680ff;
-  border-radius: 5px;
-  margin: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  position: absolute;
-  cursor: pointer;
-}
+  .leftmenulist ul .setting {
+    position: absolute;
+    bottom: 70px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+  }
 
-.leftmenulist ul .setting .settingbox img {
-  clear: both;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
+  .leftmenulist ul .setting .settingbox {
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    background-color: #6680ff;
+    border-radius: 5px;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    cursor: pointer;
+  }
 
-.leftmenulist ul .userimg {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  bottom: 20px;
-  text-align: center;
-  line-height: 50px;
-}
+  .leftmenulist ul .setting .settingbox img {
+    clear: both;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
 
-.leftmenulist ul .userimg img {
-  clear: both;
-  border-radius: 20px !important;
-  width: 30px !important;
-  height: 30px !important;
-  background: gray !important;
-  text-align: center;
-  margin-top: 10px;
-  cursor: pointer;
-}
+  .leftmenulist ul .userimg {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 50px;
+  }
 
-.menuleft .menuunder .rightmenubox {
-  width: calc(100% - 51px);
-  height: 100%;
-}
+  .leftmenulist ul .userimg img {
+    clear: both;
+    border-radius: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: gray !important;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist {
-  width: 100%;
-  height: 100%;
-}
+  .menuleft .menuunder .rightmenubox {
+    width: calc(100% - 51px);
+    height: 100%;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist .childlist {
-  height: calc(100% - 70px);
-  padding: 10px;
-}
+  .menuleft .menuunder .rightmenubox .rightmenulist {
+    width: 100%;
+    height: 100%;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist .menu-title {
-  height: 50px;
-  width: 100%;
-  border-bottom: 1px solid #e0e0e0;
-  line-height: 50px;
-  font-family: MicrosoftYaHei;
-  font-size: 14px;
-  font-weight: bold;
-  font-stretch: normal;
-  letter-spacing: 0px;
-  color: #2e2f33;
-  background: red;
-  text-indent: 20px;
-  background: url(..\assets\iMenu\normal\icon_tab_guangli_normal.png) no-repeat
-    170px 13px;
-}
+  .menuleft .menuunder .rightmenubox .rightmenulist .childlist {
+    height: calc(100% - 70px);
+    padding: 10px;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li {
-  width: 100%;
-  height: 50px;
-  line-height: 45px;
-  text-indent: 31px;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  color: #2e2f33;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
+  .menuleft .menuunder .rightmenubox .rightmenulist .menu-title {
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 50px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    background: red;
+    text-indent: 20px;
+    background: url(..\assets\iMenu\normal\icon_tab_guangli_normal.png)
+      no-repeat 170px 13px;
+  }
 
-.menuleft
-  .menuunder
-  .rightmenubox
-  .rightmenulist
-  .rightmenulistbox
-  ul
-  li:hover {
-  color: #667fff;
-  background: #ebeeff;
-  border-left: 3px solid #6680ff;
-  transition: background-color #ebeeff;
-  transition: border-left #6680ff;
-  text-indent: 35px;
-}
+  .menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-indent: 31px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    color: #2e2f33;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li .pic {
-  display: block;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-  text-align: center;
-  float: left;
-}
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li:hover {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
 
-.menuleft .menuunder .rightmenubox .rightmenulist .rightmenulistbox ul li span {
-  display: block;
-  float: left;
-}
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    .pic {
+    display: block;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    float: left;
+  }
 
-.menuleft .menutop .searchbox {
-  width: calc(100% - 50px);
-  height: 70px;
-  position: relative;
-}
+  .menuleft
+    .menuunder
+    .rightmenubox
+    .rightmenulist
+    .rightmenulistbox
+    ul
+    li
+    span {
+    display: block;
+    float: left;
+  }
 
-.menuleft .menutop .searchbox .inbox {
-  position: absolute;
-  width: 80%;
-  height: 40px;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
+  .menuleft .menutop .searchbox {
+    width: calc(100% - 50px);
+    height: 70px;
+    position: relative;
+  }
 
-.menuleft .menutop .searchbox .inbox input {
-  width: 100px;
-  height: 40px;
-}
+  .menuleft .menutop .searchbox .inbox {
+    position: absolute;
+    width: 80%;
+    height: 40px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 
-.contentright {
-  height: 100%;
-  width: calc(100% - 281px);
-  background: #f7f7f7;
-}
+  .menuleft .menutop .searchbox .inbox input {
+    width: 100px;
+    height: 40px;
+  }
 
-.menulist {
-  text-align: left;
-  color: gray;
-  font-size: 12px;
-}
+  .contentright {
+    height: 100%;
+    width: calc(100% - 281px);
+    background: #f7f7f7;
+  }
 
-.menulist button {
-  font-size: 12px;
-  color: gray;
-}
+  .menulist {
+    text-align: left;
+    color: gray;
+    font-size: 12px;
+  }
 
-.selectedclass {
-  color: #667fff;
-  background: #ebeeff;
-  border-left: 3px solid #6680ff;
-  transition: background-color #ebeeff;
-  transition: border-left #6680ff;
-  text-indent: 35px;
-}
+  .menulist button {
+    font-size: 12px;
+    color: gray;
+  }
 
-.unselectedclass {
-  color: #f7f7f7;
-  background: #ffffff;
-  border-left: 3px solid #ffffff;
-  transition: background-color #ffffff;
-  transition: border-left #ffffff;
-  text-indent: 35px;
-}
+  .selectedclass {
+    color: #667fff;
+    background: #ebeeff;
+    border-left: 3px solid #6680ff;
+    transition: background-color #ebeeff;
+    transition: border-left #6680ff;
+    text-indent: 35px;
+  }
 
-/*个人信息*/
-.ownnerinfosclass {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 340px;
-  height: 310px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  z-index: 1000;
-}
+  .unselectedclass {
+    color: #f7f7f7;
+    background: #ffffff;
+    border-left: 3px solid #ffffff;
+    transition: background-color #ffffff;
+    transition: border-left #ffffff;
+    text-indent: 35px;
+  }
 
-.ownnerinfosclass .addwelfare-title {
-  height: 50px;
-  width: 100%;
-  line-height: 50px;
-  background-color: #ededed;
-  border-radius: 5px 5px 0px 0px;
-}
+  /*个人信息*/
+  .ownnerinfosclass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 340px;
+    height: 310px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+  }
 
-.ownnerinfosclass .addwelfare-title span {
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
-  letter-spacing: 0px;
-  color: #5c5d66;
-}
+  .ownnerinfosclass .addwelfare-title {
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    background-color: #ededed;
+    border-radius: 5px 5px 0px 0px;
+  }
 
-.ownnerinfosclass .addwelfare-content {
-  height: calc(100% - 50px);
-  width: 100%;
-}
+  .ownnerinfosclass .addwelfare-title span {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #5c5d66;
+  }
 
-.ownnerinfosclass .addwelfare-content .boxlist {
-  padding: 10px;
-  overflow: hidden;
-  width: 100%;
-}
+  .ownnerinfosclass .addwelfare-content {
+    height: calc(100% - 50px);
+    width: 100%;
+  }
 
-.ownnerinfosclass .addwelfare-content .boxlist .list-content {
-  overflow: hidden;
-  width: 100%;
-}
+  .ownnerinfosclass .addwelfare-content .boxlist {
+    padding: 10px;
+    overflow: hidden;
+    width: 100%;
+  }
 
-.ownnerinfosclass .addwelfare-content .boxlist .list-content .spanlist {
-  display: block;
-  line-height: 40px;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  letter-spacing: 0px;
-  color: #2e2f33;
-  padding-right: 10px;
-  text-align: left;
-}
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content {
+    overflow: hidden;
+    width: 100%;
+  }
 
-.ownnerinfosclass .addwelfare-content .boxlist .list-content .list-content-img {
-  margin-right: 10px;
-}
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content .spanlist {
+    display: block;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #2e2f33;
+    padding-right: 10px;
+    text-align: left;
+  }
 
-.ownnerinfosclass
-  .addwelfare-content
-  .boxlist
-  .list-content
-  .list-content-img
-  img {
-  width: 88px;
-  height: 88px;
-}
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img {
+    margin-right: 10px;
+  }
+  .ownnerinfosclass
+    .addwelfare-content
+    .boxlist
+    .list-content
+    .list-content-img
+    img {
+    width: 88px;
+    height: 88px;
+  }
 
-.ownnerinfosclass .addwelfare-content .boxlist .list-content-upbtn span {
-  text-align: center;
-}
+  .ownnerinfosclass .addwelfare-content .boxlist .list-content-upbtn span {
+    text-align: center;
+  }
+  /*个人信息*/
 
-/*个人信息*/
-.unshow {
-  visibility: hidden;
-  z-index: -1000;
-}
+  .unshow {
+    visibility: hidden;
+    z-index: -1000;
+  }
 
-.show {
-  visibility: visible;
-  z-index: 1000;
+  .show {
+    visibility: visible;
+    z-index: 1000;
+  }
 }
 </style>
 

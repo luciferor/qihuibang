@@ -22,7 +22,7 @@
                     <div class="input-left-title"><span>上班类型</span><span style="color:#ff6666;">*</span></div>
                 </div>
                 <div class="input-content fr">
-                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></i-input></div>
+                    <div class="input-content-inputbox"><el-input size="small" v-model="scheduname" placeholder="请输入考勤名称..." style="width:300px"></el-input></div>
                     <div class="input-content-inputbox">
                         <el-time-select
                             placeholder="上班时间"
@@ -31,9 +31,9 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00'
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59'
                             }">
                         </el-time-select>
                         <el-time-select
@@ -43,20 +43,21 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00',
-                            minTime:schedustime
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59',
+                            //minTime:schedustime
                             }">
                         </el-time-select>
                     </div>
-                    <div class="input-content-inputbox">
-                        <el-date-picker size="small" @change="selecteddate" value-format="yyyy-MM-dd" :clearable="true" type="dates" v-model="scheduworkday" placeholder="选择一个或多个日期" style="width:300px"></el-date-picker>
+                    <div class="input-content-inputbox padborder">
+                        <div class="thecreatborder"></div>
+                        <DatePicker :clearable="false" type="date" v-model="scheduworkday" format="yyyy-MM-dd" @on-ok="selecteddate" multiple placeholder="Select date" style="width: 298px"></DatePicker>
                     </div>
                     <div class="input-content-inputbox">
                         <i-select @change="test" style="width:300px" v-model="schedutype">
-                            <i-option :value="1">白班</i-option>
-                            <i-option :value="0">晚班</i-option>
+                            <i-option :value="0">白班</i-option>
+                            <i-option :value="1">晚班</i-option>
                         </i-select>
                     </div>
                 </div>
@@ -71,7 +72,7 @@
                     <div>
                         <div style="display:block; clear:both; background:red;" v-for="(item,index) in mapdata" :key="index">
                             <div class="fl">
-                                <div><span>{{item.address}}</span><span style="color:gray; margin-left:20px;"><el-button type="text" style="color:#cccccc;"><i class="iconfont icon-lajitong"></i></el-button></span></div>
+                                <div><span>{{item.address}}</span><span style="color:gray; margin-left:20px;"><el-button type="text" @click="clearaddress(index)" style="color:#cccccc;"><i class="iconfont icon-lajitong"></i></el-button></span></div>
                                 <div><span style="color:#999999;">考勤范围：{{item.scope}}米</span></div>
                             </div>
                         </div>
@@ -114,7 +115,7 @@
     <div class="mapselectbox unshow">
         <div class="map-title"><span class="fl" style="text-indent:10px; padding-top:3px;">考勤地址</span><span @click="coloselocationwin" style="padding-right:10px; padding-top:5px;" class="posor fr"><img src="../../assets/delete.png" /></span></div>
         <div class="map-content">
-            <iframe class="posor" style="width:100%; height:100%; border:none;" id="mapbox" src="https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=116.470098,39.992838&radius=1000&total=20&key=1b443fa122dc68aa86c0c941620d5bd4"></iframe>
+            <Map></Map>
         </div>
         <div class="map-under">
             <span class="fl">考勤范围
@@ -128,7 +129,7 @@
                 </i-select>
             </span>
             <span class="fr">
-                <el-button size="small" style="width:80px; color:#5c5d66;">复位</el-button>
+                <el-button v-show="false" size="small" style="width:80px; color:#5c5d66;">复位</el-button>
                 <el-button @click="selectedaddress" class="backgroundpar" size="small" type="primary" style="width:80px;">确定</el-button>
             </span>
         </div>
@@ -166,7 +167,8 @@
 </template>
 
 <script>
-  export default {
+  import Map from "../../components/map";
+  export default{
     filters:{
         srctransformation:function(value){
             if(value.indexOf('http://thirdwx.qlogo.cn')!=-1){
@@ -175,6 +177,12 @@
                 return value;
             }
         }
+    },
+    components:{
+        Map,//注册组件
+    },
+    created(){
+        $('.ivu-input').css('border','1px solid #ededed !important');
     },
     data(){
       let that = this;
@@ -193,7 +201,7 @@
         scheduname:'',//考勤名称
         schedustime:'',//上班时间
         scheduetime:'',//下班时间
-        schedutype:1,//打卡类型、白班、夜班 
+        schedutype:0,//打卡类型、白班、夜班 
         mapscope:100,//考勤范围
         mapaddress:'选择地址',//考勤地址
         maplong:'',//经度
@@ -208,11 +216,16 @@
       }
     },
     methods:{
+        //清除已选地址项
+        clearaddress(index){
+            //console.log(index);
+            this.mapdata.splice(index,1);//选中了谁，就清除谁
+        },
         //根据id号获取到数据
         getscheduwhereid(){
             let url = window.localStorage .api+'/get/info/check/work?id='+this.editid;
             this.$http.get(url).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                     //--提交需求字段-------------------------------------
                     this.scheduname=res['data'].message.name;//考勤名称
@@ -226,9 +239,13 @@
                     let str ='';
                     for (let i = 0; i < res['data'].message.set_workday.length; i++){
                         let item = res['data'].message.set_workday;
-                        str += ','+item[i].workday_msg;
+                        str += ';'+item[i].workday_msg;
                     }
-                    this.scheduworkday=str.substr(1).split(',');//工作日，一般从多少号到多少号
+                    this.scheduworkday=str.substr(1).split(';');//工作日，一般从多少号到多少号
+                    this.scheduworkdaystring = str.substr(1);
+                    //console.log('===========================');
+                    //console.log(this.scheduworkday);
+                    //console.log('===========================');
                     //************************************************************** */
                     this.schedudepid=res['data'].message.department_id;//部门id，选全员是不传
                     this.schedumulti=res['data'].message.multi_clock==1?true:false;//是否需要多个次考勤，是传1，不是传0,因设计图没有，故默认可以多次
@@ -252,19 +269,19 @@
                     let strr='';
                     for (let i = 0; i < this.selecteduserlist.length; i++) {
                         strr += ";"+this.selecteduserlist[i].id;
-                        console.log(this.selecteduserlist[i].id);
+                        //console.log(this.selecteduserlist[i].id);
                     }
                     this.scheduserids = strr.substr(1);
                 }else{
-                    console.log('没有成功获取到数据，请重试');
+                    //console.log('没有成功获取到数据，请重试');
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         test(){
-            console.log(this.schedumulti+"是否允许多选");
-            console.log(this.schedutype+"白班或晚班");
+            //console.log(this.schedumulti+"是否允许多选");
+            //console.log(this.schedutype+"白班或晚班");
         },
         //更新考勤信息
         savescheduinformations(){
@@ -313,7 +330,7 @@
             params.append('multi_clock',this.schedumulti==true?1:0);//是否需要多个次考勤，是传1，不是传0
 
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if (res['data'].success){
                     this.success(res['data'].message);
                     //清空数据
@@ -334,20 +351,31 @@
                     this.success(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
 
         },
+        formatdate(date){
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return y + '-' + m + '-' + d;
+        },
         //选择日期
         selecteddate(){
-            let arr = String(this.scheduworkday).split(',');
+
             let str;
-            for (let i = 0; i < arr.length; i++) {
-                str += ";"+arr[i];
+            for (let i = 0; i < this.scheduworkday.length; i++) {
+                str += ";"+this.formatdate(this.scheduworkday[i]);
             }
             this.scheduworkdaystring = str.replace('undefined;','');
-            console.log(this.scheduworkdaystring);
-            console.log(String(this.scheduworkday));
+            //console.log('**************************************');
+            //console.log(this.scheduworkdaystring);
+            //console.log('**************************************');
+            //console.log(this.scheduworkday);
+            //console.log('**************************************');
         },
         //选中确定的用户
         saveselecteduseres(){
@@ -356,13 +384,13 @@
                 str += ";"+this.selecteduserlist[i].id;
             }
             this.scheduserids = str.substr(1);
-            console.log(this.scheduserids);
+            //console.log(this.scheduserids);
             this.colosusereswin();
         },
         //选中地址
         selectedaddress(){
             if(window.localStorage.mapaddress==""){
-                console.log('请选择一个地址');
+                //console.log('请选择一个地址');
                 return;
             }
             //高德地图
@@ -370,7 +398,7 @@
             // this.maplong=window.localStorage.maplong;//经度
             // this.maplat=window.localStorage.maplat;//纬度
             this.mapdata.push({'scope':this.mapscope,'address':window.localStorage.mapaddress,'lon':window.localStorage.maplong,'lat':window.localStorage.maplat});
-            console.log(this.mapdata);
+            //console.log(this.mapdata);
 
             window.localStorage['mapaddress'] = "";
             window.localStorage['maplong'] = "";
@@ -398,7 +426,7 @@
                     this.selecteduserlist.push({'id':this.alluserlist[i].id,'name':this.alluserlist[i].name,'img':this.alluserlist[i].img});
                 }
             }
-            console.log(this.selecteduserlist);
+            //console.log(this.selecteduserlist);
         },
         //全选
         selectall(){
@@ -406,8 +434,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = true;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //清空
         clearall(){
@@ -415,8 +443,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = false;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //部门列表改变
         depselect(){
@@ -424,8 +452,8 @@
             let sta = this.depid==Number(0)||this.depid==''||this.depid==null||this.depid==undefined;
             let params = sta?'/get/department/listuser':'/get/department/listuser?depart_id='+this.depid;
             let url = window.localStorage.api+params;
-            console.log(params);
-            console.log(url);
+            //console.log(params);
+            //console.log(url);
             this.$http.get(url).then(res=>{
                 let item = res['data'].message;
                 this.userlist = [];
@@ -445,9 +473,9 @@
                         }
                     }
                 }
-                console.log(this.userlist);
-                console.log(this.selecteduserlist);
-                console.log(this.alluserlist);
+                //console.log(this.userlist);
+                //console.log(this.selecteduserlist);
+                //console.log(this.alluserlist);
             }).catch(err=>{
                 console.log(err);
             })
@@ -460,7 +488,7 @@
                     this.alluserlist.push({'id':item[i].id,'name':item[i].name,'img':item[i].user_img,'ischecked':false});
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //获取部门列表
@@ -508,24 +536,6 @@
 
       //编辑时获取考勤排班详情
       this.getscheduwhereid();
-
-
-      //高德地图
-      (function(){
-        let iframe = document.getElementById('mapbox').contentWindow;
-        document.getElementById('mapbox').onload = function(){
-        iframe.postMessage('hello','https://m.amap.com/picker/');
-        };
-        window.addEventListener("message", function(e){
-            //console.log('您选择了:' + e.data.name + ',' + e.data.location);
-            let str = e.data.location;
-            let arr = str.split(',');
-            //console.log(arr);
-            window.localStorage['mapaddress'] = e.data.name;
-            window.localStorage['maplong'] = arr[0];
-            window.localStorage['maplat'] = arr[1];
-        }.bind(this), false);
-      }())
     }
   }
 </script>
@@ -768,12 +778,45 @@
       z-index:1000;
     }
 
+    /*伪造的输入框边框*/
+    .thecreatborder{
+        border:1px solid #ededed;
+        border-radius: 4px;
+        width:300px;
+        height: 35px;
+        padding:0;
+        margin:0;
+        top:221px;
+        position: absolute;
+
+    }
 </style>
+
 <style>
-.ivu-date-picker-cells-cell-range:before{
-    background:#2d8cf0;
-    color:white;
-}
+    .input-content-inputbox .ivu-icon-ios-calendar-outline:before {
+        /* content: "" !important; */
+    }
+    .ivu-date-picker-cells-cell-range:before{
+        background:#2d8cf0;
+        color:white;
+    }
+
+    .ivu-date-picker-cells span em{
+        border-radius: 12px !important;
+    }
+
+    .ivu-date-picker-cells-cell-selected em, .ivu-date-picker-cells-cell-selected:hover em{
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        margin: 2px;
+        font-style: normal;
+        border-radius: 12px !important;
+        background:#409EFF !important;
+        text-align: center;
+        transition: all .2s ease-in-out;
+    }
 
 </style>
 

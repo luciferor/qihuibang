@@ -1,5 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
+    <div v-show="isie" class="ifie">您好，您使用的是骨灰级IE浏览器，请下载并安装使用"<span style="color:yellow;">谷歌浏览器</span>"！谢谢</div>
     <router-view/>
   </div>
 </template>
@@ -9,30 +10,31 @@ export default {
   name: 'Index',
   data(){
     return{
-
+      isie:false,
     }
   },
   mounted(){
+    if (!!window.ActiveXObject || "ActiveXObject" in window)
+      { this.isie = true; }
+    else
+      { this.isie = false; }
+
+
     //获取地址
     let url = window.location.href.split('/');
-    console.log(url[2]);
-    if(url[2]=='buff.xiaohuibang.com'){
-      window.localStorage["api"] = "https://buff.xiaohuibang.com";//生产环境
-      console.log('当前生产环境');
+    //console.log(url);
+    
+    if(url[0].indexOf("https") != -1){
+      window.localStorage["api"] = "https://"+url[2];//获取到网址，并取得借口地址
+    }else{
+      window.localStorage["api"] = "http://"+url[2];//获取到网址，并取得借口地址
     }
-    if(url[2]=='devqypyp.xiaohuibang.com'){
+
+    if(url[2]=='192.168.31.15:8080'||url[2]=='localhost:8080'){
       window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
-      console.log('当前测试环境');
+      //console.log('当前测试环境');
     }
-    if(url[2]=='qypyp.xiaohuibang.com'){
-      window.localStorage["api"] = "https://qypyp.xiaohuibang.com";//正式环境
-      console.log('当前正式环境');
-    }
-    if(url[2]=='localhost:8888'){
-      window.localStorage["api"] = "https://devqypyp.xiaohuibang.com";//测试环境
-      console.log('当前测试环境');
-    }
-  }
+  },
 }
 </script>
 
@@ -58,6 +60,16 @@ body{
   color: #181818;
   padding: 0;
   margin:0;
+}
+
+.ifie{
+  width:100%;
+  background:red;
+  font-size:48px;
+  color:rgb(38, 35, 240);
+  line-height:100px;
+  text-align: center;
+  overflow: hidden;
 }
 </style>
 
@@ -162,6 +174,10 @@ body{
     cursor: pointer;
   }
 
+  .pomove{
+    cursor: move;
+  }
+
   /*去掉边框*/
   input,input:active{
     /* border: none !important;
@@ -169,5 +185,15 @@ body{
     outline: none;
     box-shadow: none;
     width: 100%; */
+  }
+
+  .schedule-table-container .ivu-input-number-input{
+    border:none !important;
+  }
+  .schedule-table-container .ivu-input-number-input:hover{
+    border:1px solid #d2d2d2 !important;
+  }
+  .schedule-table-container .ivu-input-number-input:active{
+    border:1px solid #d2d2d2 !important;
   }
 </style>

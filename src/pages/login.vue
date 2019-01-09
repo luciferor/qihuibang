@@ -15,10 +15,10 @@
           <Tabs @on-click="codeandpassword" v-model="cp" active-key="key1">
             <Tab-pane label="手机登录" key="key1">
               <div class="phonebox">
-                <i-input  placeholder="请输入手机号" @on-change="checkphone" v-model="adminphone" style="border:none;"></i-input>
+                <el-input size="small"  placeholder="请输入手机号" @on-change="checkphone" v-model="adminphone" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input @on-enter="submitlogin" style="width:60%; border:none;" v-model="admincode"  placeholder="请输入验证码"></i-input>
+                <el-input size="small" @keyup.enter.native="submitlogin" style="width:60%; border:none;" v-model="admincode"  placeholder="请输入验证码"></el-input>
                 <i-button class="bluecolor" @click="getcode" size="small" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="isagree">
@@ -30,10 +30,10 @@
             </Tab-pane>
             <Tab-pane label="密码登录" key="key2">
               <div class="phonebox">
-                <i-input @on-change="checkphone" placeholder="请输入手机号" v-model="adminphone" style="border:none;"></i-input>
+                <el-input size="small" @change="checkphone" placeholder="请输入手机号" v-model="adminphone" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input @on-enter="submitlogin" type="password" style="border:none;" v-model="adminpassword" :aria-disabled="false" placeholder="请输入密码"></i-input>
+                <el-input size="small" @keyup.enter.native="submitlogin" type="password" style="border:none;" v-model="adminpassword" :aria-disabled="false" placeholder="请输入密码"></el-input>
               </div>
               <div class="isagree">
                 <Radio @on-change="test" v-model="agreeseleced" style="color:#8a8c99;">同意企汇邦企业协议</Radio>
@@ -135,7 +135,7 @@ export default {
               params.append('mill',this.commill);//厂商
               params.append('type','admin');
               this.$http.post(loginurl,params).then((res)=>{
-                console.log(res.data);
+                //console.log(res.data);
                 if(res['data'].success){
                   this.success("登录成功！");             
                   this.loadingblack();
@@ -146,7 +146,7 @@ export default {
                   window.sessionStorage['status'] = false;
                 }
               }).catch((err)=>{
-                console.log(err);
+                //console.log(err);
               })
               //console.log("---------------------------------------------------------");
             }else{
@@ -155,7 +155,7 @@ export default {
               return;
             }
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
         }
       }
@@ -185,7 +185,7 @@ export default {
               params.append('password',this.adminpassword);//验证码
               
               this.$http.post(loginurl,params).then((res)=>{
-                console.log(res);
+                //console.log(res);
                 if(res['data'].success){
                   this.success("登录成功！");
                   this.loadingblack();
@@ -197,7 +197,7 @@ export default {
                   return;
                 }
               }).catch((err)=>{
-                console.log(err);
+                //console.log(err);
                 this.error('网络错误，请稍候重试！'+err);
                 return;
               })
@@ -215,7 +215,7 @@ export default {
       let actype = "home_login";
       let apiurl = window.localStorage.api+"/get/phone/code?mobile_phone="+this.adminphone+"&type="+actype;
       this.$http.get(apiurl).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('验证码发送成功，请注意查收!');
           //设置一分钟获取一次
@@ -224,7 +224,7 @@ export default {
           this.error(res['data'].message+",发送失败，请重试");
         }
       }).catch(err=>{
-        console.log("网络错误"+err);
+        //console.log("网络错误"+err);
       })
     },
     forgetpas(){
@@ -262,7 +262,7 @@ export default {
         //清除setinterval
         clearInterval(this.setintervalid);
       }
-      console.log(this.count);
+      //console.log(this.count);
 
     },
     loadingblack(){//加载动画，用于增加用户体验
@@ -284,7 +284,7 @@ export default {
           this.error('您输入的手机号不符合，请重新输入');
           this.adminphone = '';
         }else{
-          console.log("是手机号");
+          //console.log("是手机号");
         }
       }
       if(this.adminphone.length>11){
@@ -301,10 +301,10 @@ export default {
       }
     },
     codeandpassword(){
-      console.log(this.cp);
+      //console.log(this.cp);
     },
     test(){
-      console.log(this.agreeseleced);
+      //console.log(this.agreeseleced);
     }
   },
   mounted(){
@@ -390,7 +390,7 @@ export default {
     .loginbox .login-select .inputtop{
       width:100%;
       height:85%;
-      padding:60px 60px 0px 60px;
+      padding:10px 60px 0px 60px;
     }
 
 

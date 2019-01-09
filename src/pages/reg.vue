@@ -15,14 +15,14 @@
           <Tabs active-key="key1">
             <Tab-pane label="企业注册" key="key1">
               <div class="phonebox">
-                <i-input  placeholder="请输入手机号" style="border:none;" v-model="adminphone"></i-input>
+                <el-input  placeholder="请输入手机号" style="border:none;" v-model="adminphone"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input type="text" style="width:60%; border:none;"  placeholder="请输入验证码" v-model="admincode"></i-input>
+                <el-input size="small" type="text" style="width:60%; border:none;"  placeholder="请输入验证码" v-model="admincode"></el-input>
                 <i-button class="bluecolor" @click="getcode" size="small" style="border:1px solid #6680ff; color:#6680ff;" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="isagree">
-                <Radio @on-change="ischanggeradio" v-model="cisagree" style="color:#8a8c99;">同意企汇邦企业协议</Radio>
+                <Radio @change="ischanggeradio" v-model="cisagree" style="color:#8a8c99;">同意企汇邦企业协议</Radio>
               </div>
               <div class="loginbtn">
                 <i-button @click="regover" style="background-color:#ededed; width:100%;">马 上 注 册</i-button>
@@ -50,12 +50,24 @@ export default {
       codegetvalue:'获取验证码',//按钮文字
       count:60,//获取验证码时间
       setintervalid:'',//setinterval的id，用于清除他
-      cisagree:false,//同意企业协议
+      cisagree:true,//同意企业协议
     }
   },
   methods:{
     gotologin(){//去登录
-      this.$router.push({path:"/pages/login"});
+      let os = navigator.platform;
+      if(os=="Win32"){//windows电脑pc端
+        this.$router.push({path:"/pages/login"});
+      }else{
+        if(os=="iPhone"){//苹果
+          window.android.finishActivity();
+        }else{//安卓
+          window.back = function(){
+            window.webkit.messageHandlers.goBack.postMessage(null);
+          }
+        }
+      }   
+    
     },
     regover(){//提交
       //验证手机号是否为空
@@ -89,7 +101,7 @@ export default {
           return;
         }
       }).catch(err=>{
-        console.log(err);
+        //console.log(err);
       })
     },
     getcode(){// 获取验证码
@@ -100,7 +112,7 @@ export default {
       let actype = "admin";//后台注册传 admin, 前台登录传home_login,后台忘记密码传mod_pwd
       let apiurl = window.localStorage.api+"/get/phone/code?mobile_phone="+this.adminphone+"&type="+actype;
       this.$http.get(apiurl).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('验证码发送成功，请注意查收！');
           //设置一分钟获取一次
@@ -109,11 +121,11 @@ export default {
           this.error(res['data'].message+",发送失败，请重试");
         }
       }).catch(err=>{
-        console.log("网络错误"+err);
+        //console.log("网络错误"+err);
       })
     },
     ischanggeradio(){
-      console.log(this.cisagree);
+      //console.log(this.cisagree);
     },
     //页面提示信息
     success(_str) {
@@ -145,7 +157,7 @@ export default {
         //清除setinterval
         clearInterval(this.setintervalid);
       }
-      console.log(this.count);
+      //console.log(this.count);
 
     },
     loadingblack(){//加载动画，用于增加用户体验
@@ -183,7 +195,135 @@ export default {
   /*适配各种尺寸-手机端*/
   @media only screen and (max-width: 767px) and (min-width: 320px)
   {
+    /*登录框样式*/
+    .loginbox{
+      width:100%;
+      height:100%;
+      background: white;
+      position: absolute;
+      border-radius: 5px;
+      left:0;
+      right:0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /*50%为自身尺寸的一半*/
+      -webkit-box-shadow: 2px 2px 5px #333;
+      box-shadow: 2px 2px 5px #333;
+    }
+    /*左部分盒子样式*/
+    .loginbox .login-logo{
+      width:100%;
+      height:20%;
+      background:url(../assets/left_bg.png) repeat-x -5px;
+      position: relative;
+      clear: both !important;
+    }
 
+    .login-logo .logo{
+      width:58px;
+      height:59px;
+      position: absolute;
+      left:0;
+      right:0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /*50%为自身尺寸的一半*/
+    }
+
+    .login-logo .txt{
+      bottom: 5px;
+      position:absolute;
+      width: 107px;
+      height: 10px;
+      font-family: MicrosoftYaHei;
+      font-size: 13px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #ffffff;
+      margin: auto;
+      left:0;
+      right:0;
+      bottom:15px;
+
+    }
+
+    /*右部分盒子样式*/
+    .loginbox .login-select{
+      width:100%;
+      height: 80%;
+      clear: both !important;
+    }
+
+
+    .loginbox .login-select .inputtop{
+      width:100%;
+      height:85%;
+      padding:60px 60px 0px 60px;
+    }
+
+
+    .loginbox .login-select .inputtop .phonebox{
+      width:100%;
+      /*border-bottom:1px solid #dedede;*/
+      height: 70px;
+      padding-top:30px;
+    }
+
+    .loginbox .login-select .inputtop .phonebox input{
+      border:none;
+      height: 39px;
+      line-height: 39px;
+      width:100%;
+    }
+
+    .loginbox .login-select .inputtop .passwordbox{
+      width:100%;
+      /*border-bottom:1px solid #dedede;*/
+      height: 60px;
+      padding-top:20px;
+    }
+
+      .loginbox .login-select .inputtop .passwordbox input{
+        border:none !important;
+        width:60px !important;
+      }
+      .loginbox .login-select .inputtop .passwordbox button{
+        border:none !important;
+        width:38%;
+      }
+
+    .loginbox .login-select .inputtop .isagree{
+      width:100%;
+      padding-top:20px;
+    }
+
+    .loginbox .login-select .inputtop .loginbtn{
+      width:100%;
+      padding-top:52px;
+    }
+
+
+
+    .loginbox .login-select .rebuttom{
+      width:100%;
+      height:15%;
+      background:#f7f7f7;
+      text-align: center;
+      padding-top:23px;
+      border-radius: 0px 0px 5px 0px;
+    }
+
+
+    .loginbox .login-select .rebuttom .rebuttomli{
+      cursor: pointer;
+    }
+
+    .loginbox .login-select .rebuttom .rebuttomli span{
+      cursor: pointer !important;
+    }
   }
 
   /*适配各种尺寸-平板电脑*/
@@ -584,4 +724,17 @@ export default {
       cursor: pointer !important;
     }
   }
+</style>
+<style>
+.el-message-box{
+  width:300px !important;
+}
+
+.el-message-box__btns{
+  text-align:center !important;
+}
+
+.el-message-box__btns button{
+  width:120px !important;
+}
 </style>

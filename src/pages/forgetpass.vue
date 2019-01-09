@@ -18,17 +18,17 @@
           <Tabs active-key="key1">
             <Tab-pane label="找回密码" key="key1">
               <div class="passwordbox">
-                <i-input v-model="adminphone"  placeholder="请输入手机号" style="border:none;"></i-input>
+                <el-input size="small" v-model="adminphone"  placeholder="请输入手机号" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input v-model="admincode" style="width:60%; border:none;"  placeholder="请输入验证码"></i-input>
+                <el-input size="small" v-model="admincode" style="width:60%; border:none;"  placeholder="请输入验证码"></el-input>
                 <i-button class="bluecolor" @click="getcode" :disabled="codegetstatus">{{codegetvalue}}</i-button>
               </div>
               <div class="passwordbox">
-                <i-input v-model="adminpassword" type="password"  placeholder="设置新密码" style="border:none;"></i-input>
+                <el-input size="small" v-model="adminpassword" type="password"  placeholder="设置新密码" style="border:none;"></el-input>
               </div>
               <div class="passwordbox">
-                <i-input v-model="isadminpassword" type="password"  placeholder="确认密码" style="border:none;"></i-input>
+                <el-input size="small" v-model="isadminpassword" type="password"  placeholder="确认密码" style="border:none;"></el-input>
               </div>
               <div class="passwordbox iph45">
                 <i-button @click="savepassword" style="background-color:#ededed; width:100%;">确 认 修 改</i-button>
@@ -68,7 +68,7 @@ export default {
       let actype = "mod_pwd";
       let apiurl = window.localStorage.api+"/get/phone/code?mobile_phone="+this.adminphone+"&type="+actype;
       this.$http.get(apiurl).then(res=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success('验证码发送成功，请注意查收！');
           //设置一分钟获取一次
@@ -77,7 +77,7 @@ export default {
           this.error("发送失败，请重试");
         }
       }).catch(err=>{
-        console.log("网络错误"+err);
+        //console.log("网络错误"+err);
       })
     },
     savepassword(){//确认修改密码
@@ -94,7 +94,7 @@ export default {
       params.append('pwd',this.adminpassword);//密码
       params.append('againpwd',this.isadminpassword);//确认密码
       this.$http.post(repassurl,params).then((res)=>{
-        console.log(res);
+        //console.log(res);
         if(res['data'].success){
           this.success("重置密码成功！");
           //this.loadingblack();

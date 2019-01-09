@@ -4,10 +4,10 @@
       <span class="fl">
         <Breadcrumb>
           <Breadcrumb-item href="/">
-              <Icon type="ios-home-outline"></Icon><router-link to="/pages/company/informations">公司信息</router-link>
+              <span style="padding-right:10px;"><img width="20" height="20" src="../..\assets\iMenu\sMenu\icon_gongshi.png"  /></span><span style="font-weight:bold;"><router-link to="/pages/company/informations">公司信息</router-link></span>
           </Breadcrumb-item>
           <Breadcrumb-item>
-              <Icon type="ios-pricetags-outline"></Icon>编辑公司信息
+              编辑公司信息
           </Breadcrumb-item>
         </Breadcrumb>
       </span>
@@ -39,7 +39,7 @@
           <div class="boxlist">
             <div class="list-title fl">公司名称</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入公司名称..." style="width:100%;"  v-model="comname"></i-input>
+                <el-input size="small" placeholder="请输入公司名称..." style="width:100%;"  v-model="comname"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -71,7 +71,7 @@
           <div class="boxlist">
             <div class="list-title fl">详细地址</div>
             <div class="list-content fl">
-                <i-input type="textarea" placeholder="请输入..." v-model="comaddr"></i-input>
+                <el-input size="small" type="textarea" placeholder="请输入..." v-model="comaddr"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -117,7 +117,7 @@
             <div class="list-title fl">公司简介</div>
             <div class="list-content fl">
               <div style="width:100%" class="list-content-upbtn fl">
-                <i-input type="textarea" placeholder="请输入简介内容..." v-model="comdes"></i-input>
+                <el-input autosize="true" size="small" type="textarea" placeholder="请输入简介内容..." v-model="comdes"></el-input>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
           <div class="boxlist">
             <div class="list-title fl">联系人姓名</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入姓名..." style="width:100%;" v-model="comconuser"></i-input>
+                <el-input size="small" placeholder="请输入姓名..." style="width:100%;" v-model="comconuser"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -139,7 +139,7 @@
           <div class="boxlist">
             <div class="list-title fl">联系电话</div>
             <div class="list-content fl">
-                <i-input placeholder="请输入电话..." style="width:100%;" v-model="comphone"></i-input>
+                <el-input size="small" placeholder="请输入电话..." style="width:100%;" v-model="comphone"></el-input>
             </div>
           </div>
           <!--列表结束-->
@@ -213,7 +213,7 @@ export default {
           params.append('county_id',this.comarea);//区id
           params.append('id',this.id);//id
           this.$http.post(apiurl,params).then((res)=>{
-            console.log(res);
+            //console.log(res);
             if (res['data'].success) {
               this.success('修改成功！');
               this.$router.push({path:'/pages/company/informations'});
@@ -221,7 +221,7 @@ export default {
               this.error("修改失败！"+res['data'].message);
             }
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
           //console.log("---------------------------------------------------------");
         },
@@ -245,16 +245,16 @@ export default {
           let config = {
             headers: {'Content-Type': 'multipart/form-data'}
           }
-          console.log(_img);
+          //console.log(_img);
           this.$http.post(upurl,params).then((res)=>{
             if(_type=="logo"){
-              console.log(res['data'].message.fileurl);
+              //console.log(res['data'].message.fileurl);
               this.comlogo = res['data'].message.fileurl;
             }else{
               this.comlicense = res['data'].message.fileurl;
             }
           }).catch((err)=>{
-            console.log(err);
+            //console.log(err);
           })
         },
         //页面提示信息
@@ -286,7 +286,7 @@ export default {
         this.$http.get(this.mapJson).then(function(response){
           if (response.status==200){
             let data = response.data
-            console.log(data);
+            //console.log(data);
             that.province = []
             that.city = []
             that.block = []
@@ -318,24 +318,26 @@ export default {
             }
           }
           else{
-            console.log(response.status)
+            //console.log(response.status)
 
           }
-        }).catch(function(error){console.log(typeof+ error)})
+        }).catch(function(error){
+          //console.log(typeof+ error)
+          })
       },
       // 选省
       choseProvince(e,_type){
         let a = e.substr(0,2);
         let b = String(this.comcounty).substr(0,2);
         let c = String(this.comarea).substr(0,2);
-        console.log(e.substr(0,2));
-        console.log(String(this.comcounty).substr(0,2));
-        console.log(String(this.comarea).substr(0,2));
+        //console.log(e.substr(0,2));
+        //console.log(String(this.comcounty).substr(0,2));
+        //console.log(String(this.comarea).substr(0,2));
         if(a!=b||a!=c){
           this.comcounty='';
           this.comarea='';
         }
-        console.log(e);
+        //console.log(e);
         this.comprovince = e;
         for (let index2 in this.province) {
           if (e === this.province[index2].id) {
@@ -349,7 +351,7 @@ export default {
       },
       // 选市
       choseCity(e){
-        console.log(e);
+        //console.log(e);
         this.comcounty=e;
         for (let index3 in this.city) {
           if (e === this.city[index3].id) {
@@ -372,11 +374,11 @@ export default {
         this.$router.push({path:'/pages/login'});
         return;
       }
-    console.log(this.$route.query.comid);
+    //console.log(this.$route.query.comid);
     this.id = this.$route.query.comid;
     let url = window.localStorage.api + '/get/company';//接口地址
     this.$http.get(url).then(res=>{
-            console.log(res);
+            //console.log(res);
             //this.comid=res['data'].message.id;//用户id
             this.comlogo=res['data'].message.logo;//公司logo
             this.comname=res['data'].message.name;//公司名称
@@ -423,45 +425,142 @@ export default {
   }
 
   .combox .comtitle{
-    height:62px;
-    line-height: 62px;
+    height:69px;
+    line-height: 69px;
     padding-left:10px;
     font-size: 16px;
     color: #2e2f33;
     border-bottom: 1px solid #ededed;
   }
 
-  .combox .comcontent{
-    background:#FFF;
-    padding:50px;
-    overflow: hidden;
-    min-height:885px;
-  }
+
+  /*适配各种尺寸-手机端*/
+  @media only screen and (max-width: 767px) and (min-width: 100px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:10px;
+      overflow: hidden;
+      min-height:885px;
+    }
 
 
-  .boxlist{
-    padding:10px;
-    overflow: hidden;
-    width:100%;
-  }
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
 
-  .boxlist .list-title{
-    padding-right:20px;
-    font-weight:bold;
-    width:100px;
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:315px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
   }
-  .boxlist .list-content{
-    width:500px;
+  /*适配各种尺寸-平板电脑*/
+  @media only screen and (max-width: 1023px) and (min-width: 768px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:20px;
+      overflow: hidden;
+      min-height:885px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:300px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
   }
-  .boxlist .list-content .list-content-img{
-    margin-right:10px;
-  }
-  .boxlist .list-content .list-content-img img{
-    width:88px;
-    height:88px;
-  }
-  .boxlist .list-content-upbtn{}
-  .boxlist .list-content-upbtn span{
-    text-align: center;
+  /*适配各种尺寸-PC端小屏幕*/
+  @media only screen and (max-width: 2560px) and (min-width: 1024px)
+  {
+    .combox .comcontent{
+      background:#FFF;
+      padding:50px;
+      overflow: hidden;
+      min-height:885px;
+    }
+
+
+    .boxlist{
+      padding:10px;
+      overflow: hidden;
+      width:100%;
+    }
+
+    .boxlist .list-title{
+      padding-right:20px;
+      font-weight:bold;
+      width:100px;
+    }
+    .boxlist .list-content{
+      width:500px;
+    }
+    .boxlist .list-content .list-content-img{
+      margin-right:10px;
+    }
+    .boxlist .list-content .list-content-img img{
+      width:88px;
+      height:88px;
+    }
+    .boxlist .list-content-upbtn{}
+    .boxlist .list-content-upbtn span{
+      text-align: center;
+    }
+
+    .el-input__inner{
+        border:1px solid #ededed !important;
+    }
+  }   
+</style>
+
+<style>
+  input{
+      border:1px solid #ededed !important;
   }
 </style>

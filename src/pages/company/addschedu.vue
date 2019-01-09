@@ -22,7 +22,7 @@
                     <div class="input-left-title"><span>上班类型</span><span style="color:#ff6666;">*</span></div>
                 </div>
                 <div class="input-content fr">
-                    <div class="input-content-inputbox"><i-input v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></i-input></div>
+                    <div class="input-content-inputbox"><el-input size="small" v-model="scheduname" placeholder="请输入考勤名称..." style="width: 300px"></el-input></div>
                     <div class="input-content-inputbox">
                         <el-time-select
                             placeholder="上班时间"
@@ -30,9 +30,9 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00'
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59'
                             }">
                         </el-time-select>
                         <el-time-select
@@ -41,10 +41,9 @@
                             size="small"
                             style="width:147.5px;"
                             :picker-options="{
-                            start: '06:00',
-                            step: '00:10',
-                            end: '20:00',
-                            minTime:schedustime
+                            start: '00:00',
+                            step: '00:05',
+                            end: '23:59',
                             }">
                         </el-time-select>
                     </div>
@@ -53,8 +52,8 @@
                     </div>
                     <div class="input-content-inputbox">
                         <i-select style="width:300px" v-model="schedutype">
-                            <i-option :value="1">白班</i-option>
-                            <i-option :value="0">晚班</i-option>
+                            <i-option :value="0">白班</i-option>
+                            <i-option :value="1">晚班</i-option>
                         </i-select>
                     </div>
                 </div>
@@ -112,7 +111,7 @@
     <div class="mapselectbox unshow">
         <div class="map-title"><span class="fl" style="text-indent:10px; padding-top:3px;">考勤地址</span><span @click="coloselocationwin" style="padding-right:10px; padding-top:5px;" class="posor fr"><img src="../../assets/delete.png" /></span></div>
         <div class="map-content">
-            <iframe class="posor" style="width:100%; height:100%; border:none;" id="mapbox" src="https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=116.470098,39.992838&radius=1000&total=20&key=1b443fa122dc68aa86c0c941620d5bd4"></iframe>
+            <Map></Map>
         </div>
         <div class="map-under">
             <span class="fl">考勤范围
@@ -126,7 +125,7 @@
                 </i-select>
             </span>
             <span class="fr">
-                <el-button size="small" style="width:80px; color:#5c5d66;">复位</el-button>
+                <el-button v-show="false" size="small" style="width:80px; color:#5c5d66;">复位</el-button>
                 <el-button @click="selectedaddress" class="backgroundpar" size="small" type="primary" style="width:80px;">确定</el-button>
             </span>
         </div>
@@ -164,6 +163,7 @@
 </template>
 
 <script>
+  import Map from "../../components/map";
   export default {
     filters:{
         srctransformation:function(value){
@@ -173,6 +173,9 @@
                 return value;
             }
         }
+    },
+    components:{
+        Map,//注册组件
     },
     data(){
       let that = this;
@@ -190,7 +193,7 @@
         scheduname:'',//考勤名称
         schedustime:'',//上班时间
         scheduetime:'',//下班时间
-        schedutype:1    ,//打卡类型、白班、夜班 
+        schedutype:0    ,//打卡类型、白班、夜班 
         mapscope:100,//考勤范围
         mapaddress:'选择地址',//考勤地址
         maplong:'',//经度
@@ -207,7 +210,7 @@
     methods:{
         //清除已选地址项
         clearaddress(index){
-            console.log(index);
+            //console.log(index);
             this.mapdata.splice(index,1);//选中了谁，就清除谁
         },
         //保存考勤信息
@@ -256,7 +259,7 @@
             params.append('multi_clock',this.schedumulti?1:0);//是否需要多个次考勤，是传1，不是传0
 
             this.$http.post(url,params).then(res=>{
-                console.log(res);
+                //console.log(res);
                 if (res['data'].success){
                     this.success(res['data'].message);
                     //清空数据
@@ -268,11 +271,12 @@
                     this.schedumulti=false;
                     this.scheduserids='';
                     this.scheduworkday='';
+                    this.$router.push({path:'/pages/company/schedusettings'});
                 }else{
                     this.success(res['data'].message);
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
 
         },
@@ -284,8 +288,8 @@
                 str += ";"+arr[i];
             }
             this.scheduworkdaystring = str.replace('undefined;','');
-            console.log(this.scheduworkdaystring);
-            console.log(String(this.scheduworkday));
+            //console.log(this.scheduworkdaystring);
+            //console.log(String(this.scheduworkday));
         },
         //选中确定的用户
         saveselecteduseres(){
@@ -294,13 +298,13 @@
                 str += ";"+this.selecteduserlist[i].id;
             }
             this.scheduserids = str.substr(1);
-            console.log(this.scheduserids);
+            //console.log(this.scheduserids);
             this.colosusereswin();
         },
         //选中地址
         selectedaddress(){
             if(window.localStorage.mapaddress==""){
-                console.log('请选择一个地址');
+                //console.log('请选择一个地址');
                 return;
             }
             //高德地图
@@ -308,7 +312,7 @@
             // this.maplong=window.localStorage.maplong;//经度
             // this.maplat=window.localStorage.maplat;//纬度
             this.mapdata.push({'scope':this.mapscope,'address':window.localStorage.mapaddress,'lon':window.localStorage.maplong,'lat':window.localStorage.maplat});
-            console.log(this.mapdata);
+            //console.log(this.mapdata);
 
             window.localStorage['mapaddress'] = "";
             window.localStorage['maplong'] = "";
@@ -336,7 +340,7 @@
                     this.selecteduserlist.push({'id':this.alluserlist[i].id,'name':this.alluserlist[i].name,'img':this.alluserlist[i].img});
                 }
             }
-            console.log(this.selecteduserlist);
+            //console.log(this.selecteduserlist);
         },
         //全选
         selectall(){
@@ -344,8 +348,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = true;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //清空
         clearall(){
@@ -353,8 +357,8 @@
             for (let i = 0; i < this.alluserlist.length; i++) {
                 this.alluserlist[i].ischecked = false;
             }
-            console.log(this.selecteduserlist);
-            console.log(this.alluserlist);
+            //console.log(this.selecteduserlist);
+            //console.log(this.alluserlist);
         },
         //部门列表改变
         depselect(){
@@ -362,8 +366,8 @@
             let sta = this.depid==Number(0)||this.depid==''||this.depid==null||this.depid==undefined;
             let params = sta?'/get/department/listuser':'/get/department/listuser?depart_id='+this.depid;
             let url = window.localStorage.api+params;
-            console.log(params);
-            console.log(url);
+            //console.log(params);
+            //console.log(url);
             this.$http.get(url).then(res=>{
                 let item = res['data'].message;
                 this.userlist = [];
@@ -383,11 +387,11 @@
                         }
                     }
                 }
-                console.log(this.userlist);
-                console.log(this.selecteduserlist);
-                console.log(this.alluserlist);
+                //console.log(this.userlist);
+                //console.log(this.selecteduserlist);
+                //console.log(this.alluserlist);
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         getalluserlist(){//获取到所有的用户
@@ -398,7 +402,7 @@
                     this.alluserlist.push({'id':item[i].id,'name':item[i].name,'img':item[i].user_img,'ischecked':false});
                 }
             }).catch(err=>{
-                console.log(err);
+                //console.log(err);
             })
         },
         //获取部门列表
@@ -437,6 +441,7 @@
         this.$router.push({path:'/pages/login'});
         return;
       }
+      
       //获取部门列表
       this.getdeplist();
       //现获取所有用户
@@ -444,14 +449,21 @@
       //获取所有用户并处理是否选中状态
       this.depselect();//第一次运行，默认是获取所有用户
 
+      $(function(){
+          
+      })
+      
 
       //高德地图
       (function(){
         let iframe = document.getElementById('mapbox').contentWindow;
         document.getElementById('mapbox').onload = function(){
-        iframe.postMessage('hello','https://m.amap.com/picker/');
+            iframe.postMessage('hello','https://m.amap.com/picker/');
+            //$("#mapbox").contents().find(".J_tab").css('cursor','pointer');
+            
         };
         window.addEventListener("message", function(e){
+            //console.log(e);
             //console.log('您选择了:' + e.data.name + ',' + e.data.location);
             let str = e.data.location;
             let arr = str.split(',');
@@ -467,6 +479,7 @@
 
 
 <style scoped>
+
   .combox{
     width:100%;
     height:100%;
@@ -705,10 +718,16 @@
 
 </style>
 <style>
+input{
+    border:1px solid #ededed !important;
+}
 .ivu-date-picker-cells-cell-range:before{
     background:#2d8cf0;
     color:white;
 }
 
+.input-content-inputbox .el-input--prefix .el-input__inner{
+    padding-left:30px !important;
+}
 </style>
 

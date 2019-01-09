@@ -54,7 +54,7 @@ import ShenpiBuka from '../pages/office/shenpiBuka' //审批-补卡
 import AttendanceRecord from '../pages/office/attendanceRecord' //考勤记录
 import AttendanceDetail from '../pages/office/attendanceDetail' //考勤详情
 
-import Fulibangfen from '../pages/catalog/fulibangfen' //考勤详情
+import Fulibangfen from '../pages/catalog/fulibangfen' //福利邦分
 import Selfinfo from '../pages/catalog/selfinfo' //个人信息
 import Feedback from '../pages/catalog/feedback' //意见反馈
 
@@ -62,310 +62,379 @@ import BriefReport from '../pages/office/briefReport' //简报
 import ReportDetail from '../pages/office/reportDetail' //简报详情
 import WaitMeJudge from '../pages/office/waitMeJudge' //待我评审
 
+import Reciatesettings from '../pages/company/reciatesettings.vue' //赞赏设置
+import Addreciates from '../pages/company/addreciates.vue' //添加赞赏页面
+import Eidtreciates from '../pages/company/eidtreciates.vue' //编辑赞赏页面
+import Reciatesdescriptions from '../pages/company/reciatesdescriptions.vue' //赞赏详情
+import Chat from '../pages/chat' //聊天界面
+import None from '../pages/company/none' //显示开发中界面
+
 Vue.use(Router)
 
 export default new Router({
-    routes: [{
-            path: '/',
-            name: 'Index',
-            component: Index,
-            children: [ //主页下面的子路由
-                {
-                    path: '/pages/company/informations',
-                    name: 'Informations',
-                    component: Informations
-                }, {
-                    path: '/pages/company/datastatistics',
-                    name: 'Datastatistics',
-                    component: Datastatistics
-                },
-                {
-                    path: '/pages/company/examsettings',
-                    name: 'Examsettings',
-                    component: Examsettings
-                },
-                {
-                    path: '/pages/company/integralsettings',
-                    name: 'Integralsettings',
-                    component: Integralsettings
-                },
-                {
-                    path: '/pages/company/organizationsettings',
-                    name: 'Organizationsettings',
-                    component: Organizationsettings
-                },
-                {
-                    path: '/pages/company/projectmanagers',
-                    name: 'Projectmanagers',
-                    component: Projectmanagers
-                },
-                {
-                    path: '/pages/company/rightsettings',
-                    name: 'Rightsettings',
-                    component: Rightsettings
-                },
-                {
-                    path: '/pages/company/schedusettings',
-                    name: 'Schedusettings',
-                    component: Schedusettings
-                },
-                {
-                    path: '/pages/company/tasksettings',
-                    name: 'Tasksettings',
-                    component: Tasksettings
-                },
-                {
-                    path: '/pages/company/welfaresettings',
-                    name: 'Welfaresettings',
-                    component: Welfaresettings
-                },
-                {
-                    path: '/pages/company/editinfos',
-                    name: 'Editinfos',
-                    component: Editinfos
-                },
-                {
-                    path: '/pages/company/jobmanager',
-                    name: 'Jobmanager',
-                    component: Jobmanager
-                },
-                {
-                    path: '/pages/company/departmentmanager',
-                    name: 'Departmentmanager',
-                    component: Departmentmanager
-                },
-                {
-                    path: '/pages/company/ownersense',
-                    name: 'Ownersense',
-                    component: Ownersense
-                },
-                {
-                    path: '/pages/company/addschedu',
-                    name: 'Addschedu',
-                    component: Addschedu
-                },
-                {
-                    path: '/pages/company/editschedu',
-                    name: 'Editschedu',
-                    component: Editschedu
-                },
-                {
-                    path: '/pages/company/notice',
-                    name: 'Notice',
-                    component: Notice
-                },
-                {
-                    path: '/pages/ranking/allpeople',
-                    name: 'Allpeople',
-                    component: Allpeople
-                },
-                {
-                    path: '/pages/ranking/allpeoplehistory',
-                    name: 'Allpeoplehistory',
-                    component: Allpeoplehistory
-                },
-                {
-                    path: '/pages/ranking/departmentshistory',
-                    name: 'Departmentshistory',
-                    component: Departmentshistory
-                },
-                {
-                    path: '/pages/ranking/departments',
-                    name: 'Departments',
-                    component: Departments
-                },
-                {
-                    path: '/pages/ranking/designdepartment',
-                    name: 'Designdepartment',
-                    component: Designdepartment
-                },
-                {
-                    path: '/pages/ranking/operationdepartment',
-                    name: 'Operationdepartment',
-                    component: Operationdepartment
-                },
-                {
-                    path: '/pages/ranking/techdepartment',
-                    name: 'Techdepartment',
-                    component: Techdepartment
-                },
-                {
-                    path: '/pages/ranking/recentNews',
-                    name: 'RecentNews',
-                    component: RecentNews
-                },
-                {
-                    path: '/pages/ranking/personalnews',
-                    name: 'Personalnews',
-                    component: Personalnews
-                },
-                {
-                    path: '/pages/ranking/fuli',
-                    name: 'Fuli',
-                    component: Fuli
-                },
-                {
-                    path: '/pages/ranking/glorywall',
-                    name: 'Glorywall',
-                    component: Glorywall
-                },
-                {
-                    path: '/pages/ranking/awardnow',
-                    name: 'Awardnow',
-                    component: Awardnow
-                },
-                {
-                    path: '/pages/office/officenotice',
-                    name: 'Officenotice',
-                    component: Officenotice
-                },
-                {
-                    path: '/pages/office/noticeDetail',
-                    name: 'NoticeDetail',
-                    component: NoticeDetail
-                },
+        routes: [{
+                path: '/',
+                name: 'Index',
+                component: Index,
+                children: [ //主页下面的子路由
+                    {
+                        path: '/pages/company/informations',
+                        name: 'Informations',
+                        component: Informations
+                    }, {
+                        path: '/pages/company/datastatistics',
+                        name: 'Datastatistics',
+                        component: Datastatistics
+                    },
+                    {
+                        path: '/pages/company/examsettings',
+                        name: 'Examsettings',
+                        component: Examsettings
+                    },
+                    {
+                        path: '/pages/company/integralsettings',
+                        name: 'Integralsettings',
+                        component: Integralsettings
+                    },
+                    {
+                        path: '/pages/company/organizationsettings',
+                        name: 'Organizationsettings',
+                        component: Organizationsettings
+                    },
+                    {
+                        path: '/pages/company/projectmanagers',
+                        name: 'Projectmanagers',
+                        component: Projectmanagers
+                    },
+                    {
+                        path: '/pages/company/rightsettings',
+                        name: 'Rightsettings',
+                        component: Rightsettings
+                    },
+                    {
+                        path: '/pages/company/schedusettings',
+                        name: 'Schedusettings',
+                        component: Schedusettings
+                    },
+                    {
+                        path: '/pages/company/tasksettings',
+                        name: 'Tasksettings',
+                        component: Tasksettings
+                    },
+                    {
+                        path: '/pages/company/welfaresettings',
+                        name: 'Welfaresettings',
+                        component: Welfaresettings
+                    },
+                    {
+                        path: '/pages/company/editinfos',
+                        name: 'Editinfos',
+                        component: Editinfos
+                    },
+                    {
+                        path: '/pages/company/jobmanager',
+                        name: 'Jobmanager',
+                        component: Jobmanager
+                    },
+                    {
+                        path: '/pages/company/departmentmanager',
+                        name: 'Departmentmanager',
+                        component: Departmentmanager
+                    },
+                    {
+                        path: '/pages/company/ownersense',
+                        name: 'Ownersense',
+                        component: Ownersense
+                    },
+                    {
+                        path: '/pages/company/addschedu',
+                        name: 'Addschedu',
+                        component: Addschedu
+                    },
+                    {
+                        path: '/pages/company/editschedu',
+                        name: 'Editschedu',
+                        component: Editschedu
+                    },
+                    {
+                        path: '/pages/company/notice',
+                        name: 'Notice',
+                        component: Notice
+                    },
+                    {
+                        path: '/pages/ranking/allpeople',
+                        name: 'Allpeople',
+                        component: Allpeople
+                    },
+                    {
+                        path: '/pages/ranking/allpeoplehistory',
+                        name: 'Allpeoplehistory',
+                        component: Allpeoplehistory
+                    },
+                    {
+                        path: '/pages/ranking/departmentshistory',
+                        name: 'Departmentshistory',
+                        component: Departmentshistory
+                    },
+                    {
+                        path: '/pages/ranking/departments',
+                        name: 'Departments',
+                        component: Departments
+                    },
+                    {
+                        path: '/pages/ranking/designdepartment',
+                        name: 'Designdepartment',
+                        component: Designdepartment
+                    },
+                    {
+                        path: '/pages/ranking/operationdepartment',
+                        name: 'Operationdepartment',
+                        component: Operationdepartment
+                    },
+                    {
+                        path: '/pages/ranking/techdepartment',
+                        name: 'Techdepartment',
+                        component: Techdepartment
+                    },
+                    {
+                        path: '/pages/ranking/recentNews',
+                        name: 'RecentNews',
+                        component: RecentNews
+                    },
+                    {
+                        path: '/pages/ranking/personalnews',
+                        name: 'Personalnews',
+                        component: Personalnews
+                    },
+                    {
+                        path: '/pages/ranking/fuli',
+                        name: 'Fuli',
+                        component: Fuli
+                    },
+                    {
+                        path: '/pages/ranking/glorywall',
+                        name: 'Glorywall',
+                        component: Glorywall
+                    },
+                    {
+                        path: '/pages/ranking/awardnow',
+                        name: 'Awardnow',
+                        component: Awardnow
+                    },
+                    {
+                        path: '/pages/office/officenotice',
+                        name: 'Officenotice',
+                        component: Officenotice
+                    },
+                    {
+                        path: '/pages/office/noticeDetail',
+                        name: 'NoticeDetail',
+                        component: NoticeDetail
+                    },
 
-                {
-                    path: '/pages/office/officehome',
-                    name: 'Officehome',
-                    component: Officehome
-                },
-                {
-                    path: '/pages/office/handbook',
-                    name: 'Handbook',
-                    component: Handbook
-                },
-                {
-                    path: '/pages/office/attendance',
-                    name: 'Attendance',
-                    component: Attendance
-                },
-                {
-                    path: '/pages/office/signIn',
-                    name: 'SignIn',
-                    component: SignIn
-                },
-                {
-                    path: '/pages/office/announcement',
-                    name: 'Announcement',
-                    component: Announcement
-                },
-                {
-                    path: '/pages/office/shenpi',
-                    name: 'Shenpi',
-                    component: Shenpi
-                },
-                {
-                    path: '/pages/office/myshenpi',
-                    name: 'Myshenpi',
-                    component: Myshenpi
-                },
-                {
-                    path: '/pages/office/shenpiGoout',
-                    name: 'ShenpiGoout',
-                    component: ShenpiGoout
-                },
-                {
-                    path: '/pages/office/shenpiBuka',
-                    name: 'ShenpiBuka',
-                    component: ShenpiBuka
-                },
-                {
-                    path: '/pages/office/shenpiVacate',
-                    name: 'ShenpiVacate',
-                    component: ShenpiVacate
-                },
-                {
-                    path: '/pages/office/attendanceRecord',
-                    name: 'AttendanceRecord',
-                    component: AttendanceRecord
-                },
-                {
-                    path: '/pages/office/attendanceDetail',
-                    name: 'AttendanceDetail',
-                    component: AttendanceDetail
-                },
+                    {
+                        path: '/pages/office/officehome',
+                        name: 'Officehome',
+                        component: Officehome
+                    },
+                    {
+                        path: '/pages/office/handbook',
+                        name: 'Handbook',
+                        component: Handbook
+                    },
+                    {
+                        path: '/pages/office/attendance',
+                        name: 'Attendance',
+                        component: Attendance
+                    },
+                    {
+                        path: '/pages/office/signIn',
+                        name: 'SignIn',
+                        component: SignIn
+                    },
+                    {
+                        path: '/pages/office/announcement',
+                        name: 'Announcement',
+                        component: Announcement
+                    },
+                    {
+                        path: '/pages/office/shenpi',
+                        name: 'Shenpi',
+                        component: Shenpi
+                    },
+                    {
+                        path: '/pages/office/myshenpi',
+                        name: 'Myshenpi',
+                        component: Myshenpi
+                    },
+                    {
+                        path: '/pages/office/shenpiGoout',
+                        name: 'ShenpiGoout',
+                        component: ShenpiGoout
+                    },
+                    {
+                        path: '/pages/office/shenpiBuka',
+                        name: 'ShenpiBuka',
+                        component: ShenpiBuka
+                    },
+                    {
+                        path: '/pages/office/shenpiVacate',
+                        name: 'ShenpiVacate',
+                        component: ShenpiVacate
+                    },
+                    {
+                        path: '/pages/office/attendanceRecord',
+                        name: 'AttendanceRecord',
+                        component: AttendanceRecord
+                    },
+                    {
+                        path: '/pages/office/attendanceDetail',
+                        name: 'AttendanceDetail',
+                        component: AttendanceDetail
+                    },
 
-                {
-                    path: '/pages/office/editAnnounce',
-                    name: 'EditAnnounce',
-                    component: EditAnnounce
-                },
-                {
-                    path: '/pages/office/deliverAnnounce',
-                    name: 'DeliverAnnounce',
-                    component: DeliverAnnounce
-                },
-                {
-                    path: '/pages/catalog/fulibangfen',
-                    name: 'Fulibangfen',
-                    component: Fulibangfen
-                },
-                {
-                    path: '/pages/catalog/selfinfo',
-                    name: 'Selfinfo',
-                    component: Selfinfo
-                },
-                {
-                    path: '/pages/catalog/feedback',
-                    name: 'Feedback',
-                    component: Feedback
-                },
-                {
-                    path: '/pages/office/briefReport',
-                    name: 'BriefReport',
-                    component: BriefReport
-                },
-                {
-                    path: '/pages/office/reportDetail',
-                    name: 'ReportDetail',
-                    component: ReportDetail
-                },
-                {
-                    path: '/pages/office/waitMeJudge',
-                    name: 'WaitMeJudge',
-                    component: WaitMeJudge
-                },
+                    {
+                        path: '/pages/office/editAnnounce',
+                        name: 'EditAnnounce',
+                        component: EditAnnounce
+                    },
+                    {
+                        path: '/pages/office/deliverAnnounce',
+                        name: 'DeliverAnnounce',
+                        component: DeliverAnnounce
+                    },
+                    {
+                        path: '/pages/catalog/fulibangfen',
+                        name: 'Fulibangfen',
+                        component: Fulibangfen
+                    },
+                    {
+                        path: '/pages/catalog/selfinfo',
+                        name: 'Selfinfo',
+                        component: Selfinfo
+                    },
+                    {
+                        path: '/pages/catalog/feedback',
+                        name: 'Feedback',
+                        component: Feedback
+                    },
+                    {
+                        path: '/pages/office/briefReport',
+                        name: 'BriefReport',
+                        component: BriefReport
+                    },
+                    {
+                        path: '/pages/office/reportDetail',
+                        name: 'ReportDetail',
+                        component: ReportDetail
+                    },
+                    {
+                        path: '/pages/office/waitMeJudge',
+                        name: 'WaitMeJudge',
+                        component: WaitMeJudge
+                    },
 
 
-                //-------------------------------------------------------------------------------------------
-            ]
-        },
-        {
-            path: '/pages/login',
-            name: 'Login',
-            component: Login
-        },
-        {
-            path: '/pages/register',
-            name: 'Register',
-            component: Register
-        },
-        {
-            path: '/pages/getpassword',
-            name: 'Getpassword',
-            component: Getpassword
-        },
-        {
-            path: '/pages/susscess',
-            name: 'Susscess',
-            component: Susscess
-        },
-        {
-            path: '/pages/creatinfo',
-            name: 'Creatinfo',
-            component: Creatinfo
-        },
-        //统计页面
-        {
-            path: '/pages/company/statisticsview',
-            name: 'Statisticsview',
-            component: Statisticsview
-        },
-        {
-            path: '/pages/company/deptable',
-            name: 'DepTable',
-            component: DepTable
-        }
-    ]
-})
+                    //-------------------------------------------------------------------------------------------
+                ]
+            },
+            {
+                path: '/pages/login',
+                name: 'Login',
+                component: Login
+            },
+            {
+                path: '/pages/company/reciatesettings',
+                name: 'Reciatesettings',
+                component: Reciatesettings
+            },
+            {
+                path: '/pages/company/addreciates',
+                name: 'Addreciates',
+                component: Addreciates
+            },
+            {
+                path: '/pages/company/eidtreciates',
+                name: 'Eidtreciates',
+                component: Eidtreciates
+            },
+            {
+                path: '/pages/company/reciatesdescriptions',
+                name: 'Reciatesdescriptions',
+                component: Reciatesdescriptions
+            },
+            {
+                path: '/pages/company/editinfos',
+                name: 'Editinfos',
+                component: Editinfos
+            },
+            {
+                path: '/pages/getpassword',
+                name: 'Getpassword',
+                component: Getpassword
+            },
+            {
+                path: '/pages/susscess',
+                name: 'Susscess',
+                component: Susscess
+            },
+            {
+                path: '/pages/creatinfo',
+                name: 'Creatinfo',
+                component: Creatinfo
+            },
+            //统计页面
+            {
+                path: '/pages/company/statisticsview',
+                name: 'Statisticsview',
+                component: Statisticsview
+            },
+            {
+                path: '/pages/company/notice',
+                name: 'Notice',
+                component: Notice
+            },
+            {
+                path: '/pages/company/none',
+                name: 'None',
+                component: None
+            }
+            //-------------------------------------------------------------------------------------------
+        ]
+    }, {
+        path: '/pages/login',
+        name: 'Login',
+        component: Login
+    }, {
+        path: '/pages/register',
+        name: 'Register',
+        component: Register
+    }, {
+        path: '/pages/getpassword',
+        name: 'Getpassword',
+        component: Getpassword
+    }, {
+        path: '/pages/susscess',
+        name: 'Susscess',
+        component: Susscess
+    }, {
+        path: '/pages/creatinfo',
+        name: 'Creatinfo',
+        component: Creatinfo
+    },
+    //统计页面
+    {
+        path: '/pages/company/statisticsview',
+        name: 'Statisticsview',
+        component: Statisticsview
+    }, {
+        path: '/pages/company/deptable',
+        name: 'DepTable',
+        component: DepTable
+    }, {
+        path: '/pages/chat',
+        name: 'Chat',
+        component: Chat
+    }
+
+)
